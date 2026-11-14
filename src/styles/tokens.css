@@ -1,0 +1,116 @@
+/* ============================================================
+   DALIA-LIGHT — Tokens
+   Source : docs/DIRECTION_VISUELLE.md (§4 couleurs, §5 typo, §6 layout, §8 motion).
+   Le design system d'origine reste dans design-system/ comme référence de marque.
+   Polices chargées par next/font (layout.tsx) : --ff-syne, --ff-dm-sans.
+   ============================================================ */
+
+/* Échelles qui génèrent des utilitaires Tailwind
+   (font-display, text-3xl, rounded-pill, shadow-panel, ease-out-expo…). */
+@theme {
+  /* ── FAMILLES ────────────────────────────────────────────── */
+  --font-display: var(--ff-syne), sans-serif;
+  --font-body:    var(--ff-dm-sans), sans-serif;
+  --font-sans:    var(--ff-dm-sans), sans-serif;
+
+  /* ── ÉCHELLE EN QUARTE (×1.333, base 16px) ───────────────── */
+  --text-xs:   0.75rem;                          /* 12 — mentions, jamais moins */
+  --text-sm:   0.875rem;                         /* 14 — petit texte */
+  --text-base: 1rem;                             /* 16 — texte courant */
+  --text-lg:   1.3125rem;                        /* 21 — h4 */
+  --text-xl:   1.75rem;                          /* 28 — grand texte */
+  --text-2xl:  clamp(1.75rem, 3vw, 2.375rem);    /* 38 — h3 */
+  --text-3xl:  clamp(2.25rem, 4.5vw, 3.125rem);  /* 50 — h2 */
+  --text-4xl:  clamp(2.75rem, 6vw, 4.1875rem);   /* 67 */
+  --text-hero: clamp(3rem, 6.5vw, 7rem);         /* 48 → 112 */
+
+  /* ── ARRONDIS (hiérarchie, §6) ───────────────────────────── */
+  --radius-none:  0;       /* photos */
+  --radius-xs:    2px;     /* anneau de focus */
+  --radius-panel: 16px;    /* tiroirs, menus */
+  --radius-pill:  999px;   /* commandes : boutons, variateur, filtres */
+
+  /* ── OMBRES ──────────────────────────────────────────────── */
+  --shadow-panel: 0 24px 64px rgba(0, 0, 0, 0.55);
+
+  /* ── COURBES ─────────────────────────────────────────────── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:   cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:root {
+  /* ── PALETTE (§4) ────────────────────────────────────────── */
+  --nuit:         #100D0A;  /* fond nuit : pièce éteinte */
+  --penombre:     #1A1510;  /* surfaces sur nuit */
+  --ivoire:       #F3EADB;  /* texte sur nuit — 16.2:1 */
+  --ivoire-70:    #B9AE9C;  /* texte secondaire sur nuit — 8.9:1 (8.3:1 sur pénombre) */
+  --laiton:       #C9A15B;  /* structure sur nuit — 8.1:1. Jamais sur plâtre. */
+  --flamme:       #FFB800;  /* uniquement la lumière + CTA principal */
+  --braise:       #FF6A00;  /* uniquement au cœur des halos */
+  --platre:       #EEE7DB;  /* fond jour */
+  --encre:        #2A231B;  /* texte sur plâtre — 12.6:1 */
+  --encre-70:     #615A51;  /* texte secondaire sur plâtre — 5.5:1 */
+  --laiton-fonce: #7A5A22;  /* liens/structure sur plâtre — 5.2:1 */
+
+  /* ── SÉMANTIQUE : thème nuit (par défaut) ────────────────── */
+  --bg:         var(--nuit);
+  --bg-raised:  var(--penombre);
+  --fg:         var(--ivoire);
+  --fg-2:       var(--ivoire-70);
+  --link:       var(--laiton);
+  --line:       rgba(201, 161, 91, 0.22);   /* filet laiton */
+  --line-strong: rgba(201, 161, 91, 0.5);
+  --focus-ring: var(--flamme);              /* 11.2:1 sur nuit */
+  --cta-bg:     var(--flamme);
+  --cta-fg:     var(--nuit);                /* 11.2:1 */
+
+  /* ── LAYOUT ──────────────────────────────────────────────── */
+  --container-max: 1440px;
+  --container-pad: clamp(20px, 5vw, 80px);
+  --nav-height:    72px;
+  --section-y:     clamp(64px, 10vw, 128px);
+  --measure:       65ch;
+
+  /* ── MOUVEMENT (§8) ──────────────────────────────────────── */
+  --dur-fast:   150ms;
+  --dur-exit:   200ms;   /* fermeture : plus rapide que l'ouverture */
+  --dur-enter:  300ms;
+  --dur-ignite: 1200ms;  /* allumage du hero */
+}
+
+/* Thème jour : sections plâtre (showrooms, infos pratiques, contact). */
+.theme-jour {
+  --bg:          var(--platre);
+  --bg-raised:   #E4DBCC;
+  --fg:          var(--encre);
+  --fg-2:        var(--encre-70);
+  --link:        var(--laiton-fonce);
+  --line:        rgba(42, 35, 27, 0.14);
+  --line-strong: rgba(42, 35, 27, 0.35);
+  --focus-ring:  var(--encre);             /* la flamme ne fait que 1.4:1 sur plâtre */
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* Retour au thème nuit à l'intérieur d'une section jour (encart sombre). */
+.theme-nuit {
+  --bg:          var(--nuit);
+  --bg-raised:   var(--penombre);
+  --fg:          var(--ivoire);
+  --fg-2:        var(--ivoire-70);
+  --link:        var(--laiton);
+  --line:        rgba(201, 161, 91, 0.22);
+  --line-strong: rgba(201, 161, 91, 0.5);
+  --focus-ring:  var(--flamme);
+  background: var(--bg);
+  color: var(--fg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast:   0ms;
+    --dur-exit:   0ms;
+    --dur-enter:  0ms;
+    --dur-ignite: 0ms;
+  }
+}

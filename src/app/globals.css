@@ -1,0 +1,453 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+
+/* Couleurs exposées comme utilitaires Tailwind. Les palettes par défaut sont retirées :
+   seules les teintes de la direction visuelle existent.
+   Préférer les sémantiques (bg, fg, fg-2, link, line) qui basculent avec .theme-jour. */
+@theme inline {
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --color-nuit: var(--nuit);
+  --color-penombre: var(--penombre);
+  --color-ivoire: var(--ivoire);
+  --color-ivoire-70: var(--ivoire-70);
+  --color-laiton: var(--laiton);
+  --color-flamme: var(--flamme);
+  --color-braise: var(--braise);
+  --color-platre: var(--platre);
+  --color-encre: var(--encre);
+  --color-encre-70: var(--encre-70);
+  --color-laiton-fonce: var(--laiton-fonce);
+
+  --color-bg: var(--bg);
+  --color-bg-raised: var(--bg-raised);
+  --color-fg: var(--fg);
+  --color-fg-2: var(--fg-2);
+  --color-link: var(--link);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-cta: var(--cta-bg);
+  --color-cta-fg: var(--cta-fg);
+}
+
+@utility container-site {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+@utility measure {
+  max-width: var(--measure);
+}
+
+/* Grain très léger sur les fonds nuit (§4) : évite le noir « plat écran ». */
+@utility grain {
+  position: relative;
+  isolation: isolate;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* ── BASE ─────────────────────────────────────────────────── */
+
+html {
+  color-scheme: dark;
+  scroll-padding-top: calc(var(--nav-height) + 16px);
+}
+
+/* Mobile : la barre fixe de la fiche produit ne doit pas masquer l'élément qui a le focus clavier. */
+@media (max-width: 767px) {
+  html:has(.product-sticky-bar) {
+    scroll-padding-bottom: 96px;
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@media (min-width: 1024px) {
+  body {
+    font-size: 1.0625rem; /* 17px sur desktop (§5) */
+  }
+}
+
+/* Dans @layer base : les classes utilitaires (font-body, tracking-normal…) peuvent les surcharger. */
+@layer base {
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+::selection {
+  background: var(--flamme);
+  color: var(--nuit);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+  border-radius: var(--radius-xs);
+}
+
+/* ── HERO « ON ALLUME LA PIÈCE » ──────────────────────────── */
+/* --i : variateur (0 → 1, style inline). --ignite : allumage (0 → 1, piloté par GSAP). --lift : sortie au scroll.
+   --lit = lumière effective. Position de l'ampoule : mêmes valeurs que components/hero/lamp.ts. */
+
+@property --ignite {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --sweep {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+.hero {
+  --lamp-x: 70%;
+  --lamp-y: 40%;
+  --lamp-r: 120px;
+  --lift: 0;
+  --swing-px: 0px;
+  --lit: calc(var(--i, 0.8) * var(--ignite));
+}
+
+@media (max-width: 767px) {
+  .hero {
+    --lamp-x: 64%;
+    --lamp-y: 30%;
+    --lamp-r: 78px;
+  }
+}
+
+/* Avec JS (@media scripting) : la pièce démarre éteinte et GSAP l'allume (components/hero/Hero.tsx).
+   Filet de sécurité : si l'allumage n'a pas démarré après 4 s, la pièce s'allume quand même.
+   Sans JS, ou en mouvement réduit : allumée d'emblée. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .hero:not(.is-lit) {
+    --ignite: 0;
+    --sweep: 0;
+    animation: hero-safety 0.01s 4s forwards;
+  }
+
+  .hero:not(.is-lit) .hero-reveal {
+    opacity: 0;
+    animation: hero-safety-reveal 0.01s 4s forwards;
+  }
+}
+
+@keyframes hero-safety {
+  to { --ignite: 1; --sweep: 1; }
+}
+
+@keyframes hero-safety-reveal {
+  to { opacity: 1; }
+}
+
+/* Flaque de lumière sous la lampe : suit le balancement, s'étale quand la lampe remonte au scroll. */
+.hero-pool {
+  background: radial-gradient(
+    ellipse calc(40% + 35% * var(--lift)) calc(48% + 30% * var(--lift))
+      at calc(var(--lamp-x) + var(--swing-px)) calc(var(--lamp-y) + 24% + 45% * var(--lift)),
+    rgba(255, 184, 0, 0.16),
+    rgba(255, 106, 0, 0.05) 45%,
+    transparent 72%
+  );
+  opacity: var(--lit);
+}
+
+/* La lampe pend d'un plafond hors champ : le câble apparaît en fondu sous la barre de navigation
+   au lieu de passer derrière elle. */
+.lamp-fallback {
+  mask-image: linear-gradient(to bottom, transparent var(--nav-height), #000 calc(var(--nav-height) + 56px));
+}
+
+/* Le faisceau et la flaque de lumière s'éteignent en douceur avant le bas du hero :
+   pas de coupure nette contre la bande d'aube. */
+.hero-canvas,
+.hero-pool {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent var(--nav-height),
+    #000 calc(var(--nav-height) + 56px),
+    #000 62%,
+    rgba(0, 0, 0, 0.55) 80%,
+    rgba(0, 0, 0, 0.18) 92%,
+    transparent 100%
+  );
+}
+
+.lamp-fallback {
+  left: var(--lamp-x);
+  width: calc(var(--lamp-r) * 2);
+  height: calc(var(--lamp-y) + var(--lamp-r) * 0.12);
+}
+
+/* Zone de prise de la lampe : couvre l'abat-jour et suit son balancement. */
+.lamp-handle {
+  left: calc(var(--lamp-x) + var(--swing-px));
+  top: calc(var(--lamp-y) + 45% * var(--lift) - var(--lamp-r) * 1.25);
+  width: calc(var(--lamp-r) * 2.4);
+  height: calc(var(--lamp-r) * 1.6);
+  translate: -50% 0;
+}
+
+/* Le titre est éclairé par la lampe (en haut à droite) : les lettres hors du halo restent dans la pénombre.
+   --sweep fait grandir la tache de lumière depuis la lampe (balayage à l'allumage),
+   --swing-px la déplace avec le balancement.
+   Couleur la plus sombre #8F8574 = 5.3:1 sur nuit, le titre reste lisible variateur à 0. */
+.lit-title {
+  color: var(--ivoire);
+  background-image: radial-gradient(
+    ellipse calc(1% + 149% * var(--sweep)) calc(1% + 229% * var(--sweep))
+      at calc(108% + var(--swing-px) * 1.5) -45%,
+    color-mix(in oklab, #FFE6A8 calc(var(--lit) * 100%), #8F8574) 0%,
+    color-mix(in oklab, #FFF3DC calc(var(--lit) * 100%), #8F8574) 38%,
+    color-mix(in oklab, var(--ivoire) calc(var(--lit) * 90%), #8F8574) 62%,
+    #8F8574 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── AUBE : passage nuit → jour (components/home/DawnTransition.tsx) ── */
+/* Pas de dégradé : un dôme plâtre net se lève depuis le bas (clip-path), bordé d'un liseré de lumière
+   (drop-shadow sur le parent, qui suit la forme découpée). --dawn (0 → 1) est piloté au scroll ;
+   sans JS ou en mouvement réduit il vaut 1 (bande entièrement plâtre, raccord direct). */
+
+@property --dawn {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+.dawn {
+  position: relative;
+  overflow: hidden;
+  background: var(--nuit);
+}
+
+.dawn-glow {
+  position: absolute;
+  inset: 0;
+  filter: drop-shadow(0 -2px 18px rgba(255, 184, 0, 0.55)) drop-shadow(0 -1px 2px rgba(255, 228, 160, 0.9));
+}
+
+.dawn-sun {
+  position: absolute;
+  inset: 0;
+  background: var(--platre);
+  clip-path: ellipse(calc(18% + 112% * var(--dawn)) calc(4% + 156% * var(--dawn)) at 50% 100%);
+}
+
+/* Variateur : piste fine, curseur flamme ; zone tactile de 44 px. */
+.dimmer {
+  appearance: none;
+  height: 44px;
+  background: transparent;
+  cursor: pointer;
+  --fill: calc(var(--i, 0.8) * 100%);
+}
+
+.dimmer::-webkit-slider-runnable-track {
+  height: 2px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(to right, var(--flamme) var(--fill), var(--line-strong) var(--fill));
+}
+
+.dimmer::-moz-range-track {
+  height: 2px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(to right, var(--flamme) var(--fill), var(--line-strong) var(--fill));
+}
+
+.dimmer::-webkit-slider-thumb {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  margin-top: -10px;
+  border-radius: var(--radius-pill);
+  background: var(--flamme);
+  box-shadow: 0 0 calc(6px + 18px * var(--i, 0.8)) rgba(255, 184, 0, 0.6);
+}
+
+.dimmer::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--flamme);
+  box-shadow: 0 0 calc(6px + 18px * var(--i, 0.8)) rgba(255, 184, 0, 0.6);
+}
+
+/* ── VISUEL PRODUIT : ÉTEINT / ALLUMÉ (components/catalog/ProductVisual.tsx) ── */
+/* Allumé : data-lit="true" sur un parent (scroll, bouton), ou survol d'une carte à la souris. */
+.visual-lit {
+  opacity: 0;
+  transition: opacity 500ms var(--ease-out-expo);
+}
+
+[data-lit="true"] .visual-lit {
+  opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .product-visual-host:hover .visual-lit {
+    opacity: 1;
+  }
+}
+
+/* Mouvement réduit : pas d'allumage au scroll, les produits sont montrés allumés. */
+@media (prefers-reduced-motion: reduce) {
+  .product-visual-host .visual-lit {
+    opacity: 1;
+    transition: none;
+  }
+}
+
+/* Barre de catégories : défilement horizontal assumé sur mobile, sans barre visible. */
+.scroll-row {
+  scrollbar-width: none;
+}
+
+.scroll-row::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── HALO DU CURSEUR (components/layout/CursorLight.tsx) ──── */
+/* Lumière chaude additive (blend screen) : éclaire ce qu'elle survole sans le masquer. */
+.cursor-light {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 45;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;
+  background: radial-gradient(
+    circle,
+    rgba(255, 200, 110, 0.22) 0%,
+    rgba(255, 160, 40, 0.1) 28%,
+    rgba(255, 106, 0, 0.03) 52%,
+    transparent 70%
+  );
+  will-change: transform, opacity;
+}
+
+/* ── PANNEAUX (menu mobile, « Ma sélection ») ─────────────── */
+/* Glissement depuis la droite : ouverture 300 ms ease-out-expo, fermeture 200 ms (§8). */
+
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
+.panel-dialog {
+  translate: 100% 0;
+  border-top-left-radius: var(--radius-panel);
+  border-bottom-left-radius: var(--radius-panel);
+  box-shadow: var(--shadow-panel);
+  transition:
+    translate var(--dur-exit) var(--ease-in-out),
+    overlay var(--dur-exit) allow-discrete,
+    display var(--dur-exit) allow-discrete;
+}
+
+.panel-dialog[open] {
+  translate: 0 0;
+  transition-duration: var(--dur-enter);
+  transition-timing-function: var(--ease-out-expo);
+}
+
+@starting-style {
+  .panel-dialog[open] {
+    translate: 100% 0;
+  }
+}
+
+.panel-dialog::backdrop {
+  opacity: 0;
+  transition:
+    opacity var(--dur-exit),
+    overlay var(--dur-exit) allow-discrete,
+    display var(--dur-exit) allow-discrete;
+}
+
+.panel-dialog[open]::backdrop {
+  opacity: 1;
+  transition-duration: var(--dur-enter);
+}
+
+@starting-style {
+  .panel-dialog[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+/* Mise en situation 3D (components/room/RoomPreview.tsx) : plein écran, fondu. */
+.room-dialog {
+  opacity: 0;
+  transition:
+    opacity var(--dur-exit) var(--ease-in-out),
+    overlay var(--dur-exit) allow-discrete,
+    display var(--dur-exit) allow-discrete;
+}
+
+.room-dialog[open] {
+  opacity: 1;
+  transition-duration: var(--dur-enter);
+}
+
+@starting-style {
+  .room-dialog[open] {
+    opacity: 0;
+  }
+}
+
+/* Le compteur de sélection s'allume brièvement à chaque ajout (§8). */
+@media (prefers-reduced-motion: no-preference) {
+  .selection-pulse {
+    animation: selection-pulse 700ms var(--ease-out-expo);
+  }
+}
+
+@keyframes selection-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 184, 0, 0);
+  }
+  30% {
+    box-shadow: 0 0 18px 4px rgba(255, 184, 0, 0.65);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 184, 0, 0);
+  }
+}
