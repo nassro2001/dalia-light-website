@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: PageProps<"/catalogue/[slug]"
   if (!product) return {};
   const description =
     product.description?.slice(0, 160) ||
-    `${product.name} (réf. ${product.reference}), ${product.category.name.toLowerCase()} à voir dans nos showrooms d'Abidjan.`;
+    `${product.name}, ${product.category.name.toLowerCase()} à voir dans nos showrooms d'Abidjan.`;
   return {
     title: product.name,
     description,
@@ -50,7 +50,6 @@ export default async function ProductPage({ params }: PageProps<"/catalogue/[slu
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
-    sku: product.reference,
     description: product.description ?? undefined,
     category: product.category.name,
     image: product.images,

@@ -15,11 +15,11 @@ export type Family = {
 };
 
 export const families: Family[] = [
-  { slug: "lustres", label: "Lustres et lampadaires", match: /^(lustre|lampadaire|suspension)/, prefix: /^lustres?\s+/i },
+  { slug: "lustres", label: "Lustres et suspensions", match: /^(lustre|suspension)/, prefix: /^lustres?\s+/i },
   { slug: "appliques", label: "Appliques", match: /^applique/, prefix: /^appliques?\s+/i },
   { slug: "plafonniers", label: "Plafonniers", match: /^(globe|plafonnier|led hexagonale|pannel|panneau|reglette)/ },
   { slug: "spots", label: "Spots", match: /^spot/, prefix: /^spots?\s+/i },
-  { slug: "exterieur", label: "Extérieur", match: /^(projecteur|boule|solaire|guirlande|borne|hublot)|jardin/ },
+  { slug: "exterieur", label: "Extérieur", match: /^(projecteur|lampadaire|boule|solaire|guirlande|borne|hublot)|jardin/ },
   { slug: "ampoules", label: "Ampoules et rubans LED", match: /^(ampoule|ruban|neon)/ },
   {
     slug: "maison",
@@ -48,6 +48,9 @@ const WORDS: Record<string, string> = {
   pannel: "panneau",
   exterieur: "extérieur",
   electrique: "électrique",
+  etanche: "étanche",
+  plaque: "plaqué",
+  metal: "métal",
 };
 
 /** « LUSTRE 10 AMP » → « Lustre 10 ampoules » ; « PANNEL 60 X 60 » → « Panneau 60 × 60 ». */
@@ -62,6 +65,14 @@ export function categoryLabel(raw: string) {
     .replace(/\bboules jardin\b/g, "boules de jardin")
     .replace(/[\p{L}]+/gu, (word) => WORDS[word] ?? word);
   return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+/**
+ * Le nom ERP d'un article, écrit comme dans une phrase : « AMPOULE 11W B22 JAUNE » → « Ampoule 11W B22 jaune ».
+ * Les codes techniques (11W, B22, GU10) restent en capitales.
+ */
+export function productLabel(raw: string) {
+  return categoryLabel(raw).replace(/\b(?=[\p{L}\d]*\d)(?=[\p{L}\d]*\p{L})[\p{L}\d]+\b/gu, (token) => token.toUpperCase());
 }
 
 export function familyOf(category: { name: string }): Family {

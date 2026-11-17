@@ -34,7 +34,6 @@ export function ProductCard({ product, priority }: { product: Product; priority?
               {product.name}
             </Link>
           </h3>
-          <p className="mt-1 text-xs text-fg-2">Réf. {product.reference}</p>
         </div>
 
         <button

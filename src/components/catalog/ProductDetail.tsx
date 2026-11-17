@@ -45,7 +45,6 @@ export function ProductDetail({ product }: { product: Product }) {
   };
 
   const specs: [string, string][] = [
-    ["Référence", product.reference],
     ["Catégorie", product.category.name],
   ];
 

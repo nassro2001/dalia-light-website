@@ -1,5 +1,6 @@
 import { cacheLife, cacheTag } from "next/cache";
-import { categoryLabel } from "./families";
+import { categoryLabel, productLabel } from "./families";
+import { webNames } from "./web-names";
 import { productSlug, slugify } from "./slug";
 import type { Category, Product, ProductPage, Showroom } from "./types";
 
@@ -62,7 +63,7 @@ function toProduct(p: ErpProduct): Product {
     id: p.id,
     slug: productSlug(p.name, p.id),
     reference: p.reference,
-    name: p.name,
+    name: webNames[p.id] ?? productLabel(p.name),
     description: p.description,
     // Le nom s'écrit comme dans une phrase ; l'adresse garde le nom de l'ERP, pour que les liens restent stables.
     category: { id: p.category.id, name: categoryLabel(p.category.name), slug: slugify(p.category.name) },
@@ -142,11 +143,12 @@ export async function getFamilyProducts({
   };
   const all = (await Promise.all(categoryIds.map(readAll)))
     .flat()
+    .map(toProduct)
     .sort((a, b) => a.name.localeCompare(b.name, "fr", { numeric: true, sensitivity: "base" }));
   const totalPages = Math.ceil(all.length / limit);
   const current = Math.min(page, Math.max(1, totalPages));
   return {
-    products: all.slice((current - 1) * limit, current * limit).map(toProduct),
+    products: all.slice((current - 1) * limit, current * limit),
     total: all.length,
     page: current,
     totalPages,

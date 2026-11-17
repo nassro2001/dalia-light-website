@@ -125,10 +125,7 @@ export function SelectionDrawer() {
                     <Link href={item.url} onClick={close} className="font-semibold text-fg hover:text-link">
                       {item.name}
                     </Link>
-                    <p className="text-sm text-fg-2">
-                      Réf. {item.reference}
-                      {item.finish ? ` · ${item.finish}` : ""}
-                    </p>
+                    {item.finish && <p className="text-sm text-fg-2">{item.finish}</p>}
                     <button
                       type="button"
                       onClick={() => remove(item.id, item.finish)}
