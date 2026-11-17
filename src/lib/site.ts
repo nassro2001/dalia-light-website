@@ -1,3 +1,4 @@
+import { families } from "./catalog/families";
 // Configuration du site.
 // Adresses et horaires des showrooms : données du client (15/10/2026).
 // Coordonnées GPS et fiches Google Maps : données du client.
@@ -107,12 +108,5 @@ export function mapEmbedUrl(showroom: Showroom) {
   return `https://www.google.com/maps?q=${encodeURIComponent(mapsDestination(showroom))}&z=17&output=embed`;
 }
 
-export const categories = [
-  { slug: "suspensions", label: "Suspensions" },
-  { slug: "lustres", label: "Lustres" },
-  { slug: "plafonniers", label: "Plafonniers" },
-  { slug: "appliques", label: "Appliques" },
-  { slug: "lampadaires", label: "Lampadaires" },
-  { slug: "spots-led", label: "Spots LED" },
-  { slug: "exterieur", label: "Extérieur" },
-] as const;
+/** Les familles du catalogue (lib/catalog/families.ts), pour le pied de page et les pages showroom. */
+export const categories = families.map(({ slug, label }) => ({ slug, label }));

@@ -21,7 +21,7 @@ export function SiteFooter() {
             {categories.map((category) => (
               <li key={category.slug}>
                 <Link
-                  href={`/catalogue?categorie=${category.slug}`}
+                  href={`/catalogue?famille=${category.slug}`}
                   className="inline-flex min-h-9 items-center text-fg-2 transition-colors duration-(--dur-fast) hover:text-fg"
                 >
                   {category.label}

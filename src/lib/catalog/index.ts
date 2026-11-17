@@ -2,6 +2,8 @@
 
 export type { Category, Product, ProductPage, RoomSlug, Showroom } from "./types";
 export { idFromSlug, productPath, productSlug, slugify } from "./slug";
+export { categoryLabel, families, familyOf, groupByFamily, shortLabel } from "./families";
+export type { Family, FamilyGroup } from "./families";
 
 import type { Category, RoomSlug } from "./types";
 

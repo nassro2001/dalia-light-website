@@ -1,4 +1,5 @@
 import { cacheLife, cacheTag } from "next/cache";
+import { categoryLabel } from "./families";
 import { productSlug, slugify } from "./slug";
 import type { Category, Product, ProductPage, Showroom } from "./types";
 
@@ -63,7 +64,8 @@ function toProduct(p: ErpProduct): Product {
     reference: p.reference,
     name: p.name,
     description: p.description,
-    category: { ...p.category, slug: slugify(p.category.name) },
+    // Le nom s'écrit comme dans une phrase ; l'adresse garde le nom de l'ERP, pour que les liens restent stables.
+    category: { id: p.category.id, name: categoryLabel(p.category.name), slug: slugify(p.category.name) },
     images: p.images,
     available: p.available,
   };
@@ -74,7 +76,7 @@ export async function getCategories(): Promise<Category[]> {
   cacheLife("minutes");
   cacheTag("catalogue");
   const rows = await readJson<Omit<Category, "slug">[]>("/categories", []);
-  return rows.map((c) => ({ ...c, slug: slugify(c.name) }));
+  return rows.map((c) => ({ ...c, name: categoryLabel(c.name), slug: slugify(c.name) }));
 }
 
 export async function getProducts({
@@ -103,6 +105,51 @@ export async function getProducts({
     total: res.pagination.total,
     page: res.pagination.page,
     totalPages: res.pagination.totalPages,
+  };
+}
+
+type ErpProductPage = { data: ErpProduct[]; pagination: { total: number; totalPages: number; page: number } };
+
+/**
+ * Les articles de plusieurs catégories à la fois (une famille : « Lustres et lampadaires »). L'ERP filtre une
+ * catégorie par appel : on lit chacune en entier, on fusionne par nom, puis on découpe la page ici.
+ */
+export async function getFamilyProducts({
+  categoryIds,
+  q = "",
+  page = 1,
+  limit = 24,
+}: {
+  categoryIds: string[];
+  q?: string;
+  page?: number;
+  limit?: number;
+}): Promise<ProductPage> {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag("catalogue");
+  const empty: ErpProductPage = { data: [], pagination: { total: 0, totalPages: 0, page: 1 } };
+  const readAll = async (categoryId: string) => {
+    const rows: ErpProduct[] = [];
+    for (let p = 1; p <= 20; p++) {
+      const params = new URLSearchParams({ page: String(p), limit: "100", categoryId });
+      if (q.trim()) params.set("search", q.trim());
+      const res = await readJson<ErpProductPage>(`/products?${params}`, empty);
+      rows.push(...res.data);
+      if (p >= res.pagination.totalPages) break;
+    }
+    return rows;
+  };
+  const all = (await Promise.all(categoryIds.map(readAll)))
+    .flat()
+    .sort((a, b) => a.name.localeCompare(b.name, "fr", { numeric: true, sensitivity: "base" }));
+  const totalPages = Math.ceil(all.length / limit);
+  const current = Math.min(page, Math.max(1, totalPages));
+  return {
+    products: all.slice((current - 1) * limit, current * limit).map(toProduct),
+    total: all.length,
+    page: current,
+    totalPages,
   };
 }
 

@@ -6,7 +6,7 @@ import { Search } from "lucide-react";
 
 // Recherche du catalogue : met l'URL à jour après une courte pause de frappe (la page relit le catalogue côté
 // serveur). Sans JavaScript, c'est un formulaire GET ordinaire.
-export function CatalogueSearch({ initial, categorie }: { initial: string; categorie?: string }) {
+export function CatalogueSearch({ initial, famille, categorie }: { initial: string; famille?: string; categorie?: string }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -44,6 +44,7 @@ export function CatalogueSearch({ initial, categorie }: { initial: string; categ
           className="min-h-12 w-full rounded-pill border border-line-strong bg-transparent pl-11 pr-5 text-base text-fg placeholder:text-fg-2 focus:border-fg focus:outline-none"
         />
       </div>
+      {famille && <input type="hidden" name="famille" value={famille} />}
       {categorie && <input type="hidden" name="categorie" value={categorie} />}
     </form>
   );

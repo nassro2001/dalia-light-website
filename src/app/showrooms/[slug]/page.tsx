@@ -88,7 +88,7 @@ export default async function ShowroomPage({ params }: PageProps<"/showrooms/[sl
             {categories.map((category) => (
               <li key={category.slug}>
                 <Link
-                  href={`/catalogue?categorie=${category.slug}`}
+                  href={`/catalogue?famille=${category.slug}`}
                   className="inline-flex min-h-11 items-center rounded-pill border border-line-strong px-5 text-sm hover:border-fg"
                 >
                   {category.label}
