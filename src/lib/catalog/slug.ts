@@ -24,3 +24,9 @@ export function idFromSlug(slug: string) {
 export function productPath(product: { slug: string }) {
   return `/catalogue/${product.slug}`;
 }
+
+/**
+ * Les références ERP s'affichent pendant le travail en local (npm run dev), pour retrouver les articles,
+ * et jamais sur le site en ligne : les clients n'en ont pas besoin.
+ */
+export const showReferences = process.env.NODE_ENV === "development";

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Check, Minus, Plus } from "lucide-react";
-import { productPath, type Product } from "@/lib/catalog";
+import { productPath, showReferences, type Product } from "@/lib/catalog";
 import { site } from "@/lib/site";
 import { productMessage, whatsappUrl } from "@/lib/whatsapp";
 import { useSelection } from "@/components/selection/SelectionProvider";
@@ -45,6 +45,7 @@ export function ProductDetail({ product }: { product: Product }) {
   };
 
   const specs: [string, string][] = [
+    ...(showReferences ? ([["Référence", product.reference]] as [string, string][]) : []),
     ["Catégorie", product.category.name],
   ];
 

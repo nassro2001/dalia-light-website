@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Check, Plus } from "lucide-react";
-import { productPath, type Product } from "@/lib/catalog";
+import { productPath, showReferences, type Product } from "@/lib/catalog";
 import { useSelection } from "@/components/selection/SelectionProvider";
 import { ProductVisual } from "./ProductVisual";
 
@@ -34,6 +34,7 @@ export function ProductCard({ product, priority }: { product: Product; priority?
               {product.name}
             </Link>
           </h3>
+          {showReferences && <p className="mt-1 text-xs text-fg-2">Réf. {product.reference}</p>}
         </div>
 
         <button

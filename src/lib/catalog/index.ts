@@ -1,7 +1,7 @@
 // Ce qui sert au client comme au serveur. Les lectures de l'ERP sont dans ./erp (serveur seulement).
 
 export type { Category, Product, ProductPage, RoomSlug, Showroom } from "./types";
-export { idFromSlug, productPath, productSlug, slugify } from "./slug";
+export { idFromSlug, productPath, productSlug, showReferences, slugify } from "./slug";
 export { categoryLabel, families, familyOf, groupByFamily, shortLabel } from "./families";
 export type { Family, FamilyGroup } from "./families";
 export { isScene } from "./web-images";
