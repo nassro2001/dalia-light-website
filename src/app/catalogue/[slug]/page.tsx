@@ -1,32 +1,49 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { categoryLabel, getAllProducts, getProduct, relatedProducts } from "@/lib/catalog";
+import { notFound, permanentRedirect } from "next/navigation";
+import { idFromSlug, productPath } from "@/lib/catalog";
+import { getProduct, getProducts } from "@/lib/catalog/erp";
 import { site } from "@/lib/site";
 import { CatalogueGrid } from "@/components/catalog/CatalogueGrid";
 import { ProductDetail } from "@/components/catalog/ProductDetail";
 
-// Une page par produit, pré-générée au build.
-export function generateStaticParams() {
-  return getAllProducts().map((product) => ({ slug: product.slug }));
+// Une page par article publié dans l'ERP. Les premiers articles sont pré-générés au build ; les autres le sont à
+// la première visite puis gardés en cache (Cache Components). Avec Cache Components, il faut au moins un
+// paramètre : si l'ERP n'est pas joignable au build, un paramètre fictif sert à la validation et répond 404.
+export async function generateStaticParams() {
+  const { products } = await getProducts({ limit: 100 });
+  const params = products.map((product) => ({ slug: product.slug }));
+  return params.length > 0 ? params : [{ slug: "__aucun-produit__" }];
+}
+
+async function load(slug: string) {
+  const id = idFromSlug(slug);
+  return id ? getProduct(id) : null;
 }
 
 export async function generateMetadata({ params }: PageProps<"/catalogue/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProduct(slug);
+  const product = await load(slug);
   if (!product) return {};
+  const description =
+    product.description?.slice(0, 160) ||
+    `${product.name} (réf. ${product.reference}), ${product.category.name.toLowerCase()} à voir dans nos showrooms d'Abidjan.`;
   return {
     title: product.name,
-    description: `${product.summary} ${categoryLabel(product.category)} à voir dans nos showrooms d'Abidjan.`,
-    alternates: { canonical: `/catalogue/${product.slug}` },
+    description,
+    alternates: { canonical: productPath(product) },
+    openGraph: product.images[0] ? { images: [{ url: product.images[0] }] } : undefined,
   };
 }
 
 export default async function ProductPage({ params }: PageProps<"/catalogue/[slug]">) {
   const { slug } = await params;
-  const product = getProduct(slug);
+  const product = await load(slug);
   if (!product) notFound();
+  // Le nom a changé dans l'ERP : l'ancienne adresse mène à la nouvelle.
+  if (product.slug !== slug) permanentRedirect(productPath(product));
 
-  const related = relatedProducts(product);
+  const { products: sameCategory } = await getProducts({ categoryId: product.category.id, limit: 5 });
+  const related = sameCategory.filter((p) => p.id !== product.id).slice(0, 4);
 
   // Données structurées pour les moteurs de recherche (fiche produit ; pas d'offre chiffrée : les prix se négocient en showroom).
   const jsonLd = {
@@ -34,10 +51,11 @@ export default async function ProductPage({ params }: PageProps<"/catalogue/[slu
     "@type": "Product",
     name: product.name,
     sku: product.reference,
-    description: product.description,
-    category: categoryLabel(product.category),
+    description: product.description ?? undefined,
+    category: product.category.name,
+    image: product.images,
     brand: { "@type": "Brand", name: site.name },
-    url: `${site.url}/catalogue/${product.slug}`,
+    url: `${site.url}${productPath(product)}`,
   };
 
   return (
@@ -55,7 +73,7 @@ export default async function ProductPage({ params }: PageProps<"/catalogue/[slu
               Dans le même esprit
             </h2>
             <div className="mt-10">
-              <CatalogueGrid products={related} idPrefix="related" />
+              <CatalogueGrid products={related} />
             </div>
           </div>
         </section>

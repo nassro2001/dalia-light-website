@@ -1,10 +1,13 @@
 import { site } from "./site";
 
 export type SelectionItem = {
+  /** Identifiant de l'article dans l'ERP. */
   id: string;
   name: string;
   reference: string;
   finish?: string;
+  /** Vignette (photo du site). */
+  image?: string;
   quantity: number;
   url: string;
 };
@@ -34,6 +37,11 @@ export function selectionMessage(items: SelectionItem[]) {
     "",
     "Pouvez-vous me faire un devis ?",
   ].join("\n");
+}
+
+/** Après l'envoi de la demande : le client peut relancer sur WhatsApp en citant son numéro de devis. */
+export function quoteFollowUpMessage(number: string, showroomName: string) {
+  return `Bonjour Dalia-Light, je viens d'envoyer ma demande de devis ${number} depuis le site (${showroomName}).`;
 }
 
 export function projectMessage() {

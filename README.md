@@ -3,7 +3,7 @@
 Site vitrine de **Dalia-Light**, distributeur de luminaires à Abidjan (2 showrooms).
 Signature : *« La référence du luminaire, c'est nous »*.
 
-> Statut : **structure commune en place** — Next.js 16.4 (App Router, TypeScript, Tailwind v4), tokens de la direction visuelle, logo, header, menu mobile, footer, « Ma sélection » + WhatsApp, **hero 3D animé** (allumage cinématique GSAP, pendule, poussière, variateur), animations au scroll (parallaxe, aube nuit → jour), effets souris, **catalogue filtrable**, **fiches produits** (16 produits d'exemple) et **showrooms** (page générale + une page par showroom).
+> Statut : **structure commune en place** — Next.js 16.4 (App Router, TypeScript, Tailwind v4), tokens de la direction visuelle, logo, header, menu mobile, footer, « Ma sélection » + WhatsApp, **hero 3D animé** (allumage cinématique GSAP, pendule, poussière, variateur), animations au scroll (parallaxe, aube nuit → jour), effets souris, **catalogue branché sur l'ERP**, **fiches produits**, **demande de devis** et **showrooms** (page générale + une page par showroom).
 
 ## Démarrer
 ```bash
@@ -26,11 +26,12 @@ src/
 │   ├── layout.tsx            polices (Syne, DM Sans), header, footer, tiroir, bouton WhatsApp
 │   ├── globals.css           thème Tailwind, utilitaires (container-site, measure, grain), panneaux
 │   ├── page.tsx              accueil : nuit (hero 3D, par pièce) → aube (dôme) → jour (sélection, engagements, showrooms)
-│   ├── catalogue/page.tsx    catalogue (filtres dans l'URL, Suspense)
-│   ├── catalogue/[slug]/     fiche produit (pré-générée, JSON-LD) + loading.tsx
+│   ├── catalogue/page.tsx    catalogue (recherche, catégorie, page dans l'URL ; lu dans l'ERP)
+│   ├── catalogue/[slug]/     fiche produit (nom--idERP, JSON-LD) + loading.tsx
+│   ├── actions/devis.ts      demande de devis → ERP (server action)
 │   └── showrooms/            page générale + [slug]/ (page par showroom, JSON-LD Store, carte)
 ├── components/
-│   ├── catalog/              CatalogueBrowser (filtres), CatalogueGrid (allumage au scroll), ProductCard, ProductDetail, ProductVisual
+│   ├── catalog/              CatalogueResults (serveur), CatalogueSearch, CatalogueGrid (allumage au scroll), ProductCard, ProductDetail, ProductVisual
 │   ├── hero/                 Hero (allumage CSS, variateur), HeroScene (3D R3F), LampFallback (SVG), lamp.ts
 │   ├── home/                 RoomsGallery + RoomVisual (par pièce), FeaturedProducts, Commitments, DawnTransition
 │   ├── layout/               SiteHeader, SiteFooter, Logo, CursorLight, PagePlaceholder
@@ -54,6 +55,8 @@ Autres dossiers : `docs/` (direction visuelle, analyse), `design-system/` (token
 Variables d'environnement (`.env.local`) :
 - `NEXT_PUBLIC_WHATSAPP_NUMBER` — facultatif : remplace le numéro WhatsApp principal (par défaut Treichville, `2250777272777`)
 - `NEXT_PUBLIC_SITE_URL` — URL publique du site
+- `ERP_API_URL` — adresse de l'ERP (sur Railway, son adresse privée, ex. `http://dalia-light-inventory.railway.internal:3001`)
+- `SITE_API_KEY` — la même valeur que `SITE_API_KEY` dans l'ERP. Sans ces deux variables, le catalogue est vide et la demande de devis renvoie vers WhatsApp.
 
 ## Tokens → Tailwind
 - Couleurs sémantiques (basculent avec `.theme-jour`) : `bg-bg`, `bg-bg-raised`, `text-fg`, `text-fg-2`, `text-link`, `border-line`, `border-line-strong`, `bg-cta` / `text-cta-fg`
@@ -65,12 +68,12 @@ Variables d'environnement (`.env.local`) :
 Voir [docs/DIRECTION_VISUELLE.md](docs/DIRECTION_VISUELLE.md) §7 : accueil (hero 3D, par pièce, sélection produits, engagements, showrooms en section jour), catalogue filtrable, fiche produit (bascule éteint/allumé, WhatsApp + « Ma sélection »), une page par showroom.
 
 ## Catalogue
-- Données : `src/lib/catalog/products.ts` (16 produits **d'exemple**). Le modèle (`types.ts`) est prêt pour un CMS : remplacer `getAllProducts` / `getProduct`.
-- **Pas de prix** (négociés en showroom) et **sélection** des modèles les plus attirants, pas tout le stock ; encart « Vous ne trouvez pas votre modèle ? » vers WhatsApp.
-- Filtres : catégorie, pièce, température de couleur, culot, recherche, tri (notre sélection, nouveautés, nom) — tous dans l'URL (`/catalogue?categorie=suspensions&piece=salon`).
-- Visuels : tant qu'un produit n'a pas `images: { off, on, alt }`, une illustration SVG par type de luminaire s'affiche (teinte = finition choisie). Avec photos, même comportement éteint / allumé.
-- Allumage : au survol (souris), au passage dans la bande centrale de l'écran (scroll), ou par le bouton Éteint / Allumé de la fiche.
-- Fiche : finitions, quantité, « Demander sur WhatsApp » (message avec référence, finition, quantité et lien), « Ajouter à ma sélection », barre fixe sur mobile, données structurées `Product` (sans offre chiffrée).
+- Source : l'ERP (dalia-light-inventory), routes `/api/site/*` protégées par `SITE_API_KEY`. Seuls les articles cochés « Visible sur le site » apparaissent, avec leurs **photos du site** (détourées, fond transparent, rangées dans Supabase sous `images/site/`). Aucun prix ni quantité ; seulement « Disponible » ou « Sur commande ».
+- Cache : les lectures (`src/lib/catalog/erp.ts`, `"use cache"`) durent quelques minutes ; un article coché dans l'ERP apparaît sans redéploiement.
+- Recherche, catégorie et page dans l'URL (`/catalogue?q=cristal&categorie=lustres&page=2`). `categorie` accepte singulier ou pluriel : les liens du pied de page retrouvent la catégorie de l'ERP.
+- Adresse d'une fiche : `/catalogue/<nom>--<id ERP>` ; si le nom change dans l'ERP, l'ancienne adresse redirige.
+- « Ma sélection » → **Demander un devis** : nom, WhatsApp, showroom, message. La demande arrive dans l'ERP (Devis, badge « Site, à chiffrer ») ; le client reçoit le numéro (DV-…) et peut relancer sur WhatsApp. L'envoi de la liste sur WhatsApp reste possible.
+- Allumage : un halo chaud derrière la photo, au survol (souris) ou au passage dans la bande centrale de l'écran.
 
 ## Photos produits et mise en situation 3D
 - Photos brutes dans `assets/photos-brutes/`, images du site dans `public/products/`. Scripts dans `scripts/` :

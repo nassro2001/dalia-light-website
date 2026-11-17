@@ -1,51 +1,31 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Check, Minus, Plus } from "lucide-react";
-import { categoryLabel, roomLabel, type Product } from "@/lib/catalog";
+import { productPath, type Product } from "@/lib/catalog";
 import { site } from "@/lib/site";
 import { productMessage, whatsappUrl } from "@/lib/whatsapp";
 import { useSelection } from "@/components/selection/SelectionProvider";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import { Button, ExternalButton } from "@/components/ui/Button";
-import { RoomPreview } from "@/components/room/RoomPreview";
 import { ProductVisual } from "./ProductVisual";
 
-// Fiche produit (DIRECTION_VISUELLE.md §7) : visuel éteint / allumé, finitions, quantité,
-// « Demander sur WhatsApp » et « Ajouter à ma sélection ». Sur mobile, ces deux actions restent
-// accessibles dans une barre fixe en bas d'écran (le bouton WhatsApp flottant est alors masqué).
-
-function formatDimensions({ diameter, height, width, depth }: Product["dimensions"]) {
-  const parts = [
-    diameter && `Ø ${diameter} cm`,
-    width && `L ${width} cm`,
-    depth && `P ${depth} cm`,
-    height && `H ${height} cm`,
-  ].filter(Boolean);
-  return parts.join(" × ");
-}
-
-const ipHints: Record<string, string> = {
-  IP20: "intérieur, pièces sèches",
-  IP44: "résiste aux projections d'eau",
-  IP54: "extérieur abrité, pluie",
-  IP65: "extérieur, jets d'eau et poussière",
-};
+// Fiche produit (DIRECTION_VISUELLE.md §7) : photos du site, quantité, « Ajouter à ma sélection » (puis demande
+// de devis) et « Demander sur WhatsApp ». Sur mobile, ces deux actions restent accessibles dans une barre fixe en
+// bas d'écran (le bouton WhatsApp flottant est alors masqué).
 
 export function ProductDetail({ product }: { product: Product }) {
   const { add, open, hideFab } = useSelection();
-  const [lit, setLit] = useState(true);
-  const [finishIndex, setFinishIndex] = useState(0);
+  const [imageIndex, setImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
 
-  const finish = product.finishes[finishIndex];
-  const path = `/catalogue/${product.slug}`;
+  const path = productPath(product);
   const message = productMessage({
     name: product.name,
     reference: product.reference,
-    finish: finish?.name,
     quantity,
     url: `${site.url}${path}`,
   });
@@ -60,22 +40,13 @@ export function ProductDetail({ product }: { product: Product }) {
   }, [added]);
 
   const addToSelection = () => {
-    add(
-      { id: product.slug, name: product.name, reference: product.reference, finish: finish?.name, url: path },
-      quantity,
-    );
+    add({ id: product.id, name: product.name, reference: product.reference, image: product.images[0], url: path }, quantity);
     setAdded(true);
   };
 
   const specs: [string, string][] = [
     ["Référence", product.reference],
-    ["Dimensions", formatDimensions(product.dimensions)],
-    ["Matière", product.material],
-    ["Culot", product.socket],
-    ["Puissance", product.power],
-    ["Température de couleur", product.colorTemps.map((k) => `${k} K`).join(", ")],
-    ["Indice de protection", `${product.ip}${ipHints[product.ip] ? ` (${ipHints[product.ip]})` : ""}`],
-    ["Pièces conseillées", product.rooms.map(roomLabel).join(", ")],
+    ["Catégorie", product.category.name],
   ];
 
   return (
@@ -95,8 +66,8 @@ export function ProductDetail({ product }: { product: Product }) {
           </li>
           <li aria-hidden="true">/</li>
           <li>
-            <Link href={`/catalogue?categorie=${product.category}`} className="inline-flex min-h-11 items-center hover:text-fg">
-              {categoryLabel(product.category)}
+            <Link href={`/catalogue?categorie=${product.category.slug}`} className="inline-flex min-h-11 items-center hover:text-fg">
+              {product.category.name}
             </Link>
           </li>
           <li aria-hidden="true">/</li>
@@ -109,32 +80,24 @@ export function ProductDetail({ product }: { product: Product }) {
       <div className="mt-8 grid gap-10 lg:grid-cols-12 lg:gap-16">
         {/* Visuel */}
         <div className="min-w-0 lg:col-span-7">
-          <div data-lit={lit} className="product-visual-host lg:sticky lg:top-[calc(var(--nav-height)+2rem)]">
-            <ProductVisual product={product} swatch={finish?.swatch} idPrefix="detail" sizes="(min-width: 1024px) 55vw, 100vw" priority />
-            <div className="mt-4 flex gap-2" role="group" aria-label="État du luminaire">
-              {[
-                { value: false, label: "Éteint" },
-                { value: true, label: "Allumé" },
-              ].map((option) => (
-                <button
-                  key={option.label}
-                  type="button"
-                  aria-pressed={lit === option.value}
-                  onClick={() => setLit(option.value)}
-                  className={`min-h-11 cursor-pointer rounded-pill border px-5 text-sm transition-colors duration-(--dur-fast) ${
-                    lit === option.value ? "border-flamme bg-flamme text-nuit" : "border-line-strong text-fg-2 hover:border-fg hover:text-fg"
-                  }`}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
-            {!product.images && (
-              <p className="mt-3 text-xs text-fg-2">Illustration provisoire, en attendant les photos du produit.</p>
-            )}
-            {product.scene && (
-              <div className="mt-6">
-                <RoomPreview scene={product.scene} productName={product.name} />
+          <div data-lit="true" className="product-visual-host lg:sticky lg:top-[calc(var(--nav-height)+2rem)]">
+            <ProductVisual product={product} index={imageIndex} sizes="(min-width: 1024px) 55vw, 100vw" priority />
+            {product.images.length > 1 && (
+              <div className="mt-4 flex flex-wrap gap-2" role="group" aria-label="Photos du produit">
+                {product.images.map((src, index) => (
+                  <button
+                    key={src}
+                    type="button"
+                    aria-pressed={index === imageIndex}
+                    aria-label={`Photo ${index + 1}`}
+                    onClick={() => setImageIndex(index)}
+                    className={`relative size-16 cursor-pointer overflow-hidden border-2 bg-platre ${
+                      index === imageIndex ? "border-flamme" : "border-transparent hover:border-line-strong"
+                    }`}
+                  >
+                    <Image src={src} alt="" fill sizes="64px" className="object-contain p-1" />
+                  </button>
+                ))}
               </div>
             )}
           </div>
@@ -142,42 +105,14 @@ export function ProductDetail({ product }: { product: Product }) {
 
         {/* Informations */}
         <div className="min-w-0 lg:col-span-5">
-          <p className="text-sm text-link">{categoryLabel(product.category)}</p>
+          <p className="text-sm text-link">{product.category.name}</p>
           <h1 className="mt-2 text-2xl font-extrabold break-words sm:text-3xl lg:text-2xl xl:text-3xl">{product.name}</h1>
           <p className="mt-4 text-sm text-fg-2">Prix sur demande : en showroom ou sur WhatsApp.</p>
-          <p className={`mt-1 text-sm ${product.inStock ? "text-fg-2" : "text-laiton"}`}>
-            {product.inStock ? "Disponible en showroom" : "Sur commande, délai à confirmer sur WhatsApp"}
+          <p className={`mt-1 text-sm ${product.available ? "text-fg-2" : "text-laiton"}`}>
+            {product.available ? "Disponible" : "Sur commande, délai à confirmer sur WhatsApp"}
           </p>
 
-          <p className="measure mt-6 text-fg-2">{product.description}</p>
-
-          {product.finishes.length > 0 && (
-            <fieldset className="mt-8">
-              <legend className="text-sm font-semibold">
-                Finition : <span className="font-normal text-fg-2">{finish?.name}</span>
-              </legend>
-              <div className="mt-3 flex flex-wrap gap-3">
-                {product.finishes.map((option, index) => (
-                  <label key={option.name} className="cursor-pointer" title={option.name}>
-                    <input
-                      type="radio"
-                      name="finition"
-                      value={option.name}
-                      checked={index === finishIndex}
-                      onChange={() => setFinishIndex(index)}
-                      className="peer sr-only"
-                    />
-                    <span
-                      className="block size-11 rounded-pill border-2 border-transparent p-1 transition-colors duration-(--dur-fast) peer-checked:border-flamme peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-(--focus-ring)"
-                    >
-                      <span className="block size-full rounded-pill" style={{ background: option.swatch }} />
-                    </span>
-                    <span className="sr-only">{option.name}</span>
-                  </label>
-                ))}
-              </div>
-            </fieldset>
-          )}
+          {product.description && <p className="measure mt-6 whitespace-pre-line text-fg-2">{product.description}</p>}
 
           <div className="mt-8">
             <span id="quantity-label" className="text-sm font-semibold">

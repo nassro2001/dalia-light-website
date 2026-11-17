@@ -3,16 +3,16 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Check, Plus } from "lucide-react";
-import { categoryLabel, type Product } from "@/lib/catalog";
+import { productPath, type Product } from "@/lib/catalog";
 import { useSelection } from "@/components/selection/SelectionProvider";
 import { ProductVisual } from "./ProductVisual";
 
 // Carte produit sans « carte » (DIRECTION_VISUELLE.md §3) : la photo fait le travail.
-// Le visuel s'allume au survol (souris) ou quand la carte passe au centre de l'écran (catalogue, voir CatalogueGrid).
-export function ProductCard({ product, idPrefix }: { product: Product; idPrefix?: string }) {
+// Le halo s'allume au survol (souris) ou quand la carte passe au centre de l'écran (catalogue, voir CatalogueGrid).
+export function ProductCard({ product, priority }: { product: Product; priority?: boolean }) {
   const { add } = useSelection();
   const [added, setAdded] = useState(false);
-  const href = `/catalogue/${product.slug}`;
+  const href = productPath(product);
 
   useEffect(() => {
     if (!added) return;
@@ -23,32 +23,28 @@ export function ProductCard({ product, idPrefix }: { product: Product; idPrefix?
   return (
     <article className="product-card product-visual-host group relative flex flex-col">
       <Link href={href} className="block" aria-label={product.name}>
-        <ProductVisual product={product} idPrefix={idPrefix} />
-        {product.badge && (
-          <span className="absolute left-3 top-3 rounded-pill bg-nuit/80 px-3 py-1 text-xs font-semibold text-flamme backdrop-blur">
-            {product.badge}
-          </span>
-        )}
+        <ProductVisual product={product} priority={priority} />
       </Link>
 
       <div className="mt-4 flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="text-xs text-link">{categoryLabel(product.category)}</p>
-          <h3 className="mt-1 font-body text-base font-semibold leading-snug tracking-normal">
+          <p className="text-xs text-link">{product.category.name}</p>
+          <h3 className="mt-1 font-body text-base font-semibold leading-snug tracking-normal break-words">
             <Link href={href} className="hover:text-link">
               {product.name}
             </Link>
           </h3>
+          <p className="mt-1 text-xs text-fg-2">Réf. {product.reference}</p>
         </div>
 
         <button
           type="button"
           onClick={() => {
             add({
-              id: product.slug,
+              id: product.id,
               name: product.name,
               reference: product.reference,
-              finish: product.finishes[0]?.name,
+              image: product.images[0],
               url: href,
             });
             setAdded(true);
