@@ -9,6 +9,7 @@ import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import { Button, ButtonLink, ExternalButton } from "@/components/ui/Button";
 import { QuoteRequestForm } from "./QuoteRequestForm";
 import { useSelection } from "./SelectionProvider";
+import { isScene } from "@/lib/catalog/web-images";
 
 // Tiroir « Ma sélection » : <dialog> natif (piège le focus, ferme avec Échap).
 // Trois temps : la liste, le formulaire de demande de devis (envoyée à l'ERP), puis la confirmation avec le
@@ -119,7 +120,7 @@ export function SelectionDrawer() {
               {items.map((item) => (
                 <li key={`${item.id}-${item.finish ?? ""}`} className="flex gap-4 border-b border-line py-5">
                   <div className="relative size-16 shrink-0 overflow-hidden bg-platre">
-                    {item.image && <Image src={item.image} alt="" fill sizes="64px" className="object-contain p-1" />}
+                    {item.image && <Image src={item.image} alt="" fill sizes="64px" className={isScene(item.image) ? "object-cover" : "object-contain p-1"} />}
                   </div>
                   <div className="min-w-0 flex-1">
                     <Link href={item.url} onClick={close} className="font-semibold text-fg hover:text-link">
