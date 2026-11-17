@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { findCategory, groupByFamily, productPath, productSlug } from "@/lib/catalog";
 import { webNames } from "@/lib/catalog/web-names";
-import { categoryVideos } from "@/lib/catalog/web-videos";
+import { categoryVideos, familyVideos } from "@/lib/catalog/web-videos";
 import { getCategories, getFamilyProducts, getProducts } from "@/lib/catalog/erp";
 import { generalMessage, whatsappUrl } from "@/lib/whatsapp";
 import { ExternalButton } from "@/components/ui/Button";
@@ -48,7 +48,9 @@ export async function CatalogueResults({ searchParams }: { searchParams: Promise
       : await getProducts({ q, categoryId: category?.id ?? family?.categories[0]?.id, page, limit: PAGE_SIZE });
   const scope = category?.name ?? family?.label;
   const total = groups.reduce((sum, g) => sum + g.productCount, 0);
-  const video = category && page === 1 && !q ? categoryVideos[category.slug] : undefined;
+  // Vidéo d'ambiance : celle de la sous-catégorie, ou celle de la famille sur « Tout voir ». Première page, hors recherche.
+  const video =
+    page > 1 || q ? undefined : category ? categoryVideos[category.slug] : family ? familyVideos[family.slug] : undefined;
   const videoProductName = video?.productId ? webNames[video.productId] : undefined;
 
   return (
@@ -65,10 +67,10 @@ export async function CatalogueResults({ searchParams }: { searchParams: Promise
         />
       )}
 
-      {video && category && (
+      {video && scope && (
         <CategoryVideoBanner
           video={video}
-          label={category.name}
+          label={scope}
           product={
             video.productId && videoProductName
               ? { name: videoProductName, href: productPath({ slug: productSlug(videoProductName, video.productId) }) }

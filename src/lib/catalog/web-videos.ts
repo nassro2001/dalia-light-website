@@ -1,4 +1,5 @@
-// Vidéos d'ambiance affichées en tête d'une sous-catégorie (clé : l'adresse de la catégorie, ?categorie=…).
+// Vidéos d'ambiance affichées en tête d'une famille (« Tout voir », clé : ?famille=…) ou d'une sous-catégorie
+// (clé : ?categorie=…).
 // Fichiers compressés (sans son) dans public/catalogue/videos/, avec leur image fixe. Provisoire, comme
 // web-images.ts : en ligne, elles iront dans le stockage Supabase (images/site/videos/).
 
@@ -8,6 +9,17 @@ export type CategoryVideo = {
   poster: string;
   /** L'article qu'on voit dans la vidéo : la légende mène à sa fiche. */
   productId?: string;
+  /** Point de la vidéo à garder visible quand le bandeau la recadre (CSS object-position). */
+  focus?: string;
+};
+
+export const familyVideos: Record<string, CategoryVideo> = {
+  lustres: {
+    src: "/catalogue/videos/famille-lustres.mp4",
+    poster: "/catalogue/videos/famille-lustres.webp",
+    productId: "2bb0d60e-d398-4a1e-8014-5da2127429d7",
+    focus: "50% 20%",
+  },
 };
 
 export const categoryVideos: Record<string, CategoryVideo> = {
