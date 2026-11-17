@@ -11,9 +11,9 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 // Grille de produits. Au scroll, chaque produit s'allume quand il traverse la bande centrale de l'écran
 // et s'éteint en la quittant (DIRECTION_VISUELLE.md §8). Mouvement réduit : produits montrés allumés (CSS).
-export function CatalogueGrid({ products, idPrefix = "grid" }: { products: Product[]; idPrefix?: string }) {
+export function CatalogueGrid({ products, priorityCount = 0 }: { products: Product[]; priorityCount?: number }) {
   const ref = useRef<HTMLUListElement>(null);
-  const key = products.map((product) => product.slug).join("|");
+  const key = products.map((product) => product.id).join("|");
 
   useGSAP(
     () => {
@@ -36,9 +36,9 @@ export function CatalogueGrid({ products, idPrefix = "grid" }: { products: Produ
 
   return (
     <ul ref={ref} className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 md:gap-x-6 xl:grid-cols-4">
-      {products.map((product) => (
-        <li key={product.slug}>
-          <ProductCard product={product} idPrefix={`${idPrefix}-${product.slug}`} />
+      {products.map((product, index) => (
+        <li key={product.id}>
+          <ProductCard product={product} priority={index < priorityCount} />
         </li>
       ))}
     </ul>

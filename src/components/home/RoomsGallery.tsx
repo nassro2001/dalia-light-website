@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
 import { useRef } from "react";
-import { getAllProducts, rooms } from "@/lib/catalog";
+import { rooms } from "@/lib/catalog";
 import { RoomVisual } from "./RoomVisual";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -32,7 +32,6 @@ export function RoomsGallery() {
   const sectionRef = useRef<HTMLElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLUListElement>(null);
-  const products = getAllProducts();
 
   useGSAP(
     () => {
@@ -106,7 +105,6 @@ export function RoomsGallery() {
         <div ref={viewportRef} className="scroll-row mt-10 snap-x snap-mandatory overflow-x-auto lg:mt-12">
           <ul ref={trackRef} className="flex w-max gap-4 px-(--container-pad) md:gap-6">
             {rooms.map((room) => {
-              const count = products.filter((product) => product.rooms.includes(room.slug)).length;
               return (
                 <li
                   key={room.slug}
@@ -114,7 +112,7 @@ export function RoomsGallery() {
                     wide.has(room.slug) ? "w-[min(82vw,36rem)]" : "w-[min(72vw,24rem)]"
                   }`}
                 >
-                  <Link href={`/catalogue?piece=${room.slug}`} className="group block">
+                  <Link href="/catalogue" className="group block">
                     {/* Ordinateur : hauteur fixée par l'écran (la section épinglée doit tenir dans la fenêtre). */}
                     <div
                       className={`relative overflow-hidden bg-penombre lg:h-[min(60svh,34rem)] ${
@@ -126,7 +124,7 @@ export function RoomsGallery() {
                         <h3 className="text-xl font-bold">{room.label}</h3>
                         <p className="mt-1 text-sm text-fg-2">{intros[room.slug]}</p>
                         <p className="mt-3 text-sm text-link group-hover:text-fg">
-                          {count} luminaire{count > 1 ? "s" : ""}
+                          Voir les luminaires
                         </p>
                       </div>
                     </div>

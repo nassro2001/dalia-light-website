@@ -1,13 +1,5 @@
-// Modèle du catalogue. Indépendant de la source (fichier local aujourd'hui, CMS plus tard).
-
-export type CategorySlug =
-  | "suspensions"
-  | "lustres"
-  | "plafonniers"
-  | "appliques"
-  | "lampadaires"
-  | "spots-led"
-  | "exterieur";
+// Modèle du catalogue. Les articles viennent de l'ERP (dalia-light-inventory, routes /api/site) :
+// seulement ceux cochés « visible sur le site », sans prix ni quantités.
 
 export type RoomSlug =
   | "salon"
@@ -19,49 +11,42 @@ export type RoomSlug =
   | "commerce"
   | "boite-de-nuit";
 
-/** Forme du visuel provisoire (en attendant les photos). */
-export type Silhouette =
-  | "dome"
-  | "globe"
-  | "cone"
-  | "lustre"
-  | "plafonnier"
-  | "applique"
-  | "lampadaire"
-  | "spot"
-  | "lanterne";
-
-export type Finish = {
+export type Category = {
+  id: string;
   name: string;
-  /** Couleur de la pastille et du laiton du visuel provisoire. */
-  swatch: string;
+  /** Pour l'URL : ?categorie=lustres */
+  slug: string;
+  productCount: number;
 };
 
 export type Product = {
+  /** Identifiant ERP : c'est lui que porte la demande de devis. */
+  id: string;
+  /** Nom lisible + identifiant : /catalogue/lustre-cristal-3-feux--<id> */
   slug: string;
   reference: string;
   name: string;
-  category: CategorySlug;
-  rooms: RoomSlug[];
-  finishes: Finish[];
-  /** Températures de couleur possibles, en kelvins. */
-  colorTemps: number[];
-  socket: "E27" | "E14" | "GU10" | "LED intégrée";
-  ip: string;
-  /** Dimensions en centimètres. */
-  dimensions: { diameter?: number; height?: number; width?: number; depth?: number };
-  material: string;
-  /** Puissance maximale conseillée (W) ou puissance LED. */
-  power: string;
-  summary: string;
-  description: string;
-  silhouette: Silhouette;
-  badge?: "Nouveau" | "Bestseller";
-  inStock: boolean;
-  /** Photos éteint / allumé (même cadrage). Absentes : visuel provisoire dessiné. */
-  images?: { off: string; on: string; alt: string };
-  /** Mise en situation 3D (« Voir dans une pièce ») : photo détourée (PNG/WebP transparent) suspendue dans une pièce. */
-  scene?: ProductScene;
+  description: string | null;
+  category: { id: string; name: string; slug: string };
+  /** Photos du site, détourées (fond transparent). La première sert de vignette. */
+  images: string[];
+  /** Il en reste en magasin ou en entrepôt ; sinon sur commande. */
+  available: boolean;
+};
+
+export type Showroom = {
+  id: string;
+  name: string;
+  location: string;
+  address: string;
+  phone: string;
+};
+
+export type ProductPage = {
+  products: Product[];
+  total: number;
+  page: number;
+  totalPages: number;
 };
 
 export type ProductScene = {

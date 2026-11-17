@@ -15,7 +15,11 @@ function read(): SelectionItem[] {
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     const parsed: unknown = raw ? JSON.parse(raw) : [];
-    return Array.isArray(parsed) ? (parsed as SelectionItem[]) : EMPTY;
+    // Seuls les articles du catalogue de l'ERP (identifiant UUID) se demandent en devis : les anciens produits
+    // d'exemple, gardés par un navigateur, sont écartés.
+    return Array.isArray(parsed)
+      ? (parsed as SelectionItem[]).filter((i) => /^[0-9a-f-]{36}$/i.test(i?.id ?? ""))
+      : EMPTY;
   } catch {
     return items;
   }

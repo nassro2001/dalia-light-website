@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllProducts } from "@/lib/catalog";
+import { getProducts } from "@/lib/catalog/erp";
 import { openingHoursSpecification } from "@/lib/hours";
 import { categories, showrooms, site } from "@/lib/site";
 import { CatalogueGrid } from "@/components/catalog/CatalogueGrid";
@@ -30,9 +30,7 @@ export default async function ShowroomPage({ params }: PageProps<"/showrooms/[sl
   if (index === -1) notFound();
   const showroom = showrooms[index];
   const other = showrooms.find((s) => s.slug !== slug);
-  const featured = getAllProducts()
-    .filter((product) => product.badge)
-    .slice(0, 4);
+  const { products: featured } = await getProducts({ limit: 4 });
 
   // Données structurées : magasin local, adresse et horaires (Google, cartes).
   const jsonLd = {
@@ -100,7 +98,7 @@ export default async function ShowroomPage({ params }: PageProps<"/showrooms/[sl
           </ul>
           {featured.length > 0 && (
             <div className="mt-12">
-              <CatalogueGrid products={featured} idPrefix={`showroom-${showroom.slug}`} />
+              <CatalogueGrid products={featured} />
             </div>
           )}
           {other && (

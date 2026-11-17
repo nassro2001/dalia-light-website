@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { getAllProducts } from "@/lib/catalog";
-import { CatalogueBrowser } from "@/components/catalog/CatalogueBrowser";
-import { CatalogueGrid } from "@/components/catalog/CatalogueGrid";
+import { CatalogueResults } from "@/components/catalog/CatalogueResults";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import { ExternalButton } from "@/components/ui/Button";
 import { generalMessage, whatsappUrl } from "@/lib/whatsapp";
@@ -13,22 +11,21 @@ export const metadata: Metadata = {
     "Suspensions, lustres, plafonniers, appliques, lampadaires, spots LED et éclairage extérieur. Une sélection de nos plus beaux modèles, à voir allumés en showroom.",
 };
 
-export default function CataloguePage() {
+export default function CataloguePage({ searchParams }: PageProps<"/catalogue">) {
   return (
     <section className="grain bg-nuit pb-(--section-y) pt-[calc(var(--nav-height)+3rem)] md:pt-[calc(var(--nav-height)+5rem)]">
       <div className="container-site">
         <h1 className="text-4xl font-extrabold">Catalogue</h1>
         <p className="measure mt-4 text-lg text-fg-2">
-          Une sélection de nos plus beaux luminaires. Ajoutez-les à votre sélection et envoyez-la sur WhatsApp : nous
-          vous répondons avec les disponibilités et les prix, qui se discutent aussi directement en showroom.
+          Nos luminaires, tels qu&apos;on les trouve en showroom. Ajoutez-les à votre sélection et demandez un devis :
+          nous vous répondons sur WhatsApp avec les prix et les disponibilités.
         </p>
 
         <div className="mt-12">
           <h2 className="sr-only">Luminaires</h2>
-          {/* Les filtres lisent l'URL (useSearchParams) : rendus côté client. En attendant, tout le catalogue est servi
-              dans le HTML (lisible sans JS et par les moteurs de recherche). */}
-          <Suspense fallback={<CatalogueGrid products={getAllProducts()} idPrefix="ssr" />}>
-            <CatalogueBrowser />
+          {/* La recherche et la catégorie viennent de l'URL : lues à la demande, sous Suspense. */}
+          <Suspense fallback={<p className="text-sm text-fg-2">Chargement du catalogue…</p>}>
+            <CatalogueResults searchParams={searchParams} />
           </Suspense>
         </div>
 
