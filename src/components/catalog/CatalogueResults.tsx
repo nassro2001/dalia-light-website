@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { findCategory, groupByFamily } from "@/lib/catalog";
+import { findCategory, groupByFamily, productPath, productSlug } from "@/lib/catalog";
+import { webNames } from "@/lib/catalog/web-names";
+import { categoryVideos } from "@/lib/catalog/web-videos";
 import { getCategories, getFamilyProducts, getProducts } from "@/lib/catalog/erp";
 import { generalMessage, whatsappUrl } from "@/lib/whatsapp";
 import { ExternalButton } from "@/components/ui/Button";
@@ -7,6 +9,7 @@ import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import { CatalogueGrid } from "./CatalogueGrid";
 import { CatalogueSearch } from "./CatalogueSearch";
 import { CategoryNav } from "./CategoryNav";
+import { CategoryVideoBanner } from "./CategoryVideoBanner";
 
 // Le catalogue, lu dans l'ERP selon l'URL (?q=…&famille=…&categorie=…&page=…). Rendu côté serveur : lisible
 // sans JavaScript et par les moteurs de recherche. Les lectures de l'ERP sont mises en cache (lib/catalog/erp.ts).
@@ -45,6 +48,8 @@ export async function CatalogueResults({ searchParams }: { searchParams: Promise
       : await getProducts({ q, categoryId: category?.id ?? family?.categories[0]?.id, page, limit: PAGE_SIZE });
   const scope = category?.name ?? family?.label;
   const total = groups.reduce((sum, g) => sum + g.productCount, 0);
+  const video = category && page === 1 && !q ? categoryVideos[category.slug] : undefined;
+  const videoProductName = video?.productId ? webNames[video.productId] : undefined;
 
   return (
     <div>
@@ -57,6 +62,18 @@ export async function CatalogueResults({ searchParams }: { searchParams: Promise
           family={family}
           category={category}
           href={(p) => href({ q, ...p })}
+        />
+      )}
+
+      {video && category && (
+        <CategoryVideoBanner
+          video={video}
+          label={category.name}
+          product={
+            video.productId && videoProductName
+              ? { name: videoProductName, href: productPath({ slug: productSlug(videoProductName, video.productId) }) }
+              : undefined
+          }
         />
       )}
 
