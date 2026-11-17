@@ -13,6 +13,13 @@ import type { Category, Product, ProductPage, Showroom } from "./types";
 // au plus tard après ce délai, sans redéploiement. Sans ERP joignable (build local, panne), le catalogue
 // est simplement vide : le site reste en ligne.
 
+// En ligne, le catalogue est relu toutes les quelques minutes. En local (npm run dev), presque tout de suite :
+// un article masqué ou modifié dans l'ERP disparaît ou change au rafraîchissement suivant.
+const CATALOGUE_CACHE =
+  process.env.NODE_ENV === "development"
+    ? { stale: 0, revalidate: 1, expire: 60 }
+    : { stale: 300, revalidate: 60, expire: 3600 }; // = profil « minutes »
+
 type ErpProduct = {
   id: string;
   name: string;
@@ -75,7 +82,7 @@ function toProduct(p: ErpProduct): Product {
 
 export async function getCategories(): Promise<Category[]> {
   "use cache";
-  cacheLife("minutes");
+  cacheLife(CATALOGUE_CACHE);
   cacheTag("catalogue");
   const rows = await readJson<Omit<Category, "slug">[]>("/categories", []);
   return rows.map((c) => ({ ...c, name: categoryLabel(c.name), slug: slugify(c.name) }));
@@ -93,7 +100,7 @@ export async function getProducts({
   limit?: number;
 }): Promise<ProductPage> {
   "use cache";
-  cacheLife("minutes");
+  cacheLife(CATALOGUE_CACHE);
   cacheTag("catalogue");
   const params = new URLSearchParams({ page: String(page), limit: String(limit) });
   if (q.trim()) params.set("search", q.trim());
@@ -128,7 +135,7 @@ export async function getFamilyProducts({
   limit?: number;
 }): Promise<ProductPage> {
   "use cache";
-  cacheLife("minutes");
+  cacheLife(CATALOGUE_CACHE);
   cacheTag("catalogue");
   const empty: ErpProductPage = { data: [], pagination: { total: 0, totalPages: 0, page: 1 } };
   const readAll = async (categoryId: string) => {
@@ -158,7 +165,7 @@ export async function getFamilyProducts({
 
 export async function getProduct(id: string): Promise<Product | null> {
   "use cache";
-  cacheLife("minutes");
+  cacheLife(CATALOGUE_CACHE);
   cacheTag("catalogue", `produit-${id}`);
   const row = await readJson<ErpProduct | null>(`/products/${encodeURIComponent(id)}`, null);
   return row ? toProduct(row) : null;
