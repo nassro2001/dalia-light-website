@@ -98,9 +98,11 @@ export default async function ShowroomPage({ params }: PageProps<"/showrooms/[sl
               </li>
             ))}
           </ul>
-          <div className="mt-12">
-            <CatalogueGrid products={featured} idPrefix={`showroom-${showroom.slug}`} />
-          </div>
+          {featured.length > 0 && (
+            <div className="mt-12">
+              <CatalogueGrid products={featured} idPrefix={`showroom-${showroom.slug}`} />
+            </div>
+          )}
           {other && (
             <div className="mt-16 flex flex-col items-start gap-4 border-t border-line pt-10 md:flex-row md:items-center md:justify-between">
               <p className="text-lg">

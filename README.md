@@ -65,7 +65,7 @@ Variables d'environnement (`.env.local`) :
 Voir [docs/DIRECTION_VISUELLE.md](docs/DIRECTION_VISUELLE.md) §7 : accueil (hero 3D, par pièce, sélection produits, engagements, showrooms en section jour), catalogue filtrable, fiche produit (bascule éteint/allumé, WhatsApp + « Ma sélection »), une page par showroom.
 
 ## Catalogue
-- Données : `src/lib/catalog/products.ts` (16 produits **d'exemple**). Le modèle (`types.ts`) est prêt pour un CMS : remplacer `getAllProducts` / `getProduct`.
+- Données : `src/lib/catalog/products.ts` est **vide** : les produits d'exemple et leurs photos statiques (`public/products/`, `assets/photos-brutes/`) ont été retirés. Les vrais produits viendront de l'ERP (dalia-light-inventory), avec des photos détourées stockées dans Supabase. Le modèle (`types.ts`) reste en place : remplacer `getAllProducts` / `getProduct`.
 - **Pas de prix** (négociés en showroom) et **sélection** des modèles les plus attirants, pas tout le stock ; encart « Vous ne trouvez pas votre modèle ? » vers WhatsApp.
 - Filtres : catégorie, pièce, température de couleur, culot, recherche, tri (notre sélection, nouveautés, nom) — tous dans l'URL (`/catalogue?categorie=suspensions&piece=salon`).
 - Visuels : tant qu'un produit n'a pas `images: { off, on, alt }`, une illustration SVG par type de luminaire s'affiche (teinte = finition choisie). Avec photos, même comportement éteint / allumé.

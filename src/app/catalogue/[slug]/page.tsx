@@ -6,8 +6,11 @@ import { CatalogueGrid } from "@/components/catalog/CatalogueGrid";
 import { ProductDetail } from "@/components/catalog/ProductDetail";
 
 // Une page par produit, pré-générée au build.
+// Avec Cache Components, il faut au moins un paramètre : tant que le catalogue est vide,
+// un paramètre fictif sert à la validation du build et répond 404 (getProduct ne le trouve pas).
 export function generateStaticParams() {
-  return getAllProducts().map((product) => ({ slug: product.slug }));
+  const params = getAllProducts().map((product) => ({ slug: product.slug }));
+  return params.length > 0 ? params : [{ slug: "__aucun-produit__" }];
 }
 
 export async function generateMetadata({ params }: PageProps<"/catalogue/[slug]">): Promise<Metadata> {

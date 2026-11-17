@@ -11,6 +11,9 @@ export function FeaturedProducts() {
     .sort((a, b) => (a.badge === b.badge ? 0 : a.badge === "Bestseller" ? -1 : 1))
     .slice(0, 4);
 
+  // Rien à mettre en avant (catalogue pas encore chargé) : on n'affiche pas la section.
+  if (featured.length === 0) return null;
+
   return (
     <section className="theme-jour pb-(--section-y)" aria-labelledby="featured-title">
       <div className="container-site">
