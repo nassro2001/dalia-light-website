@@ -28,6 +28,12 @@ export const categoryVideos: Record<string, CategoryVideo> = {
     poster: "/catalogue/videos/lustre-1-amp.webp",
     productId: "3bb8ddb9-1f33-40cb-b023-2c7130836dad",
   },
+  "lustre-5-amp": {
+    src: "/catalogue/videos/lustre-5-amp.mp4",
+    poster: "/catalogue/videos/lustre-5-amp.webp",
+    productId: "c89f4608-7f58-4e04-b985-506f27b9d542", // Lustre Cylindres ambrés
+    focus: "50% 25%",
+  },
   "lustre-10-amp": {
     src: "/catalogue/videos/lustre-10-amp.mp4",
     poster: "/catalogue/videos/lustre-10-amp.webp",
