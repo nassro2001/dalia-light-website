@@ -34,6 +34,12 @@ export const categoryVideos: Record<string, CategoryVideo> = {
     productId: "c89f4608-7f58-4e04-b985-506f27b9d542", // Lustre Cylindres ambrés
     focus: "50% 25%",
   },
+  "lustre-cristal": {
+    src: "/catalogue/videos/lustre-cristal.mp4",
+    poster: "/catalogue/videos/lustre-cristal.webp",
+    productId: "07d4a6c6-e08a-482e-9578-0091eb8dfe79", // Lustre Cascade dorée
+    focus: "50% 20%",
+  },
   "lustre-10-amp": {
     src: "/catalogue/videos/lustre-10-amp.mp4",
     poster: "/catalogue/videos/lustre-10-amp.webp",
