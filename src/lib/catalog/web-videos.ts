@@ -9,6 +9,8 @@ export type CategoryVideo = {
   poster: string;
   /** L'article qu'on voit dans la vidéo : la légende mène à sa fiche. */
   productId?: string;
+  /** Ou sa référence, pour un article dont on ne connaît pas l'identifiant : il est retrouvé dans l'ERP. */
+  productRef?: string;
   /** Point de la vidéo à garder visible quand le bandeau la recadre (CSS object-position). */
   focus?: string;
 };
@@ -55,7 +57,7 @@ export const categoryVideos: Record<string, CategoryVideo> = {
   "lustre-led": {
     src: "/catalogue/videos/lustre-led.mp4",
     poster: "/catalogue/videos/lustre-led.webp",
-    // On y voit le MH74-1 (Lustre Cascade de givre). Sa légende viendra avec productId, une fois l'article publié dans l'ERP.
+    productRef: "MH74-1", // Lustre Cascade de givre
     focus: "50% 20%",
   },
 };

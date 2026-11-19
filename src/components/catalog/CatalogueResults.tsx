@@ -52,6 +52,9 @@ export async function CatalogueResults({ searchParams }: { searchParams: Promise
   const video =
     page > 1 || q ? undefined : category ? categoryVideos[category.slug] : family ? familyVideos[family.slug] : undefined;
   const videoProductName = video?.productId ? webNames[video.productId] : undefined;
+  const videoProduct = video?.productRef
+    ? (await getProducts({ q: video.productRef, limit: 10 })).products.find((p) => p.reference === video.productRef)
+    : undefined;
 
   return (
     <div>
@@ -72,9 +75,11 @@ export async function CatalogueResults({ searchParams }: { searchParams: Promise
           video={video}
           label={scope}
           product={
-            video.productId && videoProductName
-              ? { name: videoProductName, href: productPath({ slug: productSlug(videoProductName, video.productId) }) }
-              : undefined
+            videoProduct
+              ? { name: videoProduct.name, href: productPath(videoProduct) }
+              : video.productId && videoProductName
+                ? { name: videoProductName, href: productPath({ slug: productSlug(videoProductName, video.productId) }) }
+                : undefined
           }
         />
       )}
