@@ -20,6 +20,13 @@ export const sceneImages: Record<string, string> = {
   "9281f17d-7648-406c-9489-72205d754831": "/catalogue/scenes/9281f17d-7648-406c-9489-72205d754831.webp", // Suspension Diadème
   "39ea67b8-9ff9-4c53-97af-137787b254b3": "/catalogue/scenes/39ea67b8-9ff9-4c53-97af-137787b254b3.webp", // Lanterne Veilleur
   "02e46bda-040f-4eac-910d-594effb8f90d": "/catalogue/scenes/02e46bda-040f-4eac-910d-594effb8f90d.webp", // Suspension Ogive
+  "80afa263-8bbd-44aa-9d90-32e4a3a3272e": "/catalogue/scenes/80afa263-8bbd-44aa-9d90-32e4a3a3272e.webp", // Lustre Givre
+  "23bf22d4-6594-44b1-9df4-3385ca19935d": "/catalogue/scenes/23bf22d4-6594-44b1-9df4-3385ca19935d.webp", // Lustre Ébène
+  "09eb3f67-2748-4fbe-8eaa-aace0e35f0f0": "/catalogue/scenes/09eb3f67-2748-4fbe-8eaa-aace0e35f0f0.webp", // Lustre Ambre
+  "7ee95e56-b061-4644-8bfb-d774c5f68b02": "/catalogue/scenes/7ee95e56-b061-4644-8bfb-d774c5f68b02.webp", // Lustre Cerceaux
+  "c89f4608-7f58-4e04-b985-506f27b9d542": "/catalogue/scenes/c89f4608-7f58-4e04-b985-506f27b9d542.webp", // Lustre Cylindres ambrés
+  "d85d8499-8b9a-4dbb-a8dc-0143fbf23805": "/catalogue/scenes/d85d8499-8b9a-4dbb-a8dc-0143fbf23805.webp", // Lustre Colonnes
+  "aeba259c-1508-49ec-9207-c903ce88b359": "/catalogue/scenes/aeba259c-1508-49ec-9207-c903ce88b359.webp", // Lustre Duo laiton
 };
 
 /** Une photo de mise en scène remplit son cadre ; une photo détourée se pose sur le fond plâtre. */
