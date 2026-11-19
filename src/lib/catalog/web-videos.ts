@@ -1,6 +1,6 @@
 // Vidéos d'ambiance affichées en tête d'une famille (« Tout voir », clé : ?famille=…) ou d'une sous-catégorie
 // (clé : ?categorie=…).
-// Fichiers compressés (sans son) dans public/catalogue/videos/, avec leur image fixe. Provisoire, comme
+// Fichiers compressés (avec leur son) dans public/catalogue/videos/, avec leur image fixe. Provisoire, comme
 // web-images.ts : en ligne, elles iront dans le stockage Supabase (images/site/videos/).
 
 export type CategoryVideo = {
@@ -27,5 +27,11 @@ export const categoryVideos: Record<string, CategoryVideo> = {
     src: "/catalogue/videos/lustre-1-amp.mp4",
     poster: "/catalogue/videos/lustre-1-amp.webp",
     productId: "3bb8ddb9-1f33-40cb-b023-2c7130836dad",
+  },
+  "lustre-12-amp": {
+    src: "/catalogue/videos/lustre-12-amp.mp4",
+    poster: "/catalogue/videos/lustre-12-amp.webp",
+    productId: "e46ff31b-3106-41f4-b1a9-20ca52ff4ab6", // Lustre Manoir
+    focus: "50% 25%",
   },
 };
