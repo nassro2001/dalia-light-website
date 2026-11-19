@@ -28,6 +28,12 @@ export const categoryVideos: Record<string, CategoryVideo> = {
     poster: "/catalogue/videos/lustre-1-amp.webp",
     productId: "3bb8ddb9-1f33-40cb-b023-2c7130836dad",
   },
+  "lustre-10-amp": {
+    src: "/catalogue/videos/lustre-10-amp.mp4",
+    poster: "/catalogue/videos/lustre-10-amp.webp",
+    productId: "7216cd89-f4e5-456a-aa4a-5e0ac8ad4331", // Lustre Bulles
+    focus: "50% 20%",
+  },
   "lustre-12-amp": {
     src: "/catalogue/videos/lustre-12-amp.mp4",
     poster: "/catalogue/videos/lustre-12-amp.webp",
