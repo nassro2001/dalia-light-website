@@ -65,16 +65,15 @@ export const sceneImages: Record<string, string | string[]> = {
   "MH74-5": "/catalogue/scenes/led-mh74-5.webp", // Lustre Ruban de givre
   "MH70-7": "/catalogue/scenes/led-mh70-7.webp", // Lustre Croissant blanc
   "MH76-18": "/catalogue/scenes/led-mh76-18.webp", // Suspension Goutte laiton
-  "MH70-1": "/catalogue/scenes/led-mh70-1.webp", // Lustre Spirale blanche
   "MH70-5": "/catalogue/scenes/led-mh70-5.webp", // Lustre Ovale de cristal
   "MH74-4": "/catalogue/scenes/led-mh74-4.webp", // Lustre Banquise
-  "MH70-9": "/catalogue/scenes/led-mh70-9.webp", // Lustre Ellipses argent
+  "MH70-9": "/catalogue/scenes/led-mh70-9.webp", // Lustre Spirale argent
   "MH70-9/1": "/catalogue/scenes/led-mh70-9-1.webp", // Lustre Carrés dorés
   "MH70-8": "/catalogue/scenes/led-mh70-8.webp", // Lustre Arabesque dorée
   "MH74-2": "/catalogue/scenes/led-mh74-2.webp", // Lustre Remous de givre
+  "MH69-1": "/catalogue/scenes/led-mh69-1.webp", // Lustre Auréole
   "79308/62/47": "/catalogue/scenes/led-79308-62-47.webp", // Suspension Coupole dorée
   "MH74-5/2N": "/catalogue/scenes/led-mh74-5-2n.webp", // Lustre Croisée de cristal
-  "MH69-1": "/catalogue/scenes/led-mh69-1.webp", // Lustre Saturne
   "MH74-3": "/catalogue/scenes/led-mh74-3.webp", // Lustre Glacier
   "MH78-1": "/catalogue/scenes/led-mh78-1.webp", // Lustre Cannelé blanc
   "MH70-13": "/catalogue/scenes/led-mh70-13.webp", // Suspension Boucle blanche
@@ -83,9 +82,8 @@ export const sceneImages: Record<string, string | string[]> = {
   "MH70-11": "/catalogue/scenes/led-mh70-11.webp", // Lustre Entrelacs blanc
   "MH74-6": "/catalogue/scenes/led-mh74-6.webp", // Lustre Nuage doré
   "MH70-12": "/catalogue/scenes/led-mh70-12.webp", // Suspension Boucle dorée
-  "MH69-2": "/catalogue/scenes/led-mh69-2.webp", // Lustre Gravitation
   "MH74-7": "/catalogue/scenes/led-mh74-7.webp", // Lustre Vague dorée
-  "MH70-4": "/catalogue/scenes/led-mh70-4.webp", // Lustre Gyroscope
+  "MH69-2": "/catalogue/scenes/led-mh69-2.webp", // Lustre Gyroscope
   "MH74-1/1D": "/catalogue/scenes/led-mh74-1-1d.webp", // Lustre Diadème de glace
   "MH74-4/1N": "/catalogue/scenes/led-mh74-4-1n.webp", // Lustre Couronne noire
   "MH70-14": "/catalogue/scenes/led-mh70-14.webp", // Suspension Clef de sol
