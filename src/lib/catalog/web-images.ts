@@ -27,6 +27,37 @@ export const sceneImages: Record<string, string> = {
   "c89f4608-7f58-4e04-b985-506f27b9d542": "/catalogue/scenes/c89f4608-7f58-4e04-b985-506f27b9d542.webp", // Lustre Cylindres ambrés
   "d85d8499-8b9a-4dbb-a8dc-0143fbf23805": "/catalogue/scenes/d85d8499-8b9a-4dbb-a8dc-0143fbf23805.webp", // Lustre Colonnes
   "aeba259c-1508-49ec-9207-c903ce88b359": "/catalogue/scenes/aeba259c-1508-49ec-9207-c903ce88b359.webp", // Lustre Duo laiton
+  "c120f159-d20a-4917-b180-d536d0a8df33": "/catalogue/scenes/c120f159-d20a-4917-b180-d536d0a8df33.webp", // Lustre Rivière rosée
+  "07d4a6c6-e08a-482e-9578-0091eb8dfe79": "/catalogue/scenes/07d4a6c6-e08a-482e-9578-0091eb8dfe79.webp", // Lustre Cascade dorée
+  "c6fcf624-dee7-4d0a-8665-ac5f2d82e732": "/catalogue/scenes/c6fcf624-dee7-4d0a-8665-ac5f2d82e732.webp", // Lustre Couronne
+  "e1eeff48-fdb8-4d13-a5d8-59c5ce41ec63": "/catalogue/scenes/e1eeff48-fdb8-4d13-a5d8-59c5ce41ec63.webp", // Lustre Coquillages
+  "904dcad4-63bf-409b-83a2-448ecc0e0690": "/catalogue/scenes/904dcad4-63bf-409b-83a2-448ecc0e0690.webp", // Lustre Alvéoles
+  "dfe597a5-cee8-4c5c-89a9-83a2bc40c406": "/catalogue/scenes/dfe597a5-cee8-4c5c-89a9-83a2bc40c406.webp", // Lustre Vagues
+  "9dffaff1-d0ed-4b64-a5d0-d438c96f227b": "/catalogue/scenes/9dffaff1-d0ed-4b64-a5d0-d438c96f227b.webp", // Suspension Grelot
+  "a1ded677-db1e-4a76-9bcd-da187cbc8f8f": "/catalogue/scenes/a1ded677-db1e-4a76-9bcd-da187cbc8f8f.webp", // Suspension Bulbe
+  "a58a2b0b-9fa0-4d80-b3c3-13ce4bb7fa21": "/catalogue/scenes/a58a2b0b-9fa0-4d80-b3c3-13ce4bb7fa21.webp", // Lustre Pagode
+  "2b5bf834-cba6-4b26-b274-ff74fa212221": "/catalogue/scenes/2b5bf834-cba6-4b26-b274-ff74fa212221.webp", // Lustre Minaret
+  "787ff88f-5d28-4377-9544-fafa3f84110a": "/catalogue/scenes/787ff88f-5d28-4377-9544-fafa3f84110a.webp", // Lustre Cloche dorée
+  "655f1489-e085-4a2d-bfbf-6276145777f2": "/catalogue/scenes/655f1489-e085-4a2d-bfbf-6276145777f2.webp", // Lustre Éclipse
+  "a9b46d09-3bc1-4832-bfd8-899501c644f3": "/catalogue/scenes/a9b46d09-3bc1-4832-bfd8-899501c644f3.webp", // Lustre Tourelle
+  "1bb7eff7-de8a-4ff5-9813-912088fae43d": "/catalogue/scenes/1bb7eff7-de8a-4ff5-9813-912088fae43d.webp", // Lustre Dôme doré
+  "e11a891e-28f9-41b0-911c-2165975928ba": "/catalogue/scenes/e11a891e-28f9-41b0-911c-2165975928ba.webp", // Lustre Clavier
+  "e9d32637-4707-42eb-a103-5d8c56a5be2c": "/catalogue/scenes/e9d32637-4707-42eb-a103-5d8c56a5be2c.webp", // Lustre Rosé
+  "63cb318c-527a-454d-95f0-bfff6bdfb462": "/catalogue/scenes/63cb318c-527a-454d-95f0-bfff6bdfb462.webp", // Lustre Clavier grand modèle
+  "901c8775-9a0a-460f-bb55-19e2b1f3a07d": "/catalogue/scenes/901c8775-9a0a-460f-bb55-19e2b1f3a07d.webp", // Lustre Orgue
+  "b2a545f3-34de-4284-aac4-49d72c26c118": "/catalogue/scenes/b2a545f3-34de-4284-aac4-49d72c26c118.webp", // Lustre Soleil
+  "0f796938-59cd-48f6-9ef8-742c8a97c2e6": "/catalogue/scenes/0f796938-59cd-48f6-9ef8-742c8a97c2e6.webp", // Lustre Nacre
+  "1ce3a885-3092-4a33-b3bf-25e343a090ac": "/catalogue/scenes/1ce3a885-3092-4a33-b3bf-25e343a090ac.webp", // Lustre Fumé
+  "a490d430-c531-434b-882c-d13148662d24": "/catalogue/scenes/a490d430-c531-434b-882c-d13148662d24.webp", // Lustre Cascade ambrée
+  "96aca078-c2e3-4964-9d32-78e0433b997a": "/catalogue/scenes/96aca078-c2e3-4964-9d32-78e0433b997a.webp", // Lustre Stalactites
+  "5526bb53-f0de-49eb-b900-3b69d7ba8df4": "/catalogue/scenes/5526bb53-f0de-49eb-b900-3b69d7ba8df4.webp", // Lustre Orgue doré
+  "9c29a92b-9bc4-41f8-b28b-51e30224e093": "/catalogue/scenes/9c29a92b-9bc4-41f8-b28b-51e30224e093.webp", // Lustre Étoile noire
+  "6d7168a8-079c-4741-80b0-6d26e9a2d4de": "/catalogue/scenes/6d7168a8-079c-4741-80b0-6d26e9a2d4de.webp", // Lustre Étoile dorée
+  "3f2fc411-3d28-489f-9798-67dd35f1f9b5": "/catalogue/scenes/3f2fc411-3d28-489f-9798-67dd35f1f9b5.webp", // Lustre Étoile cuivrée
+  "ad592157-f591-4287-9d58-a2030b047c0a": "/catalogue/scenes/ad592157-f591-4287-9d58-a2030b047c0a.webp", // Lustre Pétales argent
+  "4731f753-34c8-4548-ac1f-77f7e75ee7dc": "/catalogue/scenes/4731f753-34c8-4548-ac1f-77f7e75ee7dc.webp", // Lustre Coquillages dorés
+  "a4705d57-301d-47ff-b376-ed42bcb936dd": "/catalogue/scenes/a4705d57-301d-47ff-b376-ed42bcb936dd.webp", // Lustre Ombrelle
+  "34ba878b-dc04-4937-87c3-2cb508823c0c": "/catalogue/scenes/34ba878b-dc04-4937-87c3-2cb508823c0c.webp", // Lustre Galerie
 };
 
 /** Marque d'une photo entière de l'ERP (voir photo-kind.ts) : elle remplit son cadre. */
