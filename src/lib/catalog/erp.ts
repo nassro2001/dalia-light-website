@@ -1,5 +1,6 @@
 import { cacheLife, cacheTag } from "next/cache";
 import { categoryLabel, productLabel } from "./families";
+import { markScenes } from "./photo-kind";
 import { webImages } from "./web-images";
 import { webNames } from "./web-names";
 import { productSlug, slugify } from "./slug";
@@ -80,6 +81,11 @@ function toProduct(p: ErpProduct): Product {
   };
 }
 
+/** Les photos entières (mises en scène ajoutées dans l'ERP) remplissent leur cadre : on les repère ici. */
+async function withPhotoKinds(products: Product[]): Promise<Product[]> {
+  return Promise.all(products.map(async (p) => ({ ...p, images: await markScenes(p.images) })));
+}
+
 export async function getCategories(): Promise<Category[]> {
   "use cache";
   cacheLife(CATALOGUE_CACHE);
@@ -110,7 +116,7 @@ export async function getProducts({
     { data: [], pagination: { total: 0, totalPages: 0, page } },
   );
   return {
-    products: res.data.map(toProduct),
+    products: await withPhotoKinds(res.data.map(toProduct)),
     total: res.pagination.total,
     page: res.pagination.page,
     totalPages: res.pagination.totalPages,
@@ -156,7 +162,7 @@ export async function getFamilyProducts({
   const totalPages = Math.ceil(all.length / limit);
   const current = Math.min(page, Math.max(1, totalPages));
   return {
-    products: all.slice((current - 1) * limit, current * limit),
+    products: await withPhotoKinds(all.slice((current - 1) * limit, current * limit)),
     total: all.length,
     page: current,
     totalPages,
@@ -168,7 +174,7 @@ export async function getProduct(id: string): Promise<Product | null> {
   cacheLife(CATALOGUE_CACHE);
   cacheTag("catalogue", `produit-${id}`);
   const row = await readJson<ErpProduct | null>(`/products/${encodeURIComponent(id)}`, null);
-  return row ? toProduct(row) : null;
+  return row ? (await withPhotoKinds([toProduct(row)]))[0] : null;
 }
 
 /** Les showrooms où l'on peut demander un devis, tels que l'ERP les connaît. */
