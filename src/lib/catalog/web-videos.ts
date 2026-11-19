@@ -52,4 +52,10 @@ export const categoryVideos: Record<string, CategoryVideo> = {
     productId: "e46ff31b-3106-41f4-b1a9-20ca52ff4ab6", // Lustre Manoir
     focus: "50% 25%",
   },
+  "lustre-led": {
+    src: "/catalogue/videos/lustre-led.mp4",
+    poster: "/catalogue/videos/lustre-led.webp",
+    // On y voit le MH74-1 (Lustre Cascade de givre). Sa légende viendra avec productId, une fois l'article publié dans l'ERP.
+    focus: "50% 20%",
+  },
 };
