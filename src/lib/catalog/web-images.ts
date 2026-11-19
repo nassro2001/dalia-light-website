@@ -29,7 +29,22 @@ export const sceneImages: Record<string, string> = {
   "aeba259c-1508-49ec-9207-c903ce88b359": "/catalogue/scenes/aeba259c-1508-49ec-9207-c903ce88b359.webp", // Lustre Duo laiton
 };
 
+// Articles dont la première photo, dans l'ERP, est déjà une mise en scène (changée à la main dans l'ERP).
+// Elle reçoit une marque (#scene) pour remplir son cadre comme les autres, au lieu d'être posée sur le fond plâtre.
+export const erpScenes = new Set<string>([
+  "5e057001-8bab-4ffb-9129-9fc776f3139c", // Lustre Filaments (604300302)
+  "e964bc41-4fab-4597-ae0e-b7b8d7b6d818", // Lustre Coquilles (9784/3)
+]);
+
+const SCENE_MARK = "#scene";
+
+/** Les photos d'un article pour le site : la mise en scène du site d'abord, puis celles de l'ERP. */
+export function webImages(id: string, erpImages: string[]): string[] {
+  const images = erpScenes.has(id) && erpImages[0] ? [erpImages[0] + SCENE_MARK, ...erpImages.slice(1)] : erpImages;
+  return sceneImages[id] ? [sceneImages[id], ...images] : images;
+}
+
 /** Une photo de mise en scène remplit son cadre ; une photo détourée se pose sur le fond plâtre. */
 export function isScene(src: string | undefined) {
-  return Boolean(src?.includes("/scenes/"));
+  return Boolean(src && (src.includes("/scenes/") || src.endsWith(SCENE_MARK)));
 }

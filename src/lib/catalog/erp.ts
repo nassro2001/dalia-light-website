@@ -1,6 +1,6 @@
 import { cacheLife, cacheTag } from "next/cache";
 import { categoryLabel, productLabel } from "./families";
-import { sceneImages } from "./web-images";
+import { webImages } from "./web-images";
 import { webNames } from "./web-names";
 import { productSlug, slugify } from "./slug";
 import type { Category, Product, ProductPage, Showroom } from "./types";
@@ -75,7 +75,7 @@ function toProduct(p: ErpProduct): Product {
     description: p.description,
     // Le nom s'écrit comme dans une phrase ; l'adresse garde le nom de l'ERP, pour que les liens restent stables.
     category: { id: p.category.id, name: categoryLabel(p.category.name), slug: slugify(p.category.name) },
-    images: sceneImages[p.id] ? [sceneImages[p.id], ...p.images] : p.images,
+    images: webImages(p.id, p.images),
     available: p.available,
   };
 }
