@@ -1,6 +1,7 @@
 // Noms affichés sur le site, choisis d'après la photo de chaque article (« GLOBE 1 AMP » ne dit rien au client).
 // Provisoire : ils rejoindront l'ERP (bloc « Site web » de la fiche article) avant la mise en ligne, pour que
-// l'équipe puisse les modifier. Un article absent d'ici garde le nom de l'ERP, écrit en minuscules.
+// l'équipe puisse les modifier. Clé : l'identifiant de l'article, ou à défaut sa référence.
+// Un article absent d'ici garde le nom de l'ERP, écrit en minuscules.
 
 export const webNames: Record<string, string> = {
   // LUSTRE 1 AMP
@@ -87,6 +88,39 @@ export const webNames: Record<string, string> = {
   "5b5fe941-baaf-4da0-91a7-06f775e903f1": "Lustre Corolle",
   "529beb6a-d24d-479d-868c-4f0ab4060851": "Lustre Spirale de cristal",
   "075c50a1-aabe-4ab2-b296-c915670cb79e": "Lustre Fontaine",
+  // LUSTRE LED (par référence : pas encore publiés dans l'ERP)
+  "MH74-1": "Lustre Cascade de givre",
+  "MH76-16": "Suspension Anneau laiton",
+  "MH74-5": "Lustre Ruban de givre",
+  "MH70-7": "Lustre Croissant blanc",
+  "MH76-18": "Suspension Goutte laiton",
+  "MH70-1": "Lustre Spirale blanche",
+  "MH70-5": "Lustre Ovale de cristal",
+  "MH74-4": "Lustre Banquise",
+  "MH70-9": "Lustre Ellipses argent",
+  "MH70-9/1": "Lustre Carrés dorés",
+  "MH70-8": "Lustre Arabesque dorée",
+  "MH74-2": "Lustre Remous de givre",
+  "79308/62/47": "Suspension Coupole dorée",
+  "MH74-5/2N": "Lustre Croisée de cristal",
+  "MH69-1": "Lustre Saturne",
+  "MH74-3": "Lustre Glacier",
+  "MH78-1": "Lustre Cannelé blanc",
+  "MH70-13": "Suspension Boucle blanche",
+  "MH70-3": "Suspension linéaire Ondine",
+  "MH70-6": "Lustre Constellation",
+  "MH70-11": "Lustre Entrelacs blanc",
+  "MH74-6": "Lustre Nuage doré",
+  "MH70-12": "Suspension Boucle dorée",
+  "MH69-2": "Lustre Gravitation",
+  "MH74-7": "Lustre Vague dorée",
+  "MH70-4": "Lustre Gyroscope",
+  "MH74-1/1D": "Lustre Diadème de glace",
+  "MH74-4/1N": "Lustre Couronne noire",
+  "MH70-14": "Suspension Clef de sol",
+  "MH70-10": "Lustre Calligraphie noire",
+  "MH74-6/3N": "Lustre Éclat noir",
+  "MH67-12": "Lustre Touches de piano",
   // LAMPADAIRE
   "b83482cb-a86d-4171-b704-501af8ac06e5": "Lampadaire de rue LED, lumière blanche",
   "4d35e6a0-55d9-4536-93d2-c33a7e0bbd26": "Lampadaire de rue LED, lumière jaune",

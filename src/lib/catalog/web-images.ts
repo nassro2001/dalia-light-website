@@ -2,7 +2,8 @@
 // public/catalogue/scenes/. Elles passent avant la photo détourée de l'ERP, qui reste en vue suivante.
 // Provisoire, comme web-names.ts : elles rejoindront l'ERP (photos du site) avant la mise en ligne.
 
-export const sceneImages: Record<string, string> = {
+// Clé : l'identifiant de l'article dans l'ERP, ou à défaut sa référence. Plusieurs mises en scène possibles.
+export const sceneImages: Record<string, string | string[]> = {
   "7a7e46be-a35e-4f59-87a3-446375c98ffb": "/catalogue/scenes/7a7e46be-a35e-4f59-87a3-446375c98ffb.webp", // Suspension Calebasse
   "2bb0d60e-d398-4a1e-8014-5da2127429d7": "/catalogue/scenes/2bb0d60e-d398-4a1e-8014-5da2127429d7.webp", // Suspension Galette
   "8dc49f0c-5323-4088-a247-29e3a71c68f4": "/catalogue/scenes/8dc49f0c-5323-4088-a247-29e3a71c68f4.webp", // Suspension Liane
@@ -58,14 +59,48 @@ export const sceneImages: Record<string, string> = {
   "4731f753-34c8-4548-ac1f-77f7e75ee7dc": "/catalogue/scenes/4731f753-34c8-4548-ac1f-77f7e75ee7dc.webp", // Lustre Coquillages dorés
   "a4705d57-301d-47ff-b376-ed42bcb936dd": "/catalogue/scenes/a4705d57-301d-47ff-b376-ed42bcb936dd.webp", // Lustre Ombrelle
   "34ba878b-dc04-4937-87c3-2cb508823c0c": "/catalogue/scenes/34ba878b-dc04-4937-87c3-2cb508823c0c.webp", // Lustre Galerie
+  // LUSTRE LED : ces articles ne sont pas encore publiés dans l'ERP, on les reconnaît à leur référence.
+  "MH74-1": "/catalogue/scenes/led-mh74-1.webp", // Lustre Cascade de givre
+  "MH76-16": ["/catalogue/scenes/led-mh76-16.webp", "/catalogue/scenes/led-mh76-16-2.webp"], // Suspension Anneau laiton
+  "MH74-5": "/catalogue/scenes/led-mh74-5.webp", // Lustre Ruban de givre
+  "MH70-7": "/catalogue/scenes/led-mh70-7.webp", // Lustre Croissant blanc
+  "MH76-18": "/catalogue/scenes/led-mh76-18.webp", // Suspension Goutte laiton
+  "MH70-1": "/catalogue/scenes/led-mh70-1.webp", // Lustre Spirale blanche
+  "MH70-5": "/catalogue/scenes/led-mh70-5.webp", // Lustre Ovale de cristal
+  "MH74-4": "/catalogue/scenes/led-mh74-4.webp", // Lustre Banquise
+  "MH70-9": "/catalogue/scenes/led-mh70-9.webp", // Lustre Ellipses argent
+  "MH70-9/1": "/catalogue/scenes/led-mh70-9-1.webp", // Lustre Carrés dorés
+  "MH70-8": "/catalogue/scenes/led-mh70-8.webp", // Lustre Arabesque dorée
+  "MH74-2": "/catalogue/scenes/led-mh74-2.webp", // Lustre Remous de givre
+  "79308/62/47": "/catalogue/scenes/led-79308-62-47.webp", // Suspension Coupole dorée
+  "MH74-5/2N": "/catalogue/scenes/led-mh74-5-2n.webp", // Lustre Croisée de cristal
+  "MH69-1": "/catalogue/scenes/led-mh69-1.webp", // Lustre Saturne
+  "MH74-3": "/catalogue/scenes/led-mh74-3.webp", // Lustre Glacier
+  "MH78-1": "/catalogue/scenes/led-mh78-1.webp", // Lustre Cannelé blanc
+  "MH70-13": "/catalogue/scenes/led-mh70-13.webp", // Suspension Boucle blanche
+  "MH70-3": "/catalogue/scenes/led-mh70-3.webp", // Suspension linéaire Ondine
+  "MH70-6": "/catalogue/scenes/led-mh70-6.webp", // Lustre Constellation
+  "MH70-11": "/catalogue/scenes/led-mh70-11.webp", // Lustre Entrelacs blanc
+  "MH74-6": "/catalogue/scenes/led-mh74-6.webp", // Lustre Nuage doré
+  "MH70-12": "/catalogue/scenes/led-mh70-12.webp", // Suspension Boucle dorée
+  "MH69-2": "/catalogue/scenes/led-mh69-2.webp", // Lustre Gravitation
+  "MH74-7": "/catalogue/scenes/led-mh74-7.webp", // Lustre Vague dorée
+  "MH70-4": "/catalogue/scenes/led-mh70-4.webp", // Lustre Gyroscope
+  "MH74-1/1D": "/catalogue/scenes/led-mh74-1-1d.webp", // Lustre Diadème de glace
+  "MH74-4/1N": "/catalogue/scenes/led-mh74-4-1n.webp", // Lustre Couronne noire
+  "MH70-14": "/catalogue/scenes/led-mh70-14.webp", // Suspension Clef de sol
+  "MH70-10": "/catalogue/scenes/led-mh70-10.webp", // Lustre Calligraphie noire
+  "MH74-6/3N": "/catalogue/scenes/led-mh74-6-3n.webp", // Lustre Éclat noir
+  "MH67-12": "/catalogue/scenes/led-mh67-12.webp", // Lustre Touches de piano
 };
 
 /** Marque d'une photo entière de l'ERP (voir photo-kind.ts) : elle remplit son cadre. */
 export const SCENE_MARK = "#scene";
 
 /** Les photos d'un article pour le site : la mise en scène du site d'abord, puis celles de l'ERP. */
-export function webImages(id: string, erpImages: string[]): string[] {
-  return sceneImages[id] ? [sceneImages[id], ...erpImages] : erpImages;
+export function webImages(id: string, reference: string, erpImages: string[]): string[] {
+  const scenes = sceneImages[id] ?? sceneImages[reference] ?? [];
+  return [...(Array.isArray(scenes) ? scenes : [scenes]), ...erpImages];
 }
 
 /** Une photo de mise en scène remplit son cadre ; une photo détourée se pose sur le fond plâtre. */

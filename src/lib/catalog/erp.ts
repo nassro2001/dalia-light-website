@@ -72,11 +72,11 @@ function toProduct(p: ErpProduct): Product {
     id: p.id,
     slug: productSlug(p.name, p.id),
     reference: p.reference,
-    name: webNames[p.id] ?? productLabel(p.name),
+    name: webNames[p.id] ?? webNames[p.reference] ?? productLabel(p.name),
     description: p.description,
     // Le nom s'écrit comme dans une phrase ; l'adresse garde le nom de l'ERP, pour que les liens restent stables.
     category: { id: p.category.id, name: categoryLabel(p.category.name), slug: slugify(p.category.name) },
-    images: webImages(p.id, p.images),
+    images: webImages(p.id, p.reference, p.images),
     available: p.available,
   };
 }
