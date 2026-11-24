@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { Check, Minus, Plus } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Check, Minus, Plus, ZoomIn } from "lucide-react";
 import { productPath, showReferences, type Product } from "@/lib/catalog";
 import { site } from "@/lib/site";
 import { productMessage, whatsappUrl } from "@/lib/whatsapp";
@@ -11,6 +11,7 @@ import { useSelection } from "@/components/selection/SelectionProvider";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import { Button, ExternalButton } from "@/components/ui/Button";
 import { ProductVisual } from "./ProductVisual";
+import { ProductZoom, type ProductZoomHandle } from "./ProductZoom";
 
 // Fiche produit (DIRECTION_VISUELLE.md §7) : photos du site, quantité, « Ajouter à ma sélection » (puis demande
 // de devis) et « Demander sur WhatsApp ». Sur mobile, ces deux actions restent accessibles dans une barre fixe en
@@ -19,6 +20,7 @@ import { ProductVisual } from "./ProductVisual";
 export function ProductDetail({ product }: { product: Product }) {
   const { add, open, hideFab } = useSelection();
   const [imageIndex, setImageIndex] = useState(0);
+  const zoomRef = useRef<ProductZoomHandle>(null);
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
 
@@ -81,7 +83,25 @@ export function ProductDetail({ product }: { product: Product }) {
         {/* Visuel */}
         <div className="min-w-0 lg:col-span-7">
           <div data-lit="true" className="product-visual-host lg:sticky lg:top-[calc(var(--nav-height)+2rem)]">
-            <ProductVisual product={product} index={imageIndex} sizes="(min-width: 1024px) 55vw, 100vw" priority />
+            {product.images.length > 0 ? (
+              <button
+                type="button"
+                onClick={() => zoomRef.current?.show()}
+                className="group relative block w-full cursor-zoom-in"
+                aria-label={`Agrandir la photo de ${product.name}`}
+              >
+                <ProductVisual product={product} index={imageIndex} sizes="(min-width: 1024px) 55vw, 100vw" priority />
+                <span
+                  aria-hidden="true"
+                  className="absolute bottom-3 right-3 inline-flex size-11 items-center justify-center rounded-pill bg-nuit/60 text-fg backdrop-blur transition-opacity group-hover:opacity-100 md:opacity-70"
+                >
+                  <ZoomIn className="size-5" strokeWidth={1.5} />
+                </span>
+              </button>
+            ) : (
+              <ProductVisual product={product} index={imageIndex} sizes="(min-width: 1024px) 55vw, 100vw" priority />
+            )}
+            <ProductZoom ref={zoomRef} images={product.images} name={product.name} index={imageIndex} onIndexChange={setImageIndex} />
             {product.images.length > 1 && (
               <div className="mt-4 flex flex-wrap gap-2" role="group" aria-label="Photos du produit">
                 {product.images.map((src, index) => (
