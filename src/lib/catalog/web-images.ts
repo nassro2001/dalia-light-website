@@ -90,6 +90,167 @@ export const sceneImages: Record<string, string | string[]> = {
   "MH70-10": "/catalogue/scenes/led-mh70-10.webp", // Lustre Calligraphie noire
   "MH74-6/3N": "/catalogue/scenes/led-mh74-6-3n.webp", // Lustre Éclat noir
   "MH67-12": "/catalogue/scenes/led-mh67-12.webp", // Lustre Touches de piano
+  // APPLIQUE 1 AMPOULE : mises en scène IA (lots de novembre), par référence.
+  "0100/1": "/catalogue/scenes/a1-0100-1.webp", // Applique Écran givré
+  "1006/1A": "/catalogue/scenes/a1-1006-1a.webp", // Applique Col de cygne et bois
+  "1006/1B": "/catalogue/scenes/a1-1006-1b.webp", // Applique Cloche et bois
+  "1095/A": "/catalogue/scenes/a1-1095-a.webp", // Applique Tulipe sculptée
+  "1096/1A": "/catalogue/scenes/a1-1096-1a.webp", // Applique Tulipe et cristal
+  "1096/1B1": "/catalogue/scenes/a1-1096-1b1.webp", // Applique Cylindre cannelé
+  "1096/1B2": "/catalogue/scenes/a1-1096-1b2.webp", // Applique Corolle cannelée
+  "1097/1A": "/catalogue/scenes/a1-1097-1a.webp", // Applique Lanterne opaline
+  "1112B": "/catalogue/scenes/a1-1112b.webp", // Applique Ambre octogonale
+  "1522-1W": "/catalogue/scenes/a1-1522-1w.webp", // Applique Demi-lune mosaïque
+  "19830/1": "/catalogue/scenes/a1-19830-1.webp", // Applique Opaline chromée
+  "21004B": "/catalogue/scenes/a1-21004b.webp", // Applique Voile givré
+  "21004C": "/catalogue/scenes/a1-21004c.webp", // Applique Voile ambré
+  "21006B": "/catalogue/scenes/a1-21006b.webp", // Applique Glacier cerclé
+  "21075B": "/catalogue/scenes/a1-21075b.webp", // Applique Glacier évasé
+  "21076E-CH": "/catalogue/scenes/a1-21076e-ch.webp", // Applique Éventail cerclé
+  "21076F-CH": "/catalogue/scenes/a1-21076f-ch.webp", // Applique Éventail chromé
+  "21850/1CH": "/catalogue/scenes/a1-21850-1ch.webp", // Applique Bougie argentée
+  "21850/1GD": "/catalogue/scenes/a1-21850-1gd.webp", // Applique Bougie dorée
+  "24300": "/catalogue/scenes/a1-24300.webp", // Applique Tulipe jaune
+  "24740/1GD": "/catalogue/scenes/a1-24740-1gd.webp", // Applique Cylindre à facettes
+  "3001/HALF": "/catalogue/scenes/a1-3001-half.webp", // Vasque murale givrée
+  "3002/HALF": "/catalogue/scenes/a1-3002-half.webp", // Vasque murale blanche
+  "3004/HALF": "/catalogue/scenes/a1-3004-half.webp", // Vasque murale Arabesques
+  "3005": "/catalogue/scenes/a1-3005.webp", // Vasque murale opaline
+  "3005/HALF": "/catalogue/scenes/a1-3005-half.webp", // Vasque murale Rinceaux
+  "3006/HALF": "/catalogue/scenes/a1-3006-half.webp", // Vasque murale Feuillage
+  "3016/HALF": "/catalogue/scenes/a1-3016-half.webp", // Vasque murale Dentelle
+  "3025/1": "/catalogue/scenes/a1-3025-1.webp", // Applique Tulipe et volute
+  "3133/1W": "/catalogue/scenes/a1-3133-1w.webp", // Applique Photophore fer forgé
+  "31955": "/catalogue/scenes/a1-31955.webp", // Applique Triangle opaline
+  "32318/1A": "/catalogue/scenes/a1-32318-1a.webp", // Applique Cylindre strié
+  "32318/1C": "/catalogue/scenes/a1-32318-1c.webp", // Applique Colonne blanche
+  "32525/1": "/catalogue/scenes/a1-32525-1.webp", // Applique Corolle sur volute
+  "32626/1": "/catalogue/scenes/a1-32626-1.webp", // Applique Corolle et cristal
+  "32662/1T": "/catalogue/scenes/a1-32662-1t.webp", // Applique Nœud chromé
+  "32857/1B": "/catalogue/scenes/a1-32857-1b.webp", // Applique Trapèze givré
+  "32857/1C": "/catalogue/scenes/a1-32857-1c.webp", // Applique Trapèze chromé
+  "32923/1C": "/catalogue/scenes/a1-32923-1c.webp", // Applique Trapèze miroir
+  "33067/1": "/catalogue/scenes/a1-33067-1.webp", // Applique Couronne dorée
+  "33477/1N": "/catalogue/scenes/a1-33477-1n.webp", // Applique Losange ambré
+  "33479/1B": "/catalogue/scenes/a1-33479-1b.webp", // Applique Losange miroir
+  "33598/1": "/catalogue/scenes/a1-33598-1.webp", // Applique Corolle opaline
+  "33740/1": "/catalogue/scenes/a1-33740-1.webp", // Applique Tulipe laiton
+  "33786/1": "/catalogue/scenes/a1-33786-1.webp", // Applique Bourgeon opalin
+  "33848": "/catalogue/scenes/a1-33848.webp", // Applique Cylindre jaune
+  "33857/1A": "/catalogue/scenes/a1-33857-1a.webp", // Applique Lames givrées
+  "33885/1A": "/catalogue/scenes/a1-33885-1a.webp", // Applique Bol ondulé
+  "33886/1C": "/catalogue/scenes/a1-33886-1c.webp", // Applique Tulipe sur volute noire
+  "33935/1A": "/catalogue/scenes/a1-33935-1a.webp", // Applique Photophore ambré
+  "33935/1C": "/catalogue/scenes/a1-33935-1c.webp", // Applique Cadre doré ambré
+  "33936/1C": "/catalogue/scenes/a1-33936-1c.webp", // Applique Ovale orange
+  "33937/1C": "/catalogue/scenes/a1-33937-1c.webp", // Applique Médaillon ambré
+  "33986/1B": "/catalogue/scenes/a1-33986-1b.webp", // Applique Miroir rose
+  "33997/1": "/catalogue/scenes/a1-33997-1.webp", // Applique Frise grecque
+  "34008/1": "/catalogue/scenes/a1-34008-1.webp", // Applique Marbre veiné
+  "34016/1": "/catalogue/scenes/a1-34016-1.webp", // Applique Vagues carrées
+  "34017/1": "/catalogue/scenes/a1-34017-1.webp", // Applique Losange ondulé
+  "34040/1": "/catalogue/scenes/a1-34040-1.webp", // Applique Collerette dorée
+  "34043/1": "/catalogue/scenes/a1-34043-1.webp", // Applique Flamme dégradée
+  "34045": "/catalogue/scenes/a1-34045.webp", // Applique Dégradé brun
+  "34080": "/catalogue/scenes/a1-34080.webp", // Applique Frise argentée
+  "34090": "/catalogue/scenes/a1-34090.webp", // Applique Méandre
+  "3787/1W": "/catalogue/scenes/a1-3787-1w.webp", // Applique Goutte bleutée
+  "4001/HALF": "/catalogue/scenes/a1-4001-half.webp", // Vasque murale géométrique
+  "445A/1W": "/catalogue/scenes/a1-445a-1w.webp", // Applique Demi-lune bronze
+  "61-22": "/catalogue/scenes/a1-61-22.webp", // Applique Lanterne fer forgé
+  "6620/1W": "/catalogue/scenes/a1-6620-1w.webp", // Applique Lanterne cerclée
+  "6622/1W": "/catalogue/scenes/a1-6622-1w.webp", // Applique Lanterne laiton
+  "6623/1W": "/catalogue/scenes/a1-6623-1w.webp", // Applique Bandeau doré
+  "6624/1W": "/catalogue/scenes/a1-6624-1w.webp", // Applique Tulipe ambrée
+  "6626/1W": "/catalogue/scenes/a1-6626-1w.webp", // Applique Cylindre cannelé noir
+  "6628/1W": "/catalogue/scenes/a1-6628-1w.webp", // Applique Cylindre fumé
+  "6802A/1W": "/catalogue/scenes/a1-6802a-1w.webp", // Applique Cloche striée ambrée
+  "6818/1": "/catalogue/scenes/a1-6818-1.webp", // Applique Clochette
+  "6979/1W": "/catalogue/scenes/a1-6979-1w.webp", // Applique Tulipe chromée
+  "7118/1": "/catalogue/scenes/a1-7118-1.webp", // Applique Lune dorée
+  "712-2003": "/catalogue/scenes/a1-712-2003.webp", // Vasque murale nacrée
+  "712-3001": "/catalogue/scenes/a1-712-3001.webp", // Vasque murale plissée
+  "712-3006": "/catalogue/scenes/a1-712-3006.webp", // Vasque murale Volutes
+  "712-3007": "/catalogue/scenes/a1-712-3007.webp", // Vasque murale Arabesque blanche
+  "8146/1": "/catalogue/scenes/a1-8146-1.webp", // Applique Fleurs
+  "8150/A": "/catalogue/scenes/a1-8150-a.webp", // Applique Cylindre craquelé
+  "8150/B": "/catalogue/scenes/a1-8150-b.webp", // Applique Cylindre ciselé
+  "8170/1": "/catalogue/scenes/a1-8170-1.webp", // Applique Hublot
+  "8350/1": "/catalogue/scenes/a1-8350-1.webp", // Applique Globe côtelé
+  "8451": "/catalogue/scenes/a1-8451.webp", // Applique Damier double
+  "8452/1": "/catalogue/scenes/a1-8452-1.webp", // Applique Damier miroir
+  "8466/1": "/catalogue/scenes/a1-8466-1.webp", // Applique Coupe ambrée
+  "8592": "/catalogue/scenes/a1-8592.webp", // Applique Cylindre doré
+  "8608/1": "/catalogue/scenes/a1-8608-1.webp", // Applique Globe strié laiton
+  "8627": "/catalogue/scenes/a1-8627.webp", // Applique Tulipe ciselée
+  "8888/1": "/catalogue/scenes/a1-8888-1.webp", // Applique Photophore laiton
+  "9026/1": "/catalogue/scenes/a1-9026-1.webp", // Applique Couronne laiton
+  "91031A/1W": "/catalogue/scenes/a1-91031a-1w.webp", // Applique Goutte ambrée
+  "9623B/1": "/catalogue/scenes/a1-9623b-1.webp", // Applique Papillon
+  "98003/1W": "/catalogue/scenes/a1-98003-1w.webp", // Vasque murale Mini
+  "98006/1W": "/catalogue/scenes/a1-98006-1w.webp", // Vasque murale Coquille
+  "9915B/1W": "/catalogue/scenes/a1-9915b-1w.webp", // Applique Corolle chromée
+  "9916B/1W": "/catalogue/scenes/a1-9916b-1w.webp", // Applique Tulipe transparente
+  "9933/1A": "/catalogue/scenes/a1-9933-1a.webp", // Applique Lotus et bois
+  "9933/1A1": "/catalogue/scenes/a1-9933-1a1.webp", // Applique Fleur et bois
+  "9933/1B": "/catalogue/scenes/a1-9933-1b.webp", // Applique Cylindre et bois
+  "9933/1C": "/catalogue/scenes/a1-9933-1c.webp", // Applique Bambou et bois
+  "9935/1B/1083/1": "/catalogue/scenes/a1-9935-1b-1083-1.webp", // Applique Demi-cylindre et bois
+  "9981A/1W": "/catalogue/scenes/a1-9981a-1w.webp", // Applique Goutte striée
+  "9982B/1W": "/catalogue/scenes/a1-9982b-1w.webp", // Applique Écailles
+  "A1JAUNE-BLANC": "/catalogue/scenes/a1-a1jaune-blanc.webp", // Vasque murale marbrée
+  "A7428-1C": "/catalogue/scenes/a1-a7428-1c.webp", // Applique Veines dorées
+  "A7450-1RAB": "/catalogue/scenes/a1-a7450-1rab.webp", // Applique Cadre rainuré
+  "B1114/1": "/catalogue/scenes/a1-b1114-1.webp", // Applique Cube et bois
+  "B2152": "/catalogue/scenes/a1-b2152.webp", // Applique Liseuse blanche
+  "B-6633B/1": "/catalogue/scenes/a1-b-6633b-1.webp", // Applique Cristal chromé
+  "B-9736/1": "/catalogue/scenes/a1-b-9736-1.webp", // Applique Lanterne de cristal
+  "B-9736B/1": "/catalogue/scenes/a1-b-9736b-1.webp", // Applique Prisme de cristal
+  "B-9736E/1": "/catalogue/scenes/a1-b-9736e-1.webp", // Applique Carré chromé
+  "D6014/1": "/catalogue/scenes/a1-d6014-1.webp", // Applique Liseuse bronze
+  "DL00B": "/catalogue/scenes/a1-dl00b.webp", // Applique Écran motifs bleus
+  "DL00M": "/catalogue/scenes/a1-dl00m.webp", // Applique Écran motifs orange
+  "DL00O": "/catalogue/scenes/a1-dl00o.webp", // Applique Écran spirales dorées
+  "FX3003/HALF": "/catalogue/scenes/a1-fx3003-half.webp", // Vasque murale Rayures
+  "FX6026/HALF": "/catalogue/scenes/a1-fx6026-half.webp", // Vasque murale Lune
+  "L8011/1": "/catalogue/scenes/a1-l8011-1.webp", // Applique Lanterne géométrique
+  "L8075/1": "/catalogue/scenes/a1-l8075-1.webp", // Applique Cristal fumé
+  "L8078/1": "/catalogue/scenes/a1-l8078-1.webp", // Applique Verre fumé ovale
+  "L8169": "/catalogue/scenes/a1-l8169.webp", // Applique Cylindre bagué
+  "L8172/1": "/catalogue/scenes/a1-l8172-1.webp", // Applique Torsade dorée
+  "L8174/1": "/catalogue/scenes/a1-l8174-1.webp", // Applique Tulipe givrée
+  "L8424/1": "/catalogue/scenes/a1-l8424-1.webp", // Applique Mosaïque
+  "L8427/1": "/catalogue/scenes/a1-l8427-1.webp", // Applique Lanterne ambrée
+  "L8435/1": "/catalogue/scenes/a1-l8435-1.webp", // Applique Bulle de verre
+  "L8436": "/catalogue/scenes/a1-l8436.webp", // Applique Coupe baguée
+  "L8437/1": "/catalogue/scenes/a1-l8437-1.webp", // Applique Cloche noire
+  "L8441/1": "/catalogue/scenes/a1-l8441-1.webp", // Applique Verre damier
+  "L8445/1": "/catalogue/scenes/a1-l8445-1.webp", // Applique Ananas doré
+  "L8600": "/catalogue/scenes/a1-l8600.webp", // Applique Soleil gravé
+  "L8609": "/catalogue/scenes/a1-l8609.webp", // Applique Écrin perlé
+  "L8637": "/catalogue/scenes/a1-l8637.webp", // Applique Cristal perlé
+  "LQ8444/1": "/catalogue/scenes/a1-lq8444-1.webp", // Applique Damier opaline
+  "MH50-11": "/catalogue/scenes/a1-mh50-11.webp", // Applique Globe laiton
+  "MH50-15": "/catalogue/scenes/a1-mh50-15.webp", // Applique Cage dorée
+  "MH50-19": "/catalogue/scenes/a1-mh50-19.webp", // Applique Cylindre ambré
+  "MH50-27": "/catalogue/scenes/a1-mh50-27.webp", // Applique Champignon opalin
+  "MH50-3": "/catalogue/scenes/a1-mh50-3.webp", // Applique Pampilles ambrées
+  "MH50-32": "/catalogue/scenes/a1-mh50-32.webp", // Applique Col de cygne blanc
+  "MH50-35": "/catalogue/scenes/a1-mh50-35.webp", // Applique Tulipe striée
+  "MH50-8": "/catalogue/scenes/a1-mh50-8.webp", // Applique Lanterne cage
+  "MH5664-1B": "/catalogue/scenes/a1-mh5664-1b.webp", // Applique Cadre bois clair
+  "MH61-16": "/catalogue/scenes/a1-mh61-16.webp", // Applique Cylindre décoré
+  "MH62-13/2240/1": "/catalogue/scenes/a1-mh62-13-2240-1.webp", // Applique Cylindre noir
+  "TX1146-1L": "/catalogue/scenes/a1-tx1146-1l.webp", // Applique Écran floral
+  "TX1148-1L": "/catalogue/scenes/a1-tx1148-1l.webp", // Applique Écran pastilles
+  "W1129": "/catalogue/scenes/a1-w1129.webp", // Applique Écran roses
+  "XY3120-1B": "/catalogue/scenes/a1-xy3120-1b.webp", // Applique Spirales bleues
+  "XY3123-1ACR": "/catalogue/scenes/a1-xy3123-1acr.webp", // Applique Fleurs orange
+  "XY3123-1C": "/catalogue/scenes/a1-xy3123-1c.webp", // Applique Fleurs noires
+  "XY3137-1": "/catalogue/scenes/a1-xy3137-1.webp", // Applique Écran graphique
+  "YB-23103/1": "/catalogue/scenes/a1-yb-23103-1.webp", // Applique Coupe classique
+  "ZA1014/1WFGD": "/catalogue/scenes/a1-za1014-1wfgd.webp", // Applique Dentelle dorée
+  "ZA1016/1BK": "/catalogue/scenes/a1-za1016-1bk.webp", // Applique Tulipe opaline noire
 };
 
 /** Marque d'une photo entière de l'ERP (voir photo-kind.ts) : elle remplit son cadre. */

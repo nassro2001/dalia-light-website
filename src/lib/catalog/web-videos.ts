@@ -60,4 +60,9 @@ export const categoryVideos: Record<string, CategoryVideo> = {
     productRef: "MH74-1", // Lustre Cascade de givre
     focus: "50% 20%",
   },
+  "applique-1-ampoule": {
+    src: "/catalogue/videos/applique-1-ampoule.mp4",
+    poster: "/catalogue/videos/applique-1-ampoule.webp",
+    productRef: "1006/1B", // Applique Cloche et bois
+  },
 };
