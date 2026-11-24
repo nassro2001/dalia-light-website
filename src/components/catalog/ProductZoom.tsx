@@ -24,7 +24,12 @@ export const ProductZoom = forwardRef<ProductZoomHandle, Props>(function Product
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [open, setOpen] = useState(false);
   const [zoomed, setZoomed] = useState(false);
-  const [origin, setOrigin] = useState({ x: 50, y: 50 });
+  // Décalage de la photo agrandie (px). La position du pointeur sur l'écran (0 à 1) correspond à une position
+  // sur la photo : bord gauche de l'écran = bord gauche de la photo, etc. La photo agrandie couvre donc toujours
+  // l'écran quand elle est plus grande que lui, même si le pointeur sort de la photo d'origine.
+  const [shift, setShift] = useState({ x: 0, y: 0 });
+  const natural = useRef<{ w: number; h: number } | null>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
   const press = useRef<{ x: number; y: number } | null>(null);
   const moved = useRef(false);
 
@@ -44,12 +49,21 @@ export const ProductZoom = forwardRef<ProductZoomHandle, Props>(function Product
     onIndexChange((index + step + count) % count);
   };
 
-  const pointAt = (event: React.PointerEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement>) => {
+  const pointAt = (event: { clientX: number; clientY: number; currentTarget: HTMLElement }) => {
     const rect = event.currentTarget.getBoundingClientRect();
-    setOrigin({
-      x: Math.max(0, Math.min(100, ((event.clientX - rect.left) / rect.width) * 100)),
-      y: Math.max(0, Math.min(100, ((event.clientY - rect.top) / rect.height) * 100)),
-    });
+    const fx = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+    const fy = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+    // Cadre de la photo affichée (object-contain, marge de 4 % de la largeur), avant agrandissement.
+    const pad = rect.width * 0.04;
+    const n = natural.current ?? { w: 1, h: 1 };
+    const k = Math.min((rect.width - 2 * pad) / n.w, (rect.height - 2 * pad) / n.h);
+    const iw = n.w * k;
+    const ih = n.h * k;
+    const ix = (rect.width - iw) / 2;
+    const iy = (rect.height - ih) / 2;
+    const axis = (f: number, size: number, start: number, length: number) =>
+      length * SCALE > size ? -f * (length * SCALE - size) - start * SCALE : (size - length * SCALE) / 2 - start * SCALE;
+    setShift({ x: axis(fx, rect.width, ix, iw), y: axis(fy, rect.height, iy, ih) });
   };
 
   const onPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -94,6 +108,7 @@ export const ProductZoom = forwardRef<ProductZoomHandle, Props>(function Product
     >
       <div className="relative h-full">
         <div
+          ref={stageRef}
           className={`absolute inset-0 overflow-hidden touch-none select-none ${zoomed ? "cursor-zoom-out" : "cursor-zoom-in"} ${
             src && !isScene(src) ? "bg-platre" : ""
           }`}
@@ -104,7 +119,10 @@ export const ProductZoom = forwardRef<ProductZoomHandle, Props>(function Product
           {open && src && (
             <div
               className="absolute inset-0 transition-transform duration-200 ease-out motion-reduce:transition-none"
-              style={{ transform: `scale(${zoomed ? SCALE : 1})`, transformOrigin: `${origin.x}% ${origin.y}%` }}
+              style={{
+                transform: zoomed ? `translate(${shift.x}px, ${shift.y}px) scale(${SCALE})` : "none",
+                transformOrigin: "0 0",
+              }}
             >
               <Image
                 key={src}
@@ -114,6 +132,10 @@ export const ProductZoom = forwardRef<ProductZoomHandle, Props>(function Product
                 sizes="200vw"
                 quality={90}
                 draggable={false}
+                onLoad={(event) => {
+                  const img = event.currentTarget;
+                  natural.current = { w: img.naturalWidth, h: img.naturalHeight };
+                }}
                 className="object-contain p-[4%]"
               />
             </div>
@@ -133,7 +155,10 @@ export const ProductZoom = forwardRef<ProductZoomHandle, Props>(function Product
             <button
               type="button"
               onClick={() => {
-                setOrigin({ x: 50, y: 50 });
+                if (!zoomed && stageRef.current) {
+                  const rect = stageRef.current.getBoundingClientRect();
+                  pointAt({ clientX: rect.left + rect.width / 2, clientY: rect.top + rect.height / 2, currentTarget: stageRef.current });
+                }
                 setZoomed((z) => !z);
               }}
               className={iconButton}
