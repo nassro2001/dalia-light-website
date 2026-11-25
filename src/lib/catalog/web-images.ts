@@ -251,6 +251,33 @@ export const sceneImages: Record<string, string | string[]> = {
   "YB-23103/1": "/catalogue/scenes/a1-yb-23103-1.webp", // Applique Coupe classique
   "ZA1014/1WFGD": "/catalogue/scenes/a1-za1014-1wfgd.webp", // Applique Dentelle dorée
   "ZA1016/1BK": "/catalogue/scenes/a1-za1016-1bk.webp", // Applique Tulipe opaline noire
+
+  // APPLIQUE 2 AMPOULES : mises en scène IA (25 novembre), par référence.
+  "1006/2A": "/catalogue/scenes/a2-1006-2a.webp", // Applique double Tubes et bois
+  "1006/2B": "/catalogue/scenes/a2-1006-2b.webp", // Applique double Cônes et bois
+  "1083/2": "/catalogue/scenes/a2-1083-2.webp", // Applique double Cylindres décalés
+  "1095/2A": "/catalogue/scenes/a2-1095-2a.webp", // Applique double Opaline ondulée
+  "1096/2A": "/catalogue/scenes/a2-1096-2a.webp", // Applique double Tulipes ciselées
+  "1096/2B1": "/catalogue/scenes/a2-1096-2b1.webp", // Applique double Cylindres cannelés
+  "1096/2B2": "/catalogue/scenes/a2-1096-2b2.webp", // Applique double Vases cannelés
+  "1097/2A": "/catalogue/scenes/a2-1097-2a.webp", // Applique double Cloches facettées
+  "1098/2A": "/catalogue/scenes/a2-1098-2a.webp", // Applique double Tulipes opalines
+  "21019A-2": "/catalogue/scenes/a2-21019a-2.webp", // Applique Tube strié chromé
+  "21113": "/catalogue/scenes/a2-21113.webp", // Applique Vagues noires
+  "8018/2": "/catalogue/scenes/a2-8018-2.webp", // Applique double Photophores dorés
+  "8019/2": "/catalogue/scenes/a2-8019-2.webp", // Applique double Tulipes ambrées
+  "8372/2": "/catalogue/scenes/a2-8372-2.webp", // Applique double Cylindres ambrés
+  "9933/2A": "/catalogue/scenes/a2-9933-2a.webp", // Applique double Lotus et bois
+  "9933/2B": "/catalogue/scenes/a2-9933-2b.webp", // Applique double Cylindres et bois
+  "9933/2C": "/catalogue/scenes/a2-9933-2c.webp", // Applique double Bambou et bois
+  "9935/2B": "/catalogue/scenes/a2-9935-2b.webp", // Applique double Duo décalé bois
+  "B-9623B/2CR": "/catalogue/scenes/a2-b-9623b-2cr.webp", // Applique double Papillon chromé
+  "B-9736B/2": "/catalogue/scenes/a2-b-9736b-2.webp", // Applique double Cristal chromé
+  "B-9736E/2": "/catalogue/scenes/a2-b-9736e-2.webp", // Applique double Carrés givrés
+  "MH50-20": "/catalogue/scenes/a2-mh50-20.webp", // Applique double Tubes et pampille
+  "MH50-24": "/catalogue/scenes/a2-mh50-24.webp", // Applique double Cylindres givrés
+  "MH62-21/7W/MH62-11": "/catalogue/scenes/a2-mh62-21-7w-mh62-11.webp", // Applique Rectangle blanc
+  "MH65-2": "/catalogue/scenes/a2-mh65-2.webp", // Applique Double spot anthracite
 };
 
 /** Marque d'une photo entière de l'ERP (voir photo-kind.ts) : elle remplit son cadre. */
