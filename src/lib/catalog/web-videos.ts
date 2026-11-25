@@ -65,4 +65,9 @@ export const categoryVideos: Record<string, CategoryVideo> = {
     poster: "/catalogue/videos/applique-1-ampoule.webp",
     productRef: "1006/1B", // Applique Cloche et bois
   },
+  "applique-2-ampoules": {
+    src: "/catalogue/videos/applique-2-ampoules.mp4",
+    poster: "/catalogue/videos/applique-2-ampoules.webp",
+    productRef: "9933/2B", // Applique double Cylindres et bois
+  },
 };
