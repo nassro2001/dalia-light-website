@@ -332,6 +332,7 @@ export const webNames: Record<string, string> = {
   "2824J": "Applique LED Prisme",
   "2824B": "Applique LED Prisme",
   "5915/2": "Applique LED Pendentifs cristal",
+  "78-21": "Applique LED Galet",
 
   // LAMPADAIRE
   "b83482cb-a86d-4171-b704-501af8ac06e5": "Lampadaire de rue LED, lumière blanche",

@@ -64,6 +64,15 @@ export const lightGroups: LightGroup[] = [
       },
     },
   },
+  {
+    // Une seule teinte : pas de choix d'éclairage, seulement le décor.
+    lights: [{ cct: 3000, ref: "78-21" }],
+    // Applique LED Galet (faisceaux haut et bas) : chambre le soir, entrée de maison au crépuscule.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-78-21-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-78-21-exterieur-3000.webp" },
+    },
+  },
 ];
 
 const byRef = new Map<string, LightGroup>();
