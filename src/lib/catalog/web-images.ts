@@ -278,6 +278,25 @@ export const sceneImages: Record<string, string | string[]> = {
   "MH50-24": "/catalogue/scenes/a2-mh50-24.webp", // Applique double Cylindres givrés
   "MH62-21/7W/MH62-11": "/catalogue/scenes/a2-mh62-21-7w-mh62-11.webp", // Applique Rectangle blanc
   "MH65-2": "/catalogue/scenes/a2-mh65-2.webp", // Applique Double spot anthracite
+
+  // APPLIQUES CRISTAL : mises en scène IA (26 novembre), par référence.
+  "28046": "/catalogue/scenes/cr-28046.webp", // Applique cristal Pampilles fumées
+  "3021/1W/MH34-31": "/catalogue/scenes/cr-3021-1w-mh34-31.webp", // Applique cristal Plumes givrées
+  "3070/1W/MH34-16": "/catalogue/scenes/cr-3070-1w-mh34-16.webp", // Applique cristal Lamelles noires
+  "32970/3B": "/catalogue/scenes/cr-32970-3b.webp", // Applique cristal Cascade de perles
+  "33214/2B": "/catalogue/scenes/cr-33214-2b.webp", // Applique cristal Ciselée chromée
+  "332152A": "/catalogue/scenes/cr-332152a.webp", // Applique cristal Couronne dorée
+  "33247/3B": "/catalogue/scenes/cr-33247-3b.webp", // Applique cristal Dentelle argentée
+  "33595": "/catalogue/scenes/cr-33595.webp", // Applique cristal Fontaine opaline
+  "33710/2A": "/catalogue/scenes/cr-33710-2a.webp", // Applique cristal Corolle dorée
+  "33943/2": "/catalogue/scenes/cr-33943-2.webp", // Applique cristal Prismes et noir
+  "B2116": "/catalogue/scenes/cr-b2116.webp", // Applique cristal Lames dorées
+  "B2117": "/catalogue/scenes/cr-b2117.webp", // Applique cristal Éclats dorés
+  "B3000/MH60-3": "/catalogue/scenes/cr-b3000-mh60-3.webp", // Applique cristal Tube de verre laiton
+  "B9119/MH60-04": "/catalogue/scenes/cr-b9119-mh60-04.webp", // Applique cristal Tiges horizontales
+  "M6837": "/catalogue/scenes/cr-m6837.webp", // Applique cristal Spirale dorée
+  "M6838": "/catalogue/scenes/cr-m6838.webp", // Applique cristal Arceau doré
+  "MH73-4": "/catalogue/scenes/cr-mh73-4.webp", // Applique cristal Grappes de perles
 };
 
 /** Marque d'une photo entière de l'ERP (voir photo-kind.ts) : elle remplit son cadre. */
