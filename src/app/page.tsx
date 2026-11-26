@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { directionsUrl, showrooms } from "@/lib/site";
 import { OpenBadge } from "@/components/showrooms/Hours";
 import { showroomMessage, whatsappUrl } from "@/lib/whatsapp";
@@ -17,7 +18,11 @@ export default function Home() {
       <Hero />
       <RoomsGallery />
       <DawnTransition />
-      <FeaturedProducts />
+      {/* Les articles viennent de l'ERP : sous Suspense, le reste de l'accueil s'affiche sans les attendre
+          (en local, leur cache très court les rend « non mis en cache » pour Next). */}
+      <Suspense fallback={null}>
+        <FeaturedProducts />
+      </Suspense>
       <Commitments />
 
       <section className="theme-jour pb-(--section-y)" aria-labelledby="showrooms-title">
