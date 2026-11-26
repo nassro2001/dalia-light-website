@@ -122,9 +122,22 @@ async function withLightOptions(product: Product): Promise<Product> {
   return { ...product, lights: { ...product.lights, options } };
 }
 
-/** Une seule carte par applique LED : les autres teintes se choisissent sur sa fiche. */
-function oneCardPerLight(rows: ErpProduct[]) {
-  return rows.filter((r) => !isSecondaryLight(r.reference));
+/**
+ * Une seule carte par applique LED : les autres teintes se choisissent sur sa fiche. Dans une catégorie, la carte
+ * est celle de la première référence du groupe. Dans une recherche, on garde la première du groupe trouvée (la
+ * recherche « 2348/WH » mène quand même à la fiche, où l'on choisit la teinte).
+ */
+function oneCardPerLight(rows: ErpProduct[], searching: boolean) {
+  if (!searching) return rows.filter((r) => !isSecondaryLight(r.reference));
+  const seen = new Set<LightGroup>();
+  const primaries = new Set(rows.map((r) => r.reference).filter((ref) => lightGroupFor(ref) && !isSecondaryLight(ref)));
+  return rows.filter((r) => {
+    const group = lightGroupFor(r.reference);
+    if (!group) return true;
+    if (seen.has(group) || (isSecondaryLight(r.reference) && primaries.has(group.lights[0].ref))) return false;
+    seen.add(group);
+    return true;
+  });
 }
 
 /** Les photos entières (mises en scène ajoutées dans l'ERP) remplissent leur cadre : on les repère ici. */
@@ -161,9 +174,10 @@ export async function getProducts({
     `/products?${params}`,
     { data: [], pagination: { total: 0, totalPages: 0, page } },
   );
+  const rows = oneCardPerLight(res.data, Boolean(q.trim()));
   return {
-    products: await withPhotoKinds((q.trim() ? res.data : oneCardPerLight(res.data)).map(toProduct)),
-    total: res.pagination.total,
+    products: await withPhotoKinds(rows.map(toProduct)),
+    total: res.pagination.total - (res.data.length - rows.length),
     page: res.pagination.page,
     totalPages: res.pagination.totalPages,
   };
@@ -202,7 +216,7 @@ export async function getFamilyProducts({
     return rows;
   };
   const rows = (await Promise.all(categoryIds.map(readAll))).flat();
-  const all = (q.trim() ? rows : oneCardPerLight(rows))
+  const all = oneCardPerLight(rows, Boolean(q.trim()))
     .map(toProduct)
     .sort((a, b) => a.name.localeCompare(b.name, "fr", { numeric: true, sensitivity: "base" }));
   const totalPages = Math.ceil(all.length / limit);
