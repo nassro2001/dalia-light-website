@@ -37,6 +37,14 @@ export const lightGroups: LightGroup[] = [
       exterieur: { 3000: "/catalogue/scenes/led-2348-exterieur-3000.webp", 6500: "/catalogue/scenes/led-2348-exterieur-6500.webp" },
     },
   },
+  {
+    lights: [
+      { cct: 3000, ref: "2824J" },
+      { cct: 6500, ref: "2824B" },
+    ],
+    // Applique LED Prisme (double faisceau haut et bas) : mises en scène à venir.
+    scenes: {},
+  },
 ];
 
 const byRef = new Map<string, LightGroup>();
