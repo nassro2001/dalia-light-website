@@ -31,7 +31,7 @@ export const lightGroups: LightGroup[] = [
       { cct: 3000, ref: "2348/WW/MH62-1" },
       { cct: 6500, ref: "2348/WH" },
     ],
-    // Applique LED Volute blanche : entrée avec console, façade de villa au crépuscule.
+    // Applique LED Volute : entrée avec console, façade de villa au crépuscule.
     scenes: {
       interieur: { 3000: "/catalogue/scenes/led-2348-interieur-3000.webp", 6500: "/catalogue/scenes/led-2348-interieur-6500.webp" },
       exterieur: { 3000: "/catalogue/scenes/led-2348-exterieur-3000.webp", 6500: "/catalogue/scenes/led-2348-exterieur-6500.webp" },

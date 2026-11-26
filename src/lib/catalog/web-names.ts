@@ -327,8 +327,8 @@ export const webNames: Record<string, string> = {
   "M6838": "Applique cristal Arceau doré",
   "MH73-4": "Applique cristal Grappes de perles",
   // APPLIQUE LED (par référence ; les teintes d'un même luminaire portent le même nom, voir web-lights.ts)
-  "2348/WW/MH62-1": "Applique LED Volute blanche",
-  "2348/WH": "Applique LED Volute blanche",
+  "2348/WW/MH62-1": "Applique LED Volute",
+  "2348/WH": "Applique LED Volute",
 
   // LAMPADAIRE
   "b83482cb-a86d-4171-b704-501af8ac06e5": "Lampadaire de rue LED, lumière blanche",
