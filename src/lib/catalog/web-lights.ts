@@ -42,8 +42,11 @@ export const lightGroups: LightGroup[] = [
       { cct: 3000, ref: "2824J" },
       { cct: 6500, ref: "2824B" },
     ],
-    // Applique LED Prisme (double faisceau haut et bas) : mises en scène à venir.
-    scenes: {},
+    // Applique LED Prisme (double faisceau haut et bas) : coin salon, terrasse de villa au crépuscule.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-2824-interieur-3000.webp", 6500: "/catalogue/scenes/led-2824-interieur-6500.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-2824-exterieur-3000.webp", 6500: "/catalogue/scenes/led-2824-exterieur-6500.webp" },
+    },
   },
 ];
 
