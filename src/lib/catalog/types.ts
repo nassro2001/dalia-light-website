@@ -1,6 +1,8 @@
 // Modèle du catalogue. Les articles viennent de l'ERP (dalia-light-inventory, routes /api/site) :
 // seulement ceux cochés « visible sur le site », sans prix ni quantités.
 
+import type { Cct, Decor } from "./web-lights";
+
 export type RoomSlug =
   | "salon"
   | "salle-a-manger"
@@ -32,6 +34,23 @@ export type Product = {
   images: string[];
   /** Il en reste en magasin ou en entrepôt ; sinon sur commande. */
   available: boolean;
+  /** Appliques LED : teintes de lumière et décors au choix sur la fiche (web-lights.ts). */
+  lights?: ProductLights;
+};
+
+export type LightOption = {
+  cct: Cct;
+  reference: string;
+  /** Identifiant ERP de cette référence : c'est lui que porte la demande de devis quand cette teinte est choisie. */
+  id: string;
+  /** Photo de l'ERP de cette référence, montrée tant qu'il n'y a pas de mise en scène pour la teinte. */
+  image?: string;
+};
+
+export type ProductLights = {
+  options: LightOption[];
+  /** Mises en scène : décor → teinte → image. */
+  scenes: Partial<Record<Decor, Partial<Record<Cct, string>>>>;
 };
 
 export type Showroom = {

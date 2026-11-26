@@ -3,8 +3,9 @@ import { categoryLabel, productLabel } from "./families";
 import { markScenes } from "./photo-kind";
 import { webImages } from "./web-images";
 import { webNames } from "./web-names";
+import { isSecondaryLight, lightGroupFor, type LightGroup } from "./web-lights";
 import { productSlug, slugify } from "./slug";
-import type { Category, Product, ProductPage, Showroom } from "./types";
+import type { Category, LightOption, Product, ProductPage, Showroom } from "./types";
 
 // Lecture du catalogue publié dans l'ERP (routes /api/site, réservées au serveur du site par une clé).
 // Variables : ERP_API_URL (ex. http://dalia-light-inventory.railway.internal:3001 sur le réseau privé Railway)
@@ -69,7 +70,17 @@ async function readJson<T>(path: string, fallback: T): Promise<T> {
   }
 }
 
+/** Mise en scène d'ouverture d'une applique LED : intérieur dans sa teinte, sinon la première qui existe. */
+function leadScene(group: LightGroup, reference: string): string | undefined {
+  const cct = group.lights.find((l) => l.ref === reference)?.cct ?? group.lights[0].cct;
+  const decors = Object.values(group.scenes);
+  return group.scenes.interieur?.[cct] ?? decors.map((d) => d?.[cct]).find(Boolean) ?? decors.flatMap((d) => Object.values(d ?? {})).find(Boolean);
+}
+
 function toProduct(p: ErpProduct): Product {
+  const group = lightGroupFor(p.reference);
+  const images = webImages(p.id, p.reference, p.images);
+  const lead = group && leadScene(group, p.reference);
   return {
     id: p.id,
     slug: productSlug(p.name, p.id),
@@ -78,9 +89,42 @@ function toProduct(p: ErpProduct): Product {
     description: p.description,
     // Le nom s'écrit comme dans une phrase ; l'adresse garde le nom de l'ERP, pour que les liens restent stables.
     category: { id: p.category.id, name: categoryLabel(p.category.name), slug: slugify(p.category.name) },
-    images: webImages(p.id, p.reference, p.images),
+    images: lead ? [lead, ...images.filter((src) => src !== lead)] : images,
     available: p.available,
+    // Les autres teintes (autres références) sont retrouvées par la fiche produit : voir withLightOptions.
+    lights: group
+      ? {
+          options: group.lights
+            .filter((l) => l.ref === p.reference)
+            .map((l) => ({ cct: l.cct, reference: p.reference, id: p.id, image: p.images[0] })),
+          scenes: group.scenes,
+        }
+      : undefined,
   };
+}
+
+/** Fiche d'une applique LED : retrouve dans l'ERP les références des autres teintes (celles publiées seulement). */
+async function withLightOptions(product: Product): Promise<Product> {
+  const group = lightGroupFor(product.reference);
+  if (!group || !product.lights) return product;
+  const empty: ErpProductPage = { data: [], pagination: { total: 0, totalPages: 0, page: 1 } };
+  const options: LightOption[] = [];
+  for (const light of group.lights) {
+    const own = product.lights.options.find((o) => o.reference === light.ref);
+    if (own) {
+      options.push({ ...own, cct: light.cct });
+      continue;
+    }
+    const res = await readJson<ErpProductPage>(`/products?${new URLSearchParams({ search: light.ref, limit: "10" })}`, empty);
+    const row = res.data.find((r) => r.reference === light.ref);
+    if (row) options.push({ cct: light.cct, reference: row.reference, id: row.id, image: row.images[0] });
+  }
+  return { ...product, lights: { ...product.lights, options } };
+}
+
+/** Une seule carte par applique LED : les autres teintes se choisissent sur sa fiche. */
+function oneCardPerLight(rows: ErpProduct[]) {
+  return rows.filter((r) => !isSecondaryLight(r.reference));
 }
 
 /** Les photos entières (mises en scène ajoutées dans l'ERP) remplissent leur cadre : on les repère ici. */
@@ -118,7 +162,7 @@ export async function getProducts({
     { data: [], pagination: { total: 0, totalPages: 0, page } },
   );
   return {
-    products: await withPhotoKinds(res.data.map(toProduct)),
+    products: await withPhotoKinds((q.trim() ? res.data : oneCardPerLight(res.data)).map(toProduct)),
     total: res.pagination.total,
     page: res.pagination.page,
     totalPages: res.pagination.totalPages,
@@ -157,8 +201,8 @@ export async function getFamilyProducts({
     }
     return rows;
   };
-  const all = (await Promise.all(categoryIds.map(readAll)))
-    .flat()
+  const rows = (await Promise.all(categoryIds.map(readAll))).flat();
+  const all = (q.trim() ? rows : oneCardPerLight(rows))
     .map(toProduct)
     .sort((a, b) => a.name.localeCompare(b.name, "fr", { numeric: true, sensitivity: "base" }));
   const totalPages = Math.ceil(all.length / limit);
@@ -176,7 +220,7 @@ export async function getProduct(id: string): Promise<Product | null> {
   cacheLife(CATALOGUE_CACHE);
   cacheTag("catalogue", `produit-${id}`);
   const row = await readJson<ErpProduct | null>(`/products/${encodeURIComponent(id)}`, null);
-  return row ? (await withPhotoKinds([toProduct(row)]))[0] : null;
+  return row ? withLightOptions((await withPhotoKinds([toProduct(row)]))[0]) : null;
 }
 
 /** Les showrooms où l'on peut demander un devis, tels que l'ERP les connaît. */

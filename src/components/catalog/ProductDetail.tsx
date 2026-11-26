@@ -10,6 +10,8 @@ import { productMessage, whatsappUrl } from "@/lib/whatsapp";
 import { useSelection } from "@/components/selection/SelectionProvider";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import { Button, ExternalButton } from "@/components/ui/Button";
+import { cctLabel, type Decor } from "@/lib/catalog/web-lights";
+import { LightSceneViewer, decorsOf, sceneFor } from "./LightSceneViewer";
 import { ProductVisual } from "./ProductVisual";
 import { ProductZoom, type ProductZoomHandle } from "./ProductZoom";
 
@@ -24,10 +26,25 @@ export function ProductDetail({ product }: { product: Product }) {
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
 
+  // Applique LED : la teinte choisie donne la référence (et l'article ERP) demandée en devis.
+  const lights = product.lights && product.lights.options.length > 0 ? product.lights : undefined;
+  const [lightIndex, setLightIndex] = useState(() =>
+    Math.max(0, lights?.options.findIndex((o) => o.reference === product.reference) ?? 0),
+  );
+  const [decor, setDecor] = useState<Decor | undefined>(() => (lights ? decorsOf(lights)[0] : undefined));
+  const light = lights?.options[lightIndex];
+  const lightScene = lights ? sceneFor(lights, lightIndex, decor) : undefined;
+  const chosen = {
+    id: light?.id ?? product.id,
+    reference: light?.reference ?? product.reference,
+    name: light && lights && lights.options.length > 1 ? `${product.name} (${cctLabel(light.cct)})` : product.name,
+    image: lightScene ?? product.images[0],
+  };
+
   const path = productPath(product);
   const message = productMessage({
-    name: product.name,
-    reference: product.reference,
+    name: chosen.name,
+    reference: chosen.reference,
     quantity,
     url: `${site.url}${path}`,
   });
@@ -42,12 +59,13 @@ export function ProductDetail({ product }: { product: Product }) {
   }, [added]);
 
   const addToSelection = () => {
-    add({ id: product.id, name: product.name, reference: product.reference, image: product.images[0], url: path }, quantity);
+    add({ id: chosen.id, name: chosen.name, reference: chosen.reference, image: chosen.image, url: path }, quantity);
     setAdded(true);
   };
 
   const specs: [string, string][] = [
-    ...(showReferences ? ([["Référence", product.reference]] as [string, string][]) : []),
+    ...(showReferences ? ([["Référence", chosen.reference]] as [string, string][]) : []),
+    ...(light ? ([["Éclairage", lights!.options.map((o) => cctLabel(o.cct)).join(" ou ")]] as [string, string][]) : []),
     ["Catégorie", product.category.name],
   ];
 
@@ -83,7 +101,17 @@ export function ProductDetail({ product }: { product: Product }) {
         {/* Visuel */}
         <div className="min-w-0 lg:col-span-7">
           <div data-lit="true" className="product-visual-host lg:sticky lg:top-[calc(var(--nav-height)+2rem)]">
-            {product.images.length > 0 ? (
+            {lights ? (
+              <LightSceneViewer
+                name={product.name}
+                lights={lights}
+                index={lightIndex}
+                decor={decor}
+                onIndexChange={setLightIndex}
+                onDecorChange={setDecor}
+                onZoom={() => zoomRef.current?.show()}
+              />
+            ) : product.images.length > 0 ? (
               <button
                 type="button"
                 onClick={() => zoomRef.current?.show()}
@@ -101,8 +129,14 @@ export function ProductDetail({ product }: { product: Product }) {
             ) : (
               <ProductVisual product={product} index={imageIndex} sizes="(min-width: 1024px) 55vw, 100vw" priority />
             )}
-            <ProductZoom ref={zoomRef} images={product.images} name={product.name} index={imageIndex} onIndexChange={setImageIndex} />
-            {product.images.length > 1 && (
+            <ProductZoom
+              ref={zoomRef}
+              images={lightScene ? [lightScene] : product.images}
+              name={product.name}
+              index={lightScene ? 0 : imageIndex}
+              onIndexChange={setImageIndex}
+            />
+            {!lights && product.images.length > 1 && (
               <div className="mt-4 flex flex-wrap gap-2" role="group" aria-label="Photos du produit">
                 {product.images.map((src, index) => (
                   <button

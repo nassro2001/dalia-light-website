@@ -451,3 +451,18 @@ html:has(dialog[open]) {
     box-shadow: 0 0 0 0 rgba(255, 184, 0, 0);
   }
 }
+
+/* Applique LED : au changement de teinte, un voile de la nouvelle lumière s'allume puis s'efface (LightSceneViewer). */
+@keyframes light-swap {
+  0% { opacity: 0; }
+  35% { opacity: 0.6; }
+  100% { opacity: 0; }
+}
+.light-swap {
+  background: radial-gradient(circle at 50% 38%, var(--swap) 0%, transparent 68%);
+  mix-blend-mode: screen;
+  animation: light-swap 900ms ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .light-swap { animation: none; opacity: 0; }
+}

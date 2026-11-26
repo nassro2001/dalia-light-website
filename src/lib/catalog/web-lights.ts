@@ -1,0 +1,53 @@
+// Appliques LED : un même luminaire existe en plusieurs teintes de lumière (3000K jaune, 6500K blanc…),
+// chacune sous sa propre référence ERP, ou une seule référence qui change de teinte (interrupteur 3 couleurs).
+// Sur le site, une seule fiche par luminaire : le client choisit la teinte et le décor (intérieur, extérieur), et
+// la mise en scène change en fondu. La référence affichée (et demandée en devis) suit la teinte choisie.
+// Provisoire, comme web-images.ts : ces regroupements rejoindront l'ERP avant la mise en ligne.
+
+export type Cct = 3000 | 4000 | 6000 | 6500;
+export type Decor = "interieur" | "exterieur";
+
+export const decorLabels: Record<Decor, string> = { interieur: "Intérieur", exterieur: "Extérieur" };
+
+export function cctLabel(cct: Cct) {
+  return `${cct}K`;
+}
+
+/** Comme on le dit en magasin : 3000K « jaune », 6500K « blanc ». */
+export function cctHint(cct: Cct) {
+  return cct <= 3000 ? "jaune" : cct <= 4000 ? "neutre" : "blanc";
+}
+
+export type LightGroup = {
+  /** Une ligne par teinte, dans l'ordre d'affichage. Plusieurs teintes peuvent partager la même référence. */
+  lights: { cct: Cct; ref: string }[];
+  /** Mises en scène générées : décor → teinte → image (public/catalogue/scenes/). */
+  scenes: Partial<Record<Decor, Partial<Record<Cct, string>>>>;
+};
+
+export const lightGroups: LightGroup[] = [
+  {
+    lights: [
+      { cct: 3000, ref: "2348/WW/MH62-1" },
+      { cct: 6500, ref: "2348/WH" },
+    ],
+    // Applique LED Volute blanche : entrée avec console, façade de villa au crépuscule.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-2348-interieur-3000.webp", 6500: "/catalogue/scenes/led-2348-interieur-6500.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-2348-exterieur-3000.webp", 6500: "/catalogue/scenes/led-2348-exterieur-6500.webp" },
+    },
+  },
+];
+
+const byRef = new Map<string, LightGroup>();
+for (const group of lightGroups) for (const light of group.lights) byRef.set(light.ref, group);
+
+export function lightGroupFor(reference: string): LightGroup | undefined {
+  return byRef.get(reference);
+}
+
+/** La fiche du luminaire porte la première référence du groupe : les autres teintes n'ont pas de carte à elles. */
+export function isSecondaryLight(reference: string): boolean {
+  const group = byRef.get(reference);
+  return Boolean(group && group.lights[0].ref !== reference);
+}
