@@ -70,4 +70,10 @@ export const categoryVideos: Record<string, CategoryVideo> = {
     poster: "/catalogue/videos/applique-2-ampoules.webp",
     productRef: "9933/2B", // Applique double Cylindres et bois
   },
+  "appliques-cristal": {
+    src: "/catalogue/videos/appliques-cristal.mp4",
+    poster: "/catalogue/videos/appliques-cristal.webp",
+    productRef: "B9119/MH60-04", // Applique cristal Tiges horizontales
+    focus: "50% 30%",
+  },
 };
