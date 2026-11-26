@@ -16,9 +16,11 @@ import type { Category, Product, ProductPage, Showroom } from "./types";
 
 // En ligne, le catalogue est relu toutes les quelques minutes. En local (npm run dev), presque tout de suite :
 // un article masqué ou modifié dans l'ERP disparaît ou change au rafraîchissement suivant.
+// Pas moins de stale 30 s et expire 5 min : en dessous, Next.js traite le cache comme « court », le retire du
+// prérendu et exige un <Suspense> autour de chaque lecture (erreur « uncached data during prerendering »).
 const CATALOGUE_CACHE =
   process.env.NODE_ENV === "development"
-    ? { stale: 0, revalidate: 1, expire: 60 }
+    ? { stale: 30, revalidate: 1, expire: 300 }
     : { stale: 300, revalidate: 60, expire: 3600 }; // = profil « minutes »
 
 type ErpProduct = {
