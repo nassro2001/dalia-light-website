@@ -46,6 +46,17 @@ export function lightGroupFor(reference: string): LightGroup | undefined {
   return byRef.get(reference);
 }
 
+/** Nom du site suivi du nombre de couleurs de lumière : « Applique LED Volute (2 couleurs dispo) ». */
+export function withColourCount(name: string, group: LightGroup | undefined): string {
+  const count = group ? new Set(group.lights.map((l) => l.cct)).size : 0;
+  return count > 1 ? `${name} (${count} couleurs dispo)` : name;
+}
+
+/** Le nom sans « (2 couleurs dispo) », pour y mettre la couleur choisie (devis, WhatsApp). */
+export function withoutColourCount(name: string): string {
+  return name.replace(/ \(\d+ couleurs dispo\)$/, "");
+}
+
 /** La fiche du luminaire porte la première référence du groupe : les autres teintes n'ont pas de carte à elles. */
 export function isSecondaryLight(reference: string): boolean {
   const group = byRef.get(reference);

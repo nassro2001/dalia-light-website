@@ -3,7 +3,7 @@ import { categoryLabel, productLabel } from "./families";
 import { markScenes } from "./photo-kind";
 import { webImages } from "./web-images";
 import { webNames } from "./web-names";
-import { isSecondaryLight, lightGroupFor, type LightGroup } from "./web-lights";
+import { isSecondaryLight, lightGroupFor, withColourCount, type LightGroup } from "./web-lights";
 import { productSlug, slugify } from "./slug";
 import type { Category, LightOption, Product, ProductPage, Showroom } from "./types";
 
@@ -85,7 +85,7 @@ function toProduct(p: ErpProduct): Product {
     id: p.id,
     slug: productSlug(p.name, p.id),
     reference: p.reference,
-    name: webNames[p.id] ?? webNames[p.reference] ?? productLabel(p.name),
+    name: withColourCount(webNames[p.id] ?? webNames[p.reference] ?? productLabel(p.name), group),
     description: p.description,
     // Le nom s'écrit comme dans une phrase ; l'adresse garde le nom de l'ERP, pour que les liens restent stables.
     category: { id: p.category.id, name: categoryLabel(p.category.name), slug: slugify(p.category.name) },

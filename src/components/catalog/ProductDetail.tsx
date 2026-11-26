@@ -10,7 +10,7 @@ import { productMessage, whatsappUrl } from "@/lib/whatsapp";
 import { useSelection } from "@/components/selection/SelectionProvider";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import { Button, ExternalButton } from "@/components/ui/Button";
-import { cctLabel, type Decor } from "@/lib/catalog/web-lights";
+import { cctLabel, withoutColourCount, type Decor } from "@/lib/catalog/web-lights";
 import { LightSceneViewer, decorsOf, sceneFor } from "./LightSceneViewer";
 import { ProductVisual } from "./ProductVisual";
 import { ProductZoom, type ProductZoomHandle } from "./ProductZoom";
@@ -37,7 +37,7 @@ export function ProductDetail({ product }: { product: Product }) {
   const chosen = {
     id: light?.id ?? product.id,
     reference: light?.reference ?? product.reference,
-    name: light && lights && lights.options.length > 1 ? `${product.name} (${cctLabel(light.cct)})` : product.name,
+    name: light && lights && lights.options.length > 1 ? `${withoutColourCount(product.name)} (${cctLabel(light.cct)})` : product.name,
     image: lightScene ?? product.images[0],
   };
 
