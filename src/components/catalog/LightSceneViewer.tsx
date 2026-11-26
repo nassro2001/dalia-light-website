@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { ZoomIn } from "lucide-react";
 import type { ProductLights } from "@/lib/catalog/types";
-import { cctHint, cctLabel, decorLabels, type Cct, type Decor } from "@/lib/catalog/web-lights";
+import { cctHint, cctLabel, decorLabels, isSwitchable, type Cct, type Decor } from "@/lib/catalog/web-lights";
 
 // Applique LED : la mise en scène suit la teinte choisie (3000K, 6000K…) et le décor (intérieur, extérieur).
 // Toutes les images sont empilées et passent de l'une à l'autre en fondu ; au changement de teinte, un voile de
@@ -13,6 +13,7 @@ import { cctHint, cctLabel, decorLabels, type Cct, type Decor } from "@/lib/cata
 const glow: Record<Cct, string> = {
   3000: "rgba(255, 176, 84, 0.85)",
   4000: "rgba(255, 232, 196, 0.85)",
+  4500: "rgba(250, 238, 220, 0.85)",
   6000: "rgba(206, 226, 255, 0.85)",
   6500: "rgba(200, 222, 255, 0.85)",
 };
@@ -109,6 +110,7 @@ export function LightSceneViewer({ name, lights, index, decor, onIndexChange, on
                 </button>
               ))}
             </div>
+            {isSwitchable(lights) && <p className="mt-2 text-sm text-fg-2">Un seul article : la couleur change avec l&apos;interrupteur.</p>}
           </fieldset>
         )}
 
