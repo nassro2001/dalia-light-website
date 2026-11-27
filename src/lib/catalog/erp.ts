@@ -99,6 +99,7 @@ function toProduct(p: ErpProduct): Product {
             .map((l) => ({ cct: l.cct, reference: p.reference, id: p.id, image: p.images[0] })),
           scenes: group.scenes,
           bulb: group.bulb,
+          lighting: group.lighting,
         }
       : undefined,
   };

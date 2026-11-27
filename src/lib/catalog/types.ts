@@ -53,6 +53,8 @@ export type ProductLights = {
   scenes: Partial<Record<Decor, Partial<Record<Cct, string>>>>;
   /** Ampoule changeable : pas de teinte fixe. */
   bulb?: boolean;
+  /** Texte de la ligne Éclairage, s'il remplace la teinte (web-lights.ts). */
+  lighting?: string;
 };
 
 export type Showroom = {

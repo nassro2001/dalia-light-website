@@ -25,6 +25,8 @@ export type LightGroup = {
   scenes: Partial<Record<Decor, Partial<Record<Cct, string>>>>;
   /** Ampoule changeable : la teinte dépend de l'ampoule ; la scène est montrée en blanc chaud. */
   bulb?: boolean;
+  /** Texte de la ligne Éclairage de la fiche, quand la teinte seule ne suffit pas (ampoule changeable, orientable…). */
+  lighting?: string;
 };
 
 export const lightGroups: LightGroup[] = [
@@ -209,6 +211,16 @@ export const lightGroups: LightGroup[] = [
     scenes: {
       interieur: { 3000: "/catalogue/scenes/led-mh62-12-interieur-3000.webp" },
       exterieur: { 3000: "/catalogue/scenes/led-mh62-12-exterieur-3000.webp" },
+    },
+  },
+  {
+    lights: [{ cct: 3000, ref: "MH62-15" }],
+    bulb: true,
+    lighting: "3000K, ampoule changeable, applique orientable",
+    // Applique LED Cube orientable (cube noir sur un bras, spot à ampoule changeable, tête orientable) : tableau d'un salon, mur de clôture la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-15-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-15-exterieur-3000.webp" },
     },
   },
 ];

@@ -65,7 +65,14 @@ export function ProductDetail({ product }: { product: Product }) {
 
   const specs: [string, string][] = [
     ...(showReferences ? ([["Référence", chosen.reference]] as [string, string][]) : []),
-    ...(light ? ([["Éclairage", lights!.bulb ? "Ampoule changeable" : lights!.options.map((o) => cctLabel(o.cct)).join(" ou ")]] as [string, string][]) : []),
+    ...(light
+      ? ([
+          [
+            "Éclairage",
+            lights!.lighting ?? (lights!.bulb ? "Ampoule changeable" : lights!.options.map((o) => cctLabel(o.cct)).join(" ou ")),
+          ],
+        ] as [string, string][])
+      : []),
     ["Catégorie", product.category.name],
   ];
 
