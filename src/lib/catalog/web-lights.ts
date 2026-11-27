@@ -300,6 +300,31 @@ export const lightGroups: LightGroup[] = [
       exterieur: { 3000: "/catalogue/scenes/led-mh62-19-exterieur-3000.webp", 6500: "/catalogue/scenes/led-mh62-19-exterieur-6500.webp" },
     },
   },
+  {
+    lights: [{ cct: 3000, ref: "MH62-2" }],
+    // Applique LED Coque (coque noire, faisceaux en V haut et bas) : loft en béton ciré, cour intérieure avec bassin la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-2-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-2-exterieur-3000.webp" },
+    },
+  },
+  {
+    lights: [{ cct: 3000, ref: "MH62-20/7W" }],
+    // Applique LED Navette petit modèle (face allumée + faisceaux haut et bas) : chambre d'enfant, pergola avec hamac au crépuscule.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-20-7w-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-20-7w-exterieur-3000.webp" },
+    },
+  },
+  {
+    // MH62-21/7W/MH62-11 est le même article (doublon ERP, à laisser décoché).
+    lights: [{ cct: 3000, ref: "MH62-21/7W" }],
+    // Applique LED Lingot petit modèle (face allumée + faisceaux haut et bas) : dressing, maison de plage à Assinie au crépuscule.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-21-7w-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-21-7w-exterieur-3000.webp" },
+    },
+  },
 ];
 
 const byRef = new Map<string, LightGroup>();

@@ -306,7 +306,7 @@ export const webNames: Record<string, string> = {
   "B-9736E/2": "Applique double Carrés givrés",
   "MH50-20": "Applique double Tubes et pampille",
   "MH50-24": "Applique double Cylindres givrés",
-  "MH62-21/7W/MH62-11": "Applique Rectangle blanc",
+  "MH62-21/7W/MH62-11": "Applique LED Lingot petit modèle",
   "MH65-2": "Applique Double spot anthracite",
   // APPLIQUES CRISTAL (par référence)
   "28046": "Applique cristal Pampilles fumées",
@@ -364,6 +364,9 @@ export const webNames: Record<string, string> = {
   "MH62-19/10W": "Applique LED Lingot",
   "MH62-19": "Applique LED Diabolo",
   "MH62-20": "Applique LED Diabolo",
+  "MH62-2": "Applique LED Coque",
+  "MH62-20/7W": "Applique LED Navette petit modèle",
+  "MH62-21/7W": "Applique LED Lingot petit modèle",
 
   // LAMPADAIRE
   "b83482cb-a86d-4171-b704-501af8ac06e5": "Lampadaire de rue LED, lumière blanche",
