@@ -92,6 +92,14 @@ export const lightGroups: LightGroup[] = [
       exterieur: { 3000: "/catalogue/scenes/led-8184gy-exterieur-3000.webp" },
     },
   },
+  {
+    lights: [{ cct: 6500, ref: "DF1108/MH62-15" }],
+    // Applique LED Demi-lune (V vers le bas, blanc froid) : bureau, abri de voiture la nuit.
+    scenes: {
+      interieur: { 6500: "/catalogue/scenes/led-df1108-interieur-6500.webp" },
+      exterieur: { 6500: "/catalogue/scenes/led-df1108-exterieur-6500.webp" },
+    },
+  },
 ];
 
 const byRef = new Map<string, LightGroup>();
