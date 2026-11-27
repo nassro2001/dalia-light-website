@@ -239,6 +239,18 @@ export const lightGroups: LightGroup[] = [
       exterieur: { 3000: "/catalogue/scenes/led-mh62-16-exterieur-3000.webp" },
     },
   },
+  {
+    lights: [
+      { cct: 3000, ref: "MH62-16WW" },
+      { cct: 6500, ref: "MH62-16WH" },
+    ],
+    // Applique LED Visière (chapeau noir arrondi, face opale bombée allumée, sans faisceau) : cage d'escalier, abri de voiture le soir.
+    // Les scènes 6500K arrivent après le choix de mehdi : en attendant, la fiche montre la photo ERP pour 6500K.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-16w-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-16w-exterieur-3000.webp" },
+    },
+  },
 ];
 
 const byRef = new Map<string, LightGroup>();
