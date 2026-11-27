@@ -195,6 +195,22 @@ export const lightGroups: LightGroup[] = [
       exterieur: { 3000: "/catalogue/scenes/led-mh62-1-exterieur-3000.webp" },
     },
   },
+  {
+    lights: [{ cct: 3000, ref: "MH62-10/219/MH62-5" }],
+    // Applique LED Carré opale (panneau opale allumé sur socle noir, blanc chaud) : salle de sport, devanture le soir.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-10-219-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-10-219-exterieur-3000.webp" },
+    },
+  },
+  {
+    lights: [{ cct: 3000, ref: "MH62-12/MH62-8" }],
+    // Applique LED Trio (barre opale allumée, trois spots qui font chacun un V vers le bas) : cave à vin, passage entre deux maisons la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-12-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-12-exterieur-3000.webp" },
+    },
+  },
 ];
 
 const byRef = new Map<string, LightGroup>();

@@ -351,6 +351,8 @@ export const webNames: Record<string, string> = {
   "DF8627/62-17": "Applique LED Bobine blanche",
   "FX8003/15WBK": "Applique LED Hublot ovale",
   "MH62-1": "Applique LED Arc",
+  "MH62-10/219/MH62-5": "Applique LED Carré opale",
+  "MH62-12/MH62-8": "Applique LED Trio",
 
   // LAMPADAIRE
   "b83482cb-a86d-4171-b704-501af8ac06e5": "Lampadaire de rue LED, lumière blanche",
