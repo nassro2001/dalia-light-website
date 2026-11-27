@@ -108,6 +108,17 @@ export const lightGroups: LightGroup[] = [
       exterieur: { 6500: "/catalogue/scenes/led-df1110-exterieur-6500.webp" },
     },
   },
+  {
+    lights: [
+      { cct: 3000, ref: "DF2380/62-11" },
+      { cct: 6500, ref: "DF2380/62-20" },
+    ],
+    // Applique LED Coussin (boîtier blanc, deux V haut et bas) : salon au mur vert sauge, balcon d'appartement le soir.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-df2380-interieur-3000.webp", 6500: "/catalogue/scenes/led-df2380-interieur-6500.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-df2380-exterieur-3000.webp", 6500: "/catalogue/scenes/led-df2380-exterieur-6500.webp" },
+    },
+  },
 ];
 
 const byRef = new Map<string, LightGroup>();

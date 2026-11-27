@@ -337,6 +337,8 @@ export const webNames: Record<string, string> = {
   "8184GY": "Applique LED Lanterne opale",
   "DF1108/MH62-15": "Applique LED Demi-lune",
   "DF1110/62-13WH": "Applique LED Caisson",
+  "DF2380/62-11": "Applique LED Coussin",
+  "DF2380/62-20": "Applique LED Coussin",
 
   // LAMPADAIRE
   "b83482cb-a86d-4171-b704-501af8ac06e5": "Lampadaire de rue LED, lumière blanche",
