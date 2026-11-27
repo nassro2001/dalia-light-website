@@ -325,6 +325,33 @@ export const lightGroups: LightGroup[] = [
     },
   },
   {
+    lights: [
+      { cct: 3000, ref: "MH62-8" },
+      { cct: 6500, ref: "MH62-21/MH62-7" },
+    ],
+    // Applique LED Pavé (pavé opale arrondi, face allumée, sans faisceau) : salle de billard, jardin avec barbecue au crépuscule.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-8-interieur-3000.webp", 6500: "/catalogue/scenes/led-mh62-8-interieur-6500.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-8-exterieur-3000.webp", 6500: "/catalogue/scenes/led-mh62-8-exterieur-6500.webp" },
+    },
+  },
+  {
+    lights: [{ cct: 3000, ref: "MH62-22" }],
+    // Applique LED Socle (panneau opale sur cadre noir à socle, face allumée, sans faisceau) : bureau d'architecte, entrée de clinique la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-22-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-22-exterieur-3000.webp" },
+    },
+  },
+  {
+    lights: [{ cct: 6500, ref: "MH62-25" }],
+    // Applique LED Ceinture (noire, 2 V en haut et 2 en bas) : salle de réunion, garage / station de lavage la nuit.
+    scenes: {
+      interieur: { 6500: "/catalogue/scenes/led-mh62-25-interieur-6500.webp" },
+      exterieur: { 6500: "/catalogue/scenes/led-mh62-25-exterieur-6500.webp" },
+    },
+  },
+  {
     lights: [{ cct: 3000, ref: "MH62-20/7W" }],
     // Applique LED Navette petit modèle (face allumée + faisceaux haut et bas) : chambre d'enfant, pergola avec hamac au crépuscule.
     scenes: {
