@@ -157,6 +157,17 @@ export const lightGroups: LightGroup[] = [
       exterieur: { 3000: "/catalogue/scenes/led-df8137-exterieur-3000.webp", 6500: "/catalogue/scenes/led-df8137-exterieur-6500.webp" },
     },
   },
+  {
+    lights: [
+      { cct: 3000, ref: "DF8326/62-20" },
+      { cct: 6500, ref: "DF8326/62-19" },
+    ],
+    // Applique LED Bobine dorée (petite, noir et or, deux cônes de lumière haut et bas) : coin de café-restaurant, pilier de portail la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-df8326-interieur-3000.webp", 6500: "/catalogue/scenes/led-df8326-interieur-6500.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-df8326-exterieur-3000.webp", 6500: "/catalogue/scenes/led-df8326-exterieur-6500.webp" },
+    },
+  },
 ];
 
 const byRef = new Map<string, LightGroup>();
