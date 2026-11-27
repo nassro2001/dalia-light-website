@@ -138,6 +138,14 @@ export const lightGroups: LightGroup[] = [
       exterieur: { 6500: "/catalogue/scenes/led-df8018-m-exterieur-6500.webp" },
     },
   },
+  {
+    lights: [{ cct: 6500, ref: "DF8116" }],
+    // Applique LED Tube opale (deux V haut et bas, bande opale allumée au milieu, blanc froid) : cuisine ouverte, mur en bardage bois la nuit.
+    scenes: {
+      interieur: { 6500: "/catalogue/scenes/led-df8116-interieur-6500.webp" },
+      exterieur: { 6500: "/catalogue/scenes/led-df8116-exterieur-6500.webp" },
+    },
+  },
 ];
 
 const byRef = new Map<string, LightGroup>();
