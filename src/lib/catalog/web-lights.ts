@@ -273,6 +273,30 @@ export const lightGroups: LightGroup[] = [
       },
     },
   },
+  {
+    lights: [{ cct: 3000, ref: "MH62-18/10W" }],
+    // Applique LED Navette (ovale blanc, face allumée + faisceaux haut et bas) : couloir d'appartement, mur de jardin tropical au crépuscule.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-18-10w-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-18-10w-exterieur-3000.webp" },
+    },
+  },
+  {
+    lights: [{ cct: 3000, ref: "MH62-19/10W" }],
+    // Applique LED Lingot (rectangle blanc, face allumée + faisceaux haut et bas) : bibliothèque, terrasse en toit au crépuscule.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-19-10w-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-19-10w-exterieur-3000.webp" },
+    },
+  },
+  {
+    lights: [{ cct: 6500, ref: "MH62-19" }],
+    // Applique LED Diabolo (noire, deux vitres opales sur les côtés, haut et bas fermés) : véranda, entrée d'immeuble la nuit.
+    scenes: {
+      interieur: { 6500: "/catalogue/scenes/led-mh62-19-interieur-6500.webp" },
+      exterieur: { 6500: "/catalogue/scenes/led-mh62-19-exterieur-6500.webp" },
+    },
+  },
 ];
 
 const byRef = new Map<string, LightGroup>();
