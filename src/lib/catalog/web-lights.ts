@@ -168,6 +168,17 @@ export const lightGroups: LightGroup[] = [
       exterieur: { 3000: "/catalogue/scenes/led-df8326-exterieur-3000.webp", 6500: "/catalogue/scenes/led-df8326-exterieur-6500.webp" },
     },
   },
+  {
+    lights: [
+      { cct: 3000, ref: "DF8627/62-18" },
+      { cct: 6500, ref: "DF8627/62-17" },
+    ],
+    // Applique LED Bobine blanche (même modèle que la Bobine dorée, corps blanc, deux cônes haut et bas) : mur près d'une porte intérieure, façade ocre la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-df8627-interieur-3000.webp", 6500: "/catalogue/scenes/led-df8627-interieur-6500.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-df8627-exterieur-3000.webp", 6500: "/catalogue/scenes/led-df8627-exterieur-6500.webp" },
+    },
+  },
 ];
 
 const byRef = new Map<string, LightGroup>();
