@@ -146,6 +146,17 @@ export const lightGroups: LightGroup[] = [
       exterieur: { 6500: "/catalogue/scenes/led-df8116-exterieur-6500.webp" },
     },
   },
+  {
+    lights: [
+      { cct: 3000, ref: "DF8137/2/62-11" },
+      { cct: 6500, ref: "DF8137/62-24" },
+    ],
+    // Applique LED Volets (boîtier noir à deux volets en trapèze, deux V haut et bas) : salon en lambris de chêne, entrée en pierre la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-df8137-interieur-3000.webp", 6500: "/catalogue/scenes/led-df8137-interieur-6500.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-df8137-exterieur-3000.webp", 6500: "/catalogue/scenes/led-df8137-exterieur-6500.webp" },
+    },
+  },
 ];
 
 const byRef = new Map<string, LightGroup>();
