@@ -119,6 +119,17 @@ export const lightGroups: LightGroup[] = [
       exterieur: { 3000: "/catalogue/scenes/led-df2380-exterieur-3000.webp", 6500: "/catalogue/scenes/led-df2380-exterieur-6500.webp" },
     },
   },
+  {
+    lights: [
+      { cct: 3000, ref: "DF8018/5WW" },
+      { cct: 6500, ref: "DF8018/5WH" },
+    ],
+    // Applique LED Sablier (tube noir, deux faisceaux étroits haut et bas) : cage d'escalier, entrée d'immeuble la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-df8018-interieur-3000.webp", 6500: "/catalogue/scenes/led-df8018-interieur-6500.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-df8018-exterieur-3000.webp", 6500: "/catalogue/scenes/led-df8018-exterieur-6500.webp" },
+    },
+  },
 ];
 
 const byRef = new Map<string, LightGroup>();
