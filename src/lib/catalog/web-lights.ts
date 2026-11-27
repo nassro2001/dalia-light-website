@@ -309,6 +309,22 @@ export const lightGroups: LightGroup[] = [
     },
   },
   {
+    lights: [{ cct: 3000, ref: "MH62-3" }],
+    // Applique LED Coque 3 faisceaux (3 V en haut, 3 en bas) : palier d'étage, terrasse en bois sur la lagune la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-3-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-3-exterieur-3000.webp" },
+    },
+  },
+  {
+    lights: [{ cct: 3000, ref: "MH62-4" }],
+    // Applique LED Coque 4 faisceaux (4 V en haut, 4 en bas) : réception d'hôtel, terrasse de restaurant la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-4-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-4-exterieur-3000.webp" },
+    },
+  },
+  {
     lights: [{ cct: 3000, ref: "MH62-20/7W" }],
     // Applique LED Navette petit modèle (face allumée + faisceaux haut et bas) : chambre d'enfant, pergola avec hamac au crépuscule.
     scenes: {
