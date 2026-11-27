@@ -130,6 +130,14 @@ export const lightGroups: LightGroup[] = [
       exterieur: { 3000: "/catalogue/scenes/led-df8018-exterieur-3000.webp", 6500: "/catalogue/scenes/led-df8018-exterieur-6500.webp" },
     },
   },
+  {
+    lights: [{ cct: 6500, ref: "DF8018/M" }],
+    // Applique LED Sablier blanche (même modèle, corps blanc, deux faisceaux haut et bas, blanc froid) : salon au mur bleu nuit, façade en briques la nuit.
+    scenes: {
+      interieur: { 6500: "/catalogue/scenes/led-df8018-m-interieur-6500.webp" },
+      exterieur: { 6500: "/catalogue/scenes/led-df8018-m-exterieur-6500.webp" },
+    },
+  },
 ];
 
 const byRef = new Map<string, LightGroup>();
