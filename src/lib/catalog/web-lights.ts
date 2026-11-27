@@ -179,6 +179,14 @@ export const lightGroups: LightGroup[] = [
       exterieur: { 3000: "/catalogue/scenes/led-df8627-exterieur-3000.webp", 6500: "/catalogue/scenes/led-df8627-exterieur-6500.webp" },
     },
   },
+  {
+    lights: [{ cct: 3000, ref: "FX8003/15WBK" }],
+    // Applique LED Hublot ovale (cadre noir, diffuseur opale allumé en entier, blanc chaud) : buanderie, porche arrière la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-fx8003-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-fx8003-exterieur-3000.webp" },
+    },
+  },
 ];
 
 const byRef = new Map<string, LightGroup>();
