@@ -352,6 +352,30 @@ export const lightGroups: LightGroup[] = [
     },
   },
   {
+    lights: [{ cct: 3000, ref: "MH62-6" }],
+    // Applique LED Vitrine (boîte vitrée, panneau opale allumé, 1 V en haut et 1 en bas) : hall d'immeuble de bureaux, façade de bar lounge la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-6-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-6-exterieur-3000.webp" },
+    },
+  },
+  {
+    lights: [{ cct: 3000, ref: "MH62-6/1amp" }],
+    // Applique LED Bloc 1 faisceau (bande opale allumée, 1 V en haut et 1 en bas) : coin bar, atelier de jardin la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-6-1amp-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-6-1amp-exterieur-3000.webp" },
+    },
+  },
+  {
+    lights: [{ cct: 3000, ref: "MH62-7/2amp" }],
+    // Applique LED Bloc 2 faisceaux (bande opale allumée, 2 V en haut et 2 en bas) : spa, terrain de padel la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-7-2amp-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-7-2amp-exterieur-3000.webp" },
+    },
+  },
+  {
     lights: [{ cct: 3000, ref: "MH62-20/7W" }],
     // Applique LED Navette petit modèle (face allumée + faisceaux haut et bas) : chambre d'enfant, pergola avec hamac au crépuscule.
     scenes: {
