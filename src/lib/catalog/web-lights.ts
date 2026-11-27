@@ -187,6 +187,14 @@ export const lightGroups: LightGroup[] = [
       exterieur: { 3000: "/catalogue/scenes/led-fx8003-exterieur-3000.webp" },
     },
   },
+  {
+    lights: [{ cct: 3000, ref: "MH62-1" }],
+    // Applique LED Arc (petite coque noire, deux V haut et bas) : home cinéma, escalier extérieur la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-1-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-1-exterieur-3000.webp" },
+    },
+  },
 ];
 
 const byRef = new Map<string, LightGroup>();
