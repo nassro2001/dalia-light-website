@@ -290,11 +290,14 @@ export const lightGroups: LightGroup[] = [
     },
   },
   {
-    lights: [{ cct: 6500, ref: "MH62-19" }],
+    lights: [
+      { cct: 3000, ref: "MH62-20" },
+      { cct: 6500, ref: "MH62-19" },
+    ],
     // Applique LED Diabolo (noire, deux vitres opales sur les côtés, haut et bas fermés) : véranda, entrée d'immeuble la nuit.
     scenes: {
-      interieur: { 6500: "/catalogue/scenes/led-mh62-19-interieur-6500.webp" },
-      exterieur: { 6500: "/catalogue/scenes/led-mh62-19-exterieur-6500.webp" },
+      interieur: { 3000: "/catalogue/scenes/led-mh62-19-interieur-3000.webp", 6500: "/catalogue/scenes/led-mh62-19-interieur-6500.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-19-exterieur-3000.webp", 6500: "/catalogue/scenes/led-mh62-19-exterieur-6500.webp" },
     },
   },
 ];
