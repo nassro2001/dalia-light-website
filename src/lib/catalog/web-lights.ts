@@ -245,10 +245,15 @@ export const lightGroups: LightGroup[] = [
       { cct: 6500, ref: "MH62-16WH" },
     ],
     // Applique LED Visière (chapeau noir arrondi, face opale bombée allumée, sans faisceau) : cage d'escalier, abri de voiture le soir.
-    // Les scènes 6500K arrivent après le choix de mehdi : en attendant, la fiche montre la photo ERP pour 6500K.
     scenes: {
-      interieur: { 3000: "/catalogue/scenes/led-mh62-16w-interieur-3000.webp" },
-      exterieur: { 3000: "/catalogue/scenes/led-mh62-16w-exterieur-3000.webp" },
+      interieur: {
+        3000: "/catalogue/scenes/led-mh62-16w-interieur-3000.webp",
+        6500: "/catalogue/scenes/led-mh62-16w-interieur-6500.webp",
+      },
+      exterieur: {
+        3000: "/catalogue/scenes/led-mh62-16w-exterieur-3000.webp",
+        6500: "/catalogue/scenes/led-mh62-16w-exterieur-6500.webp",
+      },
     },
   },
 ];
