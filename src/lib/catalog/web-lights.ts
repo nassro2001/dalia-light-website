@@ -100,6 +100,14 @@ export const lightGroups: LightGroup[] = [
       exterieur: { 6500: "/catalogue/scenes/led-df1108-exterieur-6500.webp" },
     },
   },
+  {
+    lights: [{ cct: 6500, ref: "DF1110/62-13WH" }],
+    // Applique LED Caisson (deux V, haut et bas, blanc froid) : salle à manger, mur de piscine la nuit.
+    scenes: {
+      interieur: { 6500: "/catalogue/scenes/led-df1110-interieur-6500.webp" },
+      exterieur: { 6500: "/catalogue/scenes/led-df1110-exterieur-6500.webp" },
+    },
+  },
 ];
 
 const byRef = new Map<string, LightGroup>();
