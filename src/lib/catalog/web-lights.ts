@@ -223,6 +223,22 @@ export const lightGroups: LightGroup[] = [
       exterieur: { 3000: "/catalogue/scenes/led-mh62-15-exterieur-3000.webp" },
     },
   },
+  {
+    lights: [{ cct: 3000, ref: "MH62-15/15W" }],
+    // Applique LED Anneau (anneau blanc, disque opale allumé, halo doux dans l'anneau) : chambre au mur vert sauge, porche d'entrée le soir.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-15-15w-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-15-15w-exterieur-3000.webp" },
+    },
+  },
+  {
+    lights: [{ cct: 3000, ref: "MH62-16/MH62-6" }],
+    // Applique LED Galet (ovale opale allumé sur une plaque noire, lueur douce sans faisceau) : salle de bain, mur de patio la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-16-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-16-exterieur-3000.webp" },
+    },
+  },
 ];
 
 const byRef = new Map<string, LightGroup>();
