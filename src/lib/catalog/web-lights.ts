@@ -73,6 +73,14 @@ export const lightGroups: LightGroup[] = [
       exterieur: { 3000: "/catalogue/scenes/led-78-21-exterieur-3000.webp" },
     },
   },
+  {
+    lights: [{ cct: 3000, ref: "AD-WR406-6W" }],
+    // Applique LED Ailettes (spot vers le bas) : couloir, façade de villa la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-ad-wr406-6w-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-ad-wr406-6w-exterieur-3000.webp" },
+    },
+  },
 ];
 
 const byRef = new Map<string, LightGroup>();
