@@ -98,6 +98,7 @@ function toProduct(p: ErpProduct): Product {
             .filter((l) => l.ref === p.reference)
             .map((l) => ({ cct: l.cct, reference: p.reference, id: p.id, image: p.images[0] })),
           scenes: group.scenes,
+          bulb: group.bulb,
         }
       : undefined,
   };

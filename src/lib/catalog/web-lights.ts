@@ -23,6 +23,8 @@ export type LightGroup = {
   lights: { cct: Cct; ref: string }[];
   /** Mises en scène générées : décor → teinte → image (public/catalogue/scenes/). */
   scenes: Partial<Record<Decor, Partial<Record<Cct, string>>>>;
+  /** Ampoule changeable : la teinte dépend de l'ampoule ; la scène est montrée en blanc chaud. */
+  bulb?: boolean;
 };
 
 export const lightGroups: LightGroup[] = [
@@ -79,6 +81,15 @@ export const lightGroups: LightGroup[] = [
     scenes: {
       interieur: { 3000: "/catalogue/scenes/led-ad-wr406-6w-interieur-3000.webp" },
       exterieur: { 3000: "/catalogue/scenes/led-ad-wr406-6w-exterieur-3000.webp" },
+    },
+  },
+  {
+    lights: [{ cct: 3000, ref: "8184GY" }],
+    bulb: true,
+    // Applique LED Lanterne opale (ampoule changeable, montrée en blanc chaud) : salle de bain, mur de jardin au crépuscule.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-8184gy-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-8184gy-exterieur-3000.webp" },
     },
   },
 ];

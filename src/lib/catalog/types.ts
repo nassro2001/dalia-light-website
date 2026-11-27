@@ -51,6 +51,8 @@ export type ProductLights = {
   options: LightOption[];
   /** Mises en scène : décor → teinte → image. */
   scenes: Partial<Record<Decor, Partial<Record<Cct, string>>>>;
+  /** Ampoule changeable : pas de teinte fixe. */
+  bulb?: boolean;
 };
 
 export type Showroom = {
