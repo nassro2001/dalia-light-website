@@ -256,6 +256,18 @@ export const lightGroups: LightGroup[] = [
       },
     },
   },
+  {
+    lights: [
+      { cct: 3000, ref: "MH62-18" },
+      { cct: 6500, ref: "MH62-17" },
+    ],
+    // Applique LED Capsule (verticale, chapeaux noirs en haut et en bas, face opale bombée allumée, sans faisceau) : salle à manger, bord de piscine le soir.
+    // Scènes 6500K à refaire : en attendant, la fiche montre la photo ERP pour 6500K.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-18-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-18-exterieur-3000.webp" },
+    },
+  },
 ];
 
 const byRef = new Map<string, LightGroup>();

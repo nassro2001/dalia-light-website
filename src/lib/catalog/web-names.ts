@@ -358,6 +358,8 @@ export const webNames: Record<string, string> = {
   "MH62-16/MH62-6": "Applique LED Galet",
   "MH62-16WW": "Applique LED Visière",
   "MH62-16WH": "Applique LED Visière",
+  "MH62-18": "Applique LED Capsule",
+  "MH62-17": "Applique LED Capsule",
 
   // LAMPADAIRE
   "b83482cb-a86d-4171-b704-501af8ac06e5": "Lampadaire de rue LED, lumière blanche",
