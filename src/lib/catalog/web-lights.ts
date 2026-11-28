@@ -400,6 +400,34 @@ export const lightGroups: LightGroup[] = [
     },
   },
   {
+    lights: [{ cct: 3000, ref: "MH65-1" }],
+    // Applique LED Auvent (boîte noire à auvent évasé, panneau opale allumé, sans faisceau) : entrée d'open space, pilier de portail avec numéro la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh65-1-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh65-1-exterieur-3000.webp" },
+    },
+  },
+  {
+    lights: [{ cct: 3000, ref: "MH65-6" }],
+    // Applique LED Torche (corps noir cylindrique, tête opale arrondie allumée) : coin lecture, muret d'allée de jardin la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh65-6-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh65-6-exterieur-3000.webp" },
+    },
+  },
+  {
+    // 5W retenues (les 12W MH66-11NJ12W / NB12W existent aussi dans l'ERP).
+    lights: [
+      { cct: 3000, ref: "MH66-11NJ5W" },
+      { cct: 6500, ref: "MH66-11NB5W" },
+    ],
+    // Applique LED Hublot à visière (disque opale, visière noire) : salle d'eau d'invités, porte de service la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh66-11-interieur-3000.webp", 6500: "/catalogue/scenes/led-mh66-11-interieur-6500.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh66-11-exterieur-3000.webp", 6500: "/catalogue/scenes/led-mh66-11-exterieur-6500.webp" },
+    },
+  },
+  {
     lights: [{ cct: 3000, ref: "MH62-20/7W" }],
     // Applique LED Navette petit modèle (face allumée + faisceaux haut et bas) : chambre d'enfant, pergola avec hamac au crépuscule.
     scenes: {
