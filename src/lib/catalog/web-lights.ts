@@ -409,7 +409,7 @@ export const lightGroups: LightGroup[] = [
   },
   {
     lights: [{ cct: 3000, ref: "MH65-6" }],
-    // Applique LED Torche (corps noir cylindrique, tête opale arrondie allumée) : coin lecture, muret d'allée de jardin la nuit.
+    // Applique LED Torche (corps noir cylindrique, tête opale arrondie allumée) : coin lecture, porte d'entrée de villa la nuit.
     scenes: {
       interieur: { 3000: "/catalogue/scenes/led-mh65-6-interieur-3000.webp" },
       exterieur: { 3000: "/catalogue/scenes/led-mh65-6-exterieur-3000.webp" },
