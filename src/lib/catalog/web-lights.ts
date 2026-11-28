@@ -438,6 +438,28 @@ export const lightGroups: LightGroup[] = [
     },
   },
   {
+    lights: [
+      { cct: 3000, ref: "MH66-12BJ" },
+      { cct: 6500, ref: "MH66-12BB" },
+    ],
+    // Applique LED Gélule blanche (boîtier blanc, gélule opale à bande verticale, sans faisceau) : salle de yoga, kiosque de jardin au crépuscule.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh66-12b-interieur-3000.webp", 6500: "/catalogue/scenes/led-mh66-12b-interieur-6500.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh66-12b-exterieur-3000.webp", 6500: "/catalogue/scenes/led-mh66-12b-exterieur-6500.webp" },
+    },
+  },
+  {
+    lights: [
+      { cct: 3000, ref: "MH66-12NJ" },
+      { cct: 6500, ref: "MH66-12NB" },
+    ],
+    // Applique LED Gélule noire (boîtier noir, gélule opale à bande verticale, sans faisceau) : bureau gaming, entrée de parking la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh66-12n-interieur-3000.webp", 6500: "/catalogue/scenes/led-mh66-12n-interieur-6500.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh66-12n-exterieur-3000.webp", 6500: "/catalogue/scenes/led-mh66-12n-exterieur-6500.webp" },
+    },
+  },
+  {
     lights: [{ cct: 3000, ref: "MH62-20/7W" }],
     // Applique LED Navette petit modèle (face allumée + faisceaux haut et bas) : chambre d'enfant, pergola avec hamac au crépuscule.
     scenes: {

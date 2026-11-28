@@ -383,6 +383,10 @@ export const webNames: Record<string, string> = {
   "MH66-11NB12W": "Applique LED Hublot à visière",
   "MH66-11NJ5W": "Applique LED Hublot à visière petit modèle",
   "MH66-11NB5W": "Applique LED Hublot à visière petit modèle",
+  "MH66-12BJ": "Applique LED Gélule blanche",
+  "MH66-12BB": "Applique LED Gélule blanche",
+  "MH66-12NJ": "Applique LED Gélule noire",
+  "MH66-12NB": "Applique LED Gélule noire",
   "MH62-20/7W": "Applique LED Navette petit modèle",
   "MH62-21/7W": "Applique LED Lingot petit modèle",
 
