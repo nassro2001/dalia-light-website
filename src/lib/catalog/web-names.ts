@@ -374,6 +374,9 @@ export const webNames: Record<string, string> = {
   "MH62-6": "Applique LED Vitrine",
   "MH62-6/1amp": "Applique LED Bloc 1 faisceau",
   "MH62-7/2amp": "Applique LED Bloc 2 faisceaux",
+  "MH62-8/10W": "Applique LED Disque incliné",
+  "MH62-9/10W": "Applique LED Carreau incliné",
+  "MH62-9/219": "Applique LED Ardoise",
   "MH62-20/7W": "Applique LED Navette petit modèle",
   "MH62-21/7W": "Applique LED Lingot petit modèle",
 

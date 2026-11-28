@@ -376,6 +376,30 @@ export const lightGroups: LightGroup[] = [
     },
   },
   {
+    lights: [{ cct: 3000, ref: "MH62-8/10W" }],
+    // Applique LED Disque incliné (disque opale incliné sur platine noire, sans faisceau) : salle de musique, mur de pool house la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-8-10w-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-8-10w-exterieur-3000.webp" },
+    },
+  },
+  {
+    lights: [{ cct: 3000, ref: "MH62-9/10W" }],
+    // Applique LED Carreau incliné (tête carrée opale inclinée sur platine noire, sans faisceau) : chambre d'amis, local vélos et poubelles la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh62-9-10w-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh62-9-10w-exterieur-3000.webp" },
+    },
+  },
+  {
+    lights: [{ cct: 6500, ref: "MH62-9/219" }],
+    // Applique LED Ardoise (panneau opale plaqué, bandeau noir en bas, sans faisceau) : salle de classe, cour d'école la nuit.
+    scenes: {
+      interieur: { 6500: "/catalogue/scenes/led-mh62-9-219-interieur-6500.webp" },
+      exterieur: { 6500: "/catalogue/scenes/led-mh62-9-219-exterieur-6500.webp" },
+    },
+  },
+  {
     lights: [{ cct: 3000, ref: "MH62-20/7W" }],
     // Applique LED Navette petit modèle (face allumée + faisceaux haut et bas) : chambre d'enfant, pergola avec hamac au crépuscule.
     scenes: {
