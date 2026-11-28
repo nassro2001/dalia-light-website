@@ -460,6 +460,30 @@ export const lightGroups: LightGroup[] = [
     },
   },
   {
+    lights: [{ cct: 3000, ref: "MH66-13" }],
+    // Applique LED Réglette (boîtier noir vertical, bande opale allumée) : salle d'attente de cabinet, façade d'atelier d'artiste la nuit.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh66-13-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh66-13-exterieur-3000.webp" },
+    },
+  },
+  {
+    lights: [{ cct: 3000, ref: "MH66-13/1" }],
+    // Applique LED Cornet (petit abat-jour noir, allumé en bas et anneau LED en haut) : vestibule, balcon d'appartement au crépuscule.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh66-13-1-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh66-13-1-exterieur-3000.webp" },
+    },
+  },
+  {
+    lights: [{ cct: 3000, ref: "MH66-14/2" }],
+    // Applique LED Cornet double (deux cornets, allumés en bas et en haut) : toilettes d'invités, balcon avec garde-corps en verre au crépuscule.
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh66-14-2-interieur-3000.webp" },
+      exterieur: { 3000: "/catalogue/scenes/led-mh66-14-2-exterieur-3000.webp" },
+    },
+  },
+  {
     lights: [{ cct: 3000, ref: "MH62-20/7W" }],
     // Applique LED Navette petit modèle (face allumée + faisceaux haut et bas) : chambre d'enfant, pergola avec hamac au crépuscule.
     scenes: {

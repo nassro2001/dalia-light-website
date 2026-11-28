@@ -387,6 +387,9 @@ export const webNames: Record<string, string> = {
   "MH66-12BB": "Applique LED Gélule blanche",
   "MH66-12NJ": "Applique LED Gélule noire",
   "MH66-12NB": "Applique LED Gélule noire",
+  "MH66-13": "Applique LED Réglette",
+  "MH66-13/1": "Applique LED Cornet",
+  "MH66-14/2": "Applique LED Cornet double",
   "MH62-20/7W": "Applique LED Navette petit modèle",
   "MH62-21/7W": "Applique LED Lingot petit modèle",
 
