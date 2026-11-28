@@ -428,6 +428,16 @@ export const lightGroups: LightGroup[] = [
     },
   },
   {
+    lights: [
+      { cct: 3000, ref: "MH66-11NJ5W" },
+      { cct: 6500, ref: "MH66-11NB5W" },
+    ],
+    // Applique LED Hublot à visière petit modèle (5W, ~12 cm) : salle d'eau d'invités, intérieur seulement (l'IA la rendait trop grande dehors).
+    scenes: {
+      interieur: { 3000: "/catalogue/scenes/led-mh66-11-5w-interieur-3000.webp", 6500: "/catalogue/scenes/led-mh66-11-5w-interieur-6500.webp" },
+    },
+  },
+  {
     lights: [{ cct: 3000, ref: "MH62-20/7W" }],
     // Applique LED Navette petit modèle (face allumée + faisceaux haut et bas) : chambre d'enfant, pergola avec hamac au crépuscule.
     scenes: {
