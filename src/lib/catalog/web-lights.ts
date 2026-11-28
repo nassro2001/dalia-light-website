@@ -416,10 +416,10 @@ export const lightGroups: LightGroup[] = [
     },
   },
   {
-    // 5W retenues (les 12W MH66-11NJ12W / NB12W existent aussi dans l'ERP).
+    // 12W retenues (confirmé par mehdi le 28/11 ; les 5W existent aussi dans l'ERP).
     lights: [
-      { cct: 3000, ref: "MH66-11NJ5W" },
-      { cct: 6500, ref: "MH66-11NB5W" },
+      { cct: 3000, ref: "MH66-11NJ12W" },
+      { cct: 6500, ref: "MH66-11NB12W" },
     ],
     // Applique LED Hublot à visière (disque opale, visière noire) : salle d'eau d'invités, porte de service la nuit.
     scenes: {
